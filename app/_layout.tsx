@@ -1,37 +1,45 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { ThemeProvider } from "@react-navigation/native";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider as ReduxProvider } from "react-redux";
+import store, { persistor } from "@/redux";
+import "react-native-reanimated";
+import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { appTheme } from "@/constants";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+export const unstable_settings = {
+  initialRouteName: "welcome",
+};
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
   useEffect(() => {
-    if (loaded) {
+    setTimeout(() => {
       SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+    }, 1000);
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <ReduxProvider store={store}>
+      <PersistGate persistor={persistor}>
+        <ThemeProvider value={appTheme}>
+          <SafeAreaProvider>
+            <Stack>
+              <Stack.Screen name="welcome" options={{ headerShown: false }} />
+              {/* <Stack.Screen
+                name="onboarding"
+                options={{ headerShown: false }}
+              /> */}
+              {/* <Stack.Screen name="auth" options={{ headerShown: false }} /> */}
+              {/* <Stack.Screen name="(app)" options={{ headerShown: false }} /> */}
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </SafeAreaProvider>
+        </ThemeProvider>
+      </PersistGate>
+    </ReduxProvider>
   );
 }
