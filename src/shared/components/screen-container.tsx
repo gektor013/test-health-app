@@ -1,10 +1,7 @@
-import { ImageBackground, StyleSheet, View, ViewProps } from "react-native";
+import { StyleSheet, View, ViewProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import imageBackground from "#/images/background.jpeg";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@/constants";
-import { Fragment } from "react";
-import { Text } from "./ui-kit";
 
 export const ScreenContainer: React.FC<ViewProps> = ({
   style,
@@ -16,20 +13,6 @@ export const ScreenContainer: React.FC<ViewProps> = ({
     </SafeAreaView>
   );
 };
-
-// export const ScreenBackgroundContainer: React.FC<ViewProps> = ({
-//   style,
-
-//   ...restProps
-// }) => {
-//   return (
-//     <ImageBackground source={imageBackground} style={styles.imageContainer}>
-//       <SafeAreaView style={styles.flexContainer}>
-//         <View style={[styles.container, style]} {...restProps} />
-//       </SafeAreaView>
-//     </ImageBackground>
-//   );
-// };
 
 export const ScreenGradientContainer: React.FC<ViewProps> = ({
   style,

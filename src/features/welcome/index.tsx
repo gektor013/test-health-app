@@ -29,8 +29,10 @@ export const Welcome = () => {
         />
         <Text style={styles.authText}>
           {t("Already have an account?")}{" "}
-          <Link href="/sign-in">
-            <Text type="link">{t("Sign In")}</Text>
+          <Link href="/auth/sign-in">
+            <Text style={styles.authText} type="link">
+              {t("Sign In")}
+            </Text>
           </Link>
         </Text>
       </View>

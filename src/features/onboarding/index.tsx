@@ -12,6 +12,7 @@ import { Text } from "@/shared/components";
 import { Control, TextCarousel } from "./components";
 import { colors } from "@/constants";
 import { slides } from "./util";
+import { router } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
@@ -27,12 +28,13 @@ export const Onboarding = () => {
         x: width * (currentIndex + 1),
         animated: true,
       });
+    } else {
+      handleSkip();
     }
   };
 
   const handleSkip = () => {
-    setCurrentIndex(0);
-    scrollViewRef.current?.scrollTo({ x: width * 0, animated: true });
+    router.push("/auth/sign-in");
   };
 
   return (

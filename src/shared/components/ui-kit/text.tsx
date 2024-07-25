@@ -7,18 +7,21 @@ interface Props extends TextProps {
 }
 
 export const Text: React.FC<Props> = ({ type = "text", style, ...rest }) => {
-  return <BaseText style={[styles[type], style]} {...rest} />;
+  return (
+    <BaseText
+      style={[
+        styles.text,
+        { color: type === "link" ? colors.green : colors.black },
+        style,
+      ]}
+      {...rest}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontWeight: "400",
-    color: colors.black,
-  },
-  link: {
-    fontSize: 12,
-    fontWeight: "400",
-    color: colors.green,
   },
 });

@@ -1,4 +1,3 @@
-import { colors } from "@/constants";
 import {
   KeyboardAvoidingView as RNKeyboardAvoidingView,
   KeyboardAvoidingViewProps,
@@ -11,8 +10,8 @@ export const KeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({
   ...restProps
 }) => (
   <RNKeyboardAvoidingView
-    {...restProps}
     behavior={Platform.OS === "ios" ? "padding" : "height"}
     style={[{ flex: 1 }, style]}
+    {...restProps}
   />
 );

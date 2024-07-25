@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { appTheme } from "@/constants";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,7 +36,15 @@ export default function RootLayout() {
                   name="onboarding"
                   options={{ headerShown: false }}
                 />
-                {/* <Stack.Screen name="auth" options={{ headerShown: false }} /> */}
+                <Stack.Screen
+                  name="auth/sign-in"
+                  options={{
+                    headerBackTitleVisible: false,
+                    headerTitle: "Sign in",
+                    headerTitleStyle: styles.headerTitle,
+                    headerShadowVisible: false,
+                  }}
+                />
                 {/* <Stack.Screen name="(app)" options={{ headerShown: false }} /> */}
                 <Stack.Screen name="+not-found" />
               </Stack>
@@ -46,3 +55,11 @@ export default function RootLayout() {
     </ReduxProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontSize: 17,
+    fontWeight: "400",
+    borderWidth: 4,
+  },
+});
