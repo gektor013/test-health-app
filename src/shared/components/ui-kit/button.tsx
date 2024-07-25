@@ -3,7 +3,7 @@ import { Text } from "./text";
 import { colors } from "@/constants";
 import { SVGIcon } from "./svg-icon";
 import { SVGIconNames } from "@/types/icons";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 interface Props extends PressableProps {
   variant?: "primary" | "secondary" | "outline" | "round" | "navigation";
@@ -21,22 +21,31 @@ export const Button: React.FC<Props> = ({
   children,
   ...rest
 }) => {
-  const iconShow = useMemo(() => {
-    return icon ? true : false;
-  }, []);
+  const Icon = useMemo(() => {
+    if (variant === "round") {
+      return <SVGIcon name={"arrow_back_ios_new"} color={colors.white} />;
+    } else if (icon) {
+      return <SVGIcon name={icon} color={colors.white} />;
+    }
+    return null;
+  }, [icon, variant]);
+
+  const getContainerStyle = useCallback(
+    ({ pressed }: { pressed: boolean }) => {
+      let colorStyles = containerColorStyles[variant];
+
+      if (pressed) colorStyles = containerPressedColorStyles[variant];
+      if (disabled) colorStyles = containerDisabledColorStyles[variant];
+
+      return [styles.container, containerStyles, colorStyles];
+    },
+    [variant, disabled]
+  );
 
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.container,
-        containerColorStyles[variant],
-        containerStyles,
-      ]}
-      disabled={disabled}
-      {...rest}
-    >
-      {iconShow && <SVGIcon name={icon!} color={colors.white} />}
-      <Text style={styles.text}>{title}</Text>
+    <Pressable style={getContainerStyle} disabled={disabled} {...rest}>
+      {Icon}
+      {variant !== "round" && <Text style={styles.text}>{title}</Text>}
     </Pressable>
   );
 };
@@ -70,11 +79,63 @@ const containerColorStyles = StyleSheet.create({
     borderColor: colors.white,
   },
   round: {
-    backgroundColor: colors.white,
-    borderColor: colors.white,
+    width: 40,
+    height: 40,
+    backgroundColor: colors.dark_green,
+    borderColor: colors.dark_green,
+    borderRadius: 40,
   },
   navigation: {
     backgroundColor: colors.white,
     borderColor: colors.white,
+  },
+});
+
+const containerPressedColorStyles = StyleSheet.create({
+  primary: {
+    backgroundColor: colors.light_green,
+    borderColor: colors.light_green,
+  },
+  secondary: {
+    backgroundColor: colors.light_green,
+    borderColor: colors.light_green,
+  },
+  outline: {
+    backgroundColor: colors.white,
+    borderColor: colors.light_green,
+  },
+  round: {
+    width: 40,
+    height: 40,
+    backgroundColor: colors.light_green,
+    borderColor: colors.light_green,
+    borderRadius: 40,
+  },
+  navigation: {
+    backgroundColor: colors.light_green,
+    borderColor: colors.light_green,
+  },
+});
+
+const containerDisabledColorStyles = StyleSheet.create({
+  primary: {
+    backgroundColor: colors.disabled,
+    borderColor: colors.disabled,
+  },
+  secondary: {
+    backgroundColor: colors.disabled,
+    borderColor: colors.disabled,
+  },
+  outline: {
+    backgroundColor: colors.white,
+    borderColor: colors.light_green,
+  },
+  round: {
+    backgroundColor: colors.disabled,
+    borderColor: colors.disabled,
+  },
+  navigation: {
+    backgroundColor: colors.light_green,
+    borderColor: colors.light_green,
   },
 });

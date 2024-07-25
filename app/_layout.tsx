@@ -8,6 +8,7 @@ import "react-native-reanimated";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { appTheme } from "@/constants";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,16 +28,18 @@ export default function RootLayout() {
       <PersistGate persistor={persistor}>
         <ThemeProvider value={appTheme}>
           <SafeAreaProvider>
-            <Stack>
-              <Stack.Screen name="welcome" options={{ headerShown: false }} />
-              {/* <Stack.Screen
-                name="onboarding"
-                options={{ headerShown: false }}
-              /> */}
-              {/* <Stack.Screen name="auth" options={{ headerShown: false }} /> */}
-              {/* <Stack.Screen name="(app)" options={{ headerShown: false }} /> */}
-              <Stack.Screen name="+not-found" />
-            </Stack>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <Stack>
+                <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="onboarding"
+                  options={{ headerShown: false }}
+                />
+                {/* <Stack.Screen name="auth" options={{ headerShown: false }} /> */}
+                {/* <Stack.Screen name="(app)" options={{ headerShown: false }} /> */}
+                <Stack.Screen name="+not-found" />
+              </Stack>
+            </GestureHandlerRootView>
           </SafeAreaProvider>
         </ThemeProvider>
       </PersistGate>

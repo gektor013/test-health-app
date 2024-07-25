@@ -43,7 +43,8 @@
     "react-native-svg-transformer": "^1.4.0",
     "react-redux": "^9.1.2",
     "redux-persist": "^6.0.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "expo-linear-gradient": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

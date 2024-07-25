@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Title, Text } from "@/shared/components";
 import imageLogo from "#/images/logo.png";
@@ -23,7 +23,9 @@ export const Welcome = () => {
           containerStyles={styles.button}
           variant="primary"
           title="Let’s Get Started"
-          onPress={() => {}}
+          onPress={() => {
+            router.replace("/onboarding");
+          }}
         />
         <Text style={styles.authText}>
           {t("Already have an account?")}{" "}

@@ -5,7 +5,9 @@ export const colors = {
   black: "#000000",
   dark_green: "#20943F",
   green: "#34A853",
-  light_green: "#0C802B", //
+  light_green: "#97D890",
+  gray: "#BEBEBE",
+  disabled: "#BAC4BD",
 };
 
 export const appTheme: Theme = {
