@@ -14,7 +14,7 @@ import { StyleSheet } from "react-native";
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  initialRouteName: "welcome",
+  initialRouteName: "index",
 };
 
 export default function RootLayout() {
@@ -31,6 +31,7 @@ export default function RootLayout() {
           <SafeAreaProvider>
             <GestureHandlerRootView style={{ flex: 1 }}>
               <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="welcome" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="onboarding"
@@ -45,7 +46,6 @@ export default function RootLayout() {
                     headerShadowVisible: false,
                   }}
                 />
-                {/* <Stack.Screen name="(app)" options={{ headerShown: false }} /> */}
                 <Stack.Screen name="+not-found" />
               </Stack>
             </GestureHandlerRootView>

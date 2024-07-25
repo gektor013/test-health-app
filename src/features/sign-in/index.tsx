@@ -45,7 +45,7 @@ export const SignIn = () => {
           name="email"
           inputProps={{
             keyboardType: "email-address",
-            placeholder: "Placeholder_input",
+            placeholder: t("example@email.com"),
           }}
         />
         <TextInput
@@ -53,6 +53,9 @@ export const SignIn = () => {
           control={control}
           name="password"
           type="password"
+          inputProps={{
+            placeholder: t("Enter your password"),
+          }}
         />
         <FormError error={errors.root?.serverError as FieldError} />
         <Text style={styles.forgotText} type="link">

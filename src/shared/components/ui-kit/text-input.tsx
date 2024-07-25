@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import { Text } from "./text";
 import { FormError } from "./form-error";
+import { SVGIcon } from "./svg-icon";
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 import MaskInput from "react-native-mask-input";
-import { Ionicons } from "@expo/vector-icons";
 import { colors } from "@/constants";
-import { SVGIcon } from "./svg-icon";
 
 interface Props<T extends FieldValues> extends UseControllerProps<T> {
   inputProps?: TextInputProps;

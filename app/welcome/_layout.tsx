@@ -1,4 +1,4 @@
-import { Redirect, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import {
   Keyboard,
   StyleSheet,
@@ -6,16 +6,9 @@ import {
   View,
 } from "react-native";
 import { ScreenContainer } from "@/shared/components";
-import { useAuth } from "@/shared/hooks";
 import { StatusBar } from "expo-status-bar";
 
 export default function WelcomeLayout() {
-  // const { isAuthenticated } = useAuth();
-
-  // if (isAuthenticated) {
-  //   return <Redirect href="/(app)" />;
-  // }
-
   return (
     <ScreenContainer>
       <StatusBar style="dark" />
