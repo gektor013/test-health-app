@@ -16,9 +16,9 @@ import { slides } from "./util";
 const { width } = Dimensions.get("window");
 
 export const Onboarding = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
     if (currentIndex < slides.length - 1) {
@@ -81,6 +81,7 @@ export const Onboarding = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: "visible",
   },
   header: {
     justifyContent: "flex-end",
@@ -111,29 +112,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
+    zIndex: 10,
     bottom: 0,
     paddingVertical: 32,
     backgroundColor: colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-  },
-  textContainer: {
-    gap: 16,
-    paddingHorizontal: 16,
-  },
-  text: {
-    textAlign: "center",
-  },
-
-  nextButton: {
-    marginTop: 20,
-    alignItems: "center",
-    backgroundColor: colors.green,
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  nextButtonText: {
-    color: colors.white,
-    fontSize: 16,
   },
 });
