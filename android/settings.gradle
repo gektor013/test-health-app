@@ -1,4 +1,4 @@
-rootProject.name = 'bodybalance'
+rootProject.name = 'Body Balance'
 
 dependencyResolutionManagement {
   versionCatalogs {
