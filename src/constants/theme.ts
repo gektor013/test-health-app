@@ -21,7 +21,7 @@ export const appTheme: Theme = {
     background: colors.white,
     card: colors.white,
     text: colors.black,
-    border: colors.green,
+    border: colors.white,
     notification: colors.green,
   },
 };

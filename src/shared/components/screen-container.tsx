@@ -1,12 +1,9 @@
+import { colors } from "@/constants";
+import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View, ViewProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "@/constants";
 
-export const ScreenContainer: React.FC<ViewProps> = ({
-  style,
-  ...restProps
-}) => {
+export const ScreenContainer: React.FC<ViewProps> = ({ style, ...restProps }) => {
   return (
     <SafeAreaView style={styles.flex1}>
       <View style={[styles.container, style]} {...restProps} />
@@ -14,10 +11,7 @@ export const ScreenContainer: React.FC<ViewProps> = ({
   );
 };
 
-export const ScreenGradientContainer: React.FC<ViewProps> = ({
-  style,
-  ...restProps
-}) => {
+export const ScreenGradientContainer: React.FC<ViewProps> = ({ style, ...restProps }) => {
   return (
     <>
       <LinearGradient
@@ -30,10 +24,7 @@ export const ScreenGradientContainer: React.FC<ViewProps> = ({
           <View style={[styles.container, style]} {...restProps} />
         </SafeAreaView>
       </LinearGradient>
-      <SafeAreaView
-        edges={["bottom", "left", "right"]}
-        style={{ backgroundColor: colors.white }}
-      />
+      <SafeAreaView edges={["bottom", "left", "right"]} style={{ backgroundColor: colors.white }} />
     </>
   );
 };
