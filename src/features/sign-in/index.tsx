@@ -1,10 +1,11 @@
 import { Image, StyleSheet, View } from "react-native";
 import { Button, FormError, Text, TextInput } from "@/shared/components";
-import { useTranslations } from "@/shared/hooks";
+import { useAuth, useTranslations } from "@/shared/hooks";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { signInSchema, SignInSchemaType } from "./schemas";
 import { zodResolver } from "@/utils/zod";
 import imageLogo from "#/images/logo-black-text.png";
+import { useLoginMutation } from "@/redux/services/user-api";
 
 const defaultValues = {
   email: "",
@@ -12,6 +13,9 @@ const defaultValues = {
 };
 
 export const SignIn = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const { loginUser } = useAuth();
+
   const {
     control,
     handleSubmit,
@@ -24,7 +28,10 @@ export const SignIn = () => {
 
   const onSubmit: SubmitHandler<SignInSchemaType> = async (body) => {
     try {
-      console.log(body);
+      const result = await login(body).unwrap();
+
+      if (result?.token) loginUser(result);
+      else throw new Error();
     } catch (error) {
       setError("root.serverError", {
         type: "401",
@@ -61,7 +68,11 @@ export const SignIn = () => {
         <Text style={styles.forgotText} type="link">
           {t("Forgot password?")}
         </Text>
-        <Button title={t("Sign In")} onPress={handleSubmit(onSubmit)} />
+        <Button
+          title={t("Sign In")}
+          onPress={handleSubmit(onSubmit)}
+          disabled={isLoading}
+        />
         <Text style={styles.accountText}>
           {t("Don’t have an account?")}
           <Text style={styles.signUpText} type="link">

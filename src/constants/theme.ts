@@ -3,6 +3,7 @@ import { Theme } from "@react-navigation/native";
 export const colors = {
   white: "#ffffff",
   black: "#000000",
+  soft_black: "#282828",
   dark_green: "#20943F",
   green: "#34A853",
   light_green: "#97D890",

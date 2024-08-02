@@ -1,4 +1,10 @@
 export * as arrow_back_ios_new from "#/icons/arrow-back-ios-new.svg";
+export * as bell from "#/icons/bell.svg";
+export * as calendar from "#/icons/calendar.svg";
 export * as calendar_new from "#/icons/calendar-new.svg";
 export * as eye_off from "#/icons/eye-off.svg";
 export * as eye_show from "#/icons/eye-show.svg";
+export * as home from "#/icons/home.svg";
+export * as profile from "#/icons/profile.svg";
+export * as search from "#/icons/search.svg";
+export * as video from "#/icons/video.svg";

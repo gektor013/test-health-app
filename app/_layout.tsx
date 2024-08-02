@@ -46,6 +46,19 @@ export default function RootLayout() {
                     headerShadowVisible: false,
                   }}
                 />
+                <Stack.Screen
+                  name="(app)/tabs"
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="(app)/appointment/create/index"
+                  options={{
+                    headerBackTitleVisible: false,
+                    headerTitle: "Book a new appointment",
+                    headerTitleStyle: styles.headerTitle,
+                    headerShadowVisible: false,
+                  }}
+                />
                 <Stack.Screen name="+not-found" />
               </Stack>
             </GestureHandlerRootView>
