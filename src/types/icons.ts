@@ -8,4 +8,6 @@ export type SVGIconNames =
   | "home"
   | "profile"
   | "search"
-  | "video";
+  | "video"
+  | "massage"
+  | "manual_terapy";

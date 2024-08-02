@@ -63,14 +63,18 @@ export default function TabLayout() {
           options={{
             headerShown: true,
             tabBarLabelStyle: { display: "none" },
+            title: "Book a new appointment",
             headerLeft: () => (
               <SVGIcon
                 onPress={() => router.back()}
                 name="arrow_back_ios_new"
-                color={colors.dark_gray}
+                height={16}
+                width={10}
               />
             ),
-
+            headerStyle: {
+              // backgroundColor: "red",
+            },
             tabBarButton: (props) => <CentralTabButton {...props} />,
             tabBarIcon: () => <SVGIcon name="calendar_new" color={colors.white} />,
           }}
@@ -101,6 +105,7 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
+    paddingTop: 0,
   },
   centralButton: {
     top: -30,
@@ -114,14 +119,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
     justifyContent: "center",
     alignItems: "center",
-
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 10,
-    // },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 5,
-    // elevation: 5,
   },
 });
