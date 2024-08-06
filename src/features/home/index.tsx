@@ -1,8 +1,10 @@
-import { colors } from "@/constants";
-import { Header, SearchInput } from "@/shared/components";
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { UpcomingAppointment } from "./components/upcoming-appointment";
+import { StyleSheet, View } from "react-native"
+import { Link } from "expo-router"
+
+import { colors } from "@/constants"
+import { Header, SearchInput } from "@/shared/components"
+
+import { UpcomingAppointment } from "./components/upcoming-appointment"
 
 export const Home = () => {
   return (
@@ -16,19 +18,19 @@ export const Home = () => {
         </View> */}
       </Link>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
-    gap: 24,
+    gap: 24
   },
   buttonContainer: {
     position: "absolute",
     bottom: 10,
-    right: 0,
+    right: 0
   },
   button: {
     width: 60,
@@ -37,6 +39,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
 
     justifyContent: "center",
-    alignItems: "center",
-  },
-});
+    alignItems: "center"
+  }
+})

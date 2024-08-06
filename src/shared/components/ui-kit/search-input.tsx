@@ -1,13 +1,12 @@
-import { StyleSheet, View, TextInput, TextInputProps } from "react-native";
-import { SVGIcon } from "./svg-icon";
-import { colors } from "@/constants";
-import { useTranslations } from "@/shared/hooks";
+import { StyleSheet, TextInput, TextInputProps, View } from "react-native"
 
-export const SearchInput: React.FC<TextInputProps> = ({
-  style,
-  ...restProps
-}) => {
-  const { t } = useTranslations();
+import { colors } from "@/constants"
+import { useTranslations } from "@/shared/hooks"
+
+import { SVGIcon } from "./svg-icon"
+
+export const SearchInput: React.FC<TextInputProps> = ({ style, ...restProps }) => {
+  const { t } = useTranslations()
 
   return (
     <View style={styles.container}>
@@ -19,8 +18,8 @@ export const SearchInput: React.FC<TextInputProps> = ({
         {...restProps}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -29,10 +28,10 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 10,
     borderRadius: 12,
-    backgroundColor: colors.light_gray,
+    backgroundColor: colors.light_gray
   },
   input: {
     flexGrow: 1,
-    fontSize: 14,
-  },
-});
+    fontSize: 14
+  }
+})

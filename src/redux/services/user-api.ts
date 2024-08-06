@@ -1,6 +1,7 @@
-import { appApi } from "./app-api";
-import { SignInSchemaType } from "@/features/sign-in/schemas";
-import { LoginResponse } from "@/types/user";
+import { SignInSchemaType } from "@/features/sign-in/schemas"
+import { LoginResponse } from "@/types/user"
+
+import { appApi } from "./app-api"
 
 export const authApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,10 +9,10 @@ export const authApi = appApi.injectEndpoints({
       query: (body) => ({
         url: `/api/login`,
         method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+        body
+      })
+    })
+  })
+})
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation } = authApi

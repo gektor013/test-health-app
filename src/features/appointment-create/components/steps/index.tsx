@@ -1,5 +1,6 @@
-import { colors } from "@/constants";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native"
+
+import { colors } from "@/constants"
 
 export const Steps = () => {
   return (
@@ -34,20 +35,20 @@ export const Steps = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   stepContainer: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   step: {
     alignItems: "center",
     flexDirection: "column",
-    position: "relative",
+    position: "relative"
   },
   transparentRound: {
     position: "relative",
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: 29,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: colors.transparent_green,
+    borderColor: colors.transparent_green
   },
   circle: {
     width: 40,
@@ -66,19 +67,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#ccc",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   active: {
     borderColor: colors.green,
-    backgroundColor: colors.green,
+    backgroundColor: colors.green
   },
   stepNumber: {
     fontSize: 18,
-    color: "#ccc",
+    color: "#ccc"
   },
   stepNumberActive: {
     fontSize: 18,
-    color: "#4CAF50",
+    color: "#4CAF50"
   },
   stepLabel: {
     marginTop: 8,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     top: 40,
     lineHeight: 13,
     textAlign: "center",
-    width: 100,
+    width: 100
   },
   stepLabelActive: {
     position: "absolute",
@@ -99,13 +100,13 @@ const styles = StyleSheet.create({
 
     color: "#000",
     textAlign: "center",
-    width: 91,
+    width: 91
   },
   line: {
     height: 2,
     // width: 40,
     flexGrow: 1,
     backgroundColor: "#ccc",
-    marginHorizontal: 8,
-  },
-});
+    marginHorizontal: 8
+  }
+})

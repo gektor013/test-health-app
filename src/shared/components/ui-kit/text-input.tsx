@@ -1,25 +1,27 @@
-import { useState } from "react";
 import {
   Pressable,
-  TextInput as RNTextInput,
   StyleSheet,
+  TextInput as RNTextInput,
   TextInputProps,
   TextProps,
-  View,
-} from "react-native";
-import { Text } from "./text";
-import { FormError } from "./form-error";
-import { SVGIcon } from "./svg-icon";
-import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
-import MaskInput from "react-native-mask-input";
-import { colors } from "@/constants";
+  View
+} from "react-native"
+import MaskInput from "react-native-mask-input"
+import { useState } from "react"
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
+
+import { colors } from "@/constants"
+
+import { FormError } from "./form-error"
+import { SVGIcon } from "./svg-icon"
+import { Text } from "./text"
 
 interface Props<T extends FieldValues> extends UseControllerProps<T> {
-  inputProps?: TextInputProps;
-  label: string;
-  labelStyle?: TextProps["style"];
-  type?: "text" | "password" | "phone";
-  lockIconOffset?: number;
+  inputProps?: TextInputProps
+  label: string
+  labelStyle?: TextProps["style"]
+  type?: "text" | "password" | "phone"
+  lockIconOffset?: number
 }
 
 const phoneNumberMask = [
@@ -39,18 +41,18 @@ const phoneNumberMask = [
   /\d/,
   " ",
   /\d/,
-  /\d/,
-];
+  /\d/
+]
 
 const getBorderColor = (isSubmitted: boolean, hasError: boolean) => {
   if (isSubmitted && !hasError) {
-    return colors.green;
+    return colors.green
   } else if (hasError) {
-    return colors.red;
+    return colors.red
   } else {
-    return colors.light_gray;
+    return colors.light_gray
   }
-};
+}
 
 export const TextInput = <T extends FieldValues>({
   name,
@@ -59,9 +61,9 @@ export const TextInput = <T extends FieldValues>({
   inputProps,
   labelStyle,
   type = "text",
-  lockIconOffset,
+  lockIconOffset
 }: Props<T>) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   return (
     <View>
@@ -70,7 +72,7 @@ export const TextInput = <T extends FieldValues>({
         render={({
           field: { onChange, onBlur, value },
           fieldState: { error },
-          formState: { isSubmitted },
+          formState: { isSubmitted }
         }) => (
           <View style={styles.container}>
             <Text style={[styles.label, labelStyle]}>{label}</Text>
@@ -79,9 +81,7 @@ export const TextInput = <T extends FieldValues>({
                 <MaskInput
                   {...inputProps}
                   value={value}
-                  onChangeText={(masked) =>
-                    onChange(masked.replace(/[ +]/g, ""))
-                  }
+                  onChangeText={(masked) => onChange(masked.replace(/[ +]/g, ""))}
                   style={[styles.input, inputProps?.style]}
                   placeholderTextColor={colors.dark_gray}
                   onBlur={onBlur}
@@ -94,7 +94,7 @@ export const TextInput = <T extends FieldValues>({
                   style={[
                     styles.input,
                     { borderColor: getBorderColor(isSubmitted, !!error) },
-                    inputProps?.style,
+                    inputProps?.style
                   ]}
                   placeholderTextColor={colors.dark_gray}
                   onBlur={onBlur}
@@ -107,8 +107,8 @@ export const TextInput = <T extends FieldValues>({
                   style={[
                     styles.lockIcon,
                     {
-                      right: lockIconOffset ?? styles.input.paddingHorizontal,
-                    },
+                      right: lockIconOffset ?? styles.input.paddingHorizontal
+                    }
                   ]}
                   onPress={() => setIsPasswordVisible(!isPasswordVisible)}
                 >
@@ -126,17 +126,17 @@ export const TextInput = <T extends FieldValues>({
         name={name}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    gap: 8,
+    gap: 8
   },
   label: {
     fontSize: 14,
     fontWeight: "600",
-    color: colors.black,
+    color: colors.black
   },
   input: {
     backgroundColor: colors.light_gray,
@@ -144,30 +144,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: colors.light_gray,
-    borderRadius: 12,
+    borderRadius: 12
   },
   lockIcon: {
     position: "absolute",
     top: 0,
     bottom: 0,
-    justifyContent: "center",
+    justifyContent: "center"
   },
   searchContainer: {
     backgroundColor: colors.gray,
     gap: 24,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderRadius: 20,
+    borderRadius: 20
   },
   searchText: {
-    fontSize: 16,
+    fontSize: 16
   },
   error: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
+    gap: 5
   },
   errorText: {
-    color: colors.red,
-  },
-});
+    color: colors.red
+  }
+})

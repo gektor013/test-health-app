@@ -1,41 +1,43 @@
-import React, { useState, useRef } from "react";
 import {
-  Image,
-  StyleSheet,
-  View,
-  Dimensions,
   Animated,
-  TouchableOpacity,
+  Dimensions,
+  Image,
   ScrollView,
-} from "react-native";
-import { Text } from "@/shared/components";
-import { Control, TextCarousel } from "./components";
-import { colors } from "@/constants";
-import { slides } from "./util";
-import { router } from "expo-router";
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from "react-native"
+import React, { useRef, useState } from "react"
+import { router } from "expo-router"
 
-const { width } = Dimensions.get("window");
+import { colors } from "@/constants"
+import { Text } from "@/shared/components"
+
+import { Control, TextCarousel } from "./components"
+import { slides } from "./util"
+
+const { width } = Dimensions.get("window")
 
 export const Onboarding = () => {
-  const scrollViewRef = useRef<ScrollView>(null);
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null)
+  const scrollX = useRef(new Animated.Value(0)).current
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   const handleNext = () => {
     if (currentIndex < slides.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex(currentIndex + 1)
       scrollViewRef.current?.scrollTo({
         x: width * (currentIndex + 1),
-        animated: true,
-      });
+        animated: true
+      })
     } else {
-      handleSkip();
+      handleSkip()
     }
-  };
+  }
 
   const handleSkip = () => {
-    router.push("/auth/sign-in");
-  };
+    router.push("/auth/sign-in")
+  }
 
   return (
     <View style={styles.container}>
@@ -49,14 +51,13 @@ export const Onboarding = () => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+          useNativeDriver: false
+        })}
         scrollEventThrottle={16}
         onMomentumScrollEnd={(event) => {
-          const index = Math.floor(event.nativeEvent.contentOffset.x / width);
-          setCurrentIndex(index);
+          const index = Math.floor(event.nativeEvent.contentOffset.x / width)
+          setCurrentIndex(index)
         }}
       >
         {slides.map((slide, index) => (
@@ -77,38 +78,38 @@ export const Onboarding = () => {
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: "visible",
+    overflow: "visible"
   },
   header: {
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    padding: 16,
+    padding: 16
   },
   headerText: {
-    color: colors.white,
+    color: colors.white
   },
   imageContainer: {
     width,
     position: "relative",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   imageWrapper: {
     position: "absolute",
     top: -32,
-    width,
+    width
   },
   image: {
     resizeMode: "contain",
     width: undefined,
     height: undefined,
-    aspectRatio: 0.5,
+    aspectRatio: 0.5
   },
   bottomSheet: {
     position: "absolute",
@@ -119,6 +120,6 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
     backgroundColor: colors.white,
     borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-  },
-});
+    borderTopRightRadius: 30
+  }
+})

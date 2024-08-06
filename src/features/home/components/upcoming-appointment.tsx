@@ -1,14 +1,15 @@
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { Text } from "@/shared/components";
-import { useTranslations } from "@/shared/hooks";
-import { useGetVisitsQuery } from "@/redux/services/visit-api";
+import { StyleSheet, View } from "react-native"
+import { Link } from "expo-router"
+
+import { useGetVisitsQuery } from "@/redux/services/visit-api"
+import { Text } from "@/shared/components"
+import { useTranslations } from "@/shared/hooks"
 
 export const UpcomingAppointment = () => {
   //   const { data: visits } = useGetVisitsQuery();
   //   console.log({ visits });
 
-  const { t } = useTranslations();
+  const { t } = useTranslations()
 
   return (
     <View style={styles.container}>
@@ -20,20 +21,20 @@ export const UpcomingAppointment = () => {
       </View>
       {/* <AppointmentCarousel /> */}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
+    gap: 16
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "center"
   },
   title: {
-    fontWeight: "600",
+    fontWeight: "600"
   },
-  link: {},
-});
+  link: {}
+})

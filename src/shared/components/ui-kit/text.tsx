@@ -1,9 +1,10 @@
-import React from "react";
-import { Text as BaseText, type TextProps, StyleSheet } from "react-native";
-import { colors } from "@/constants";
+import { StyleSheet, Text as BaseText, type TextProps } from "react-native"
+import React from "react"
+
+import { colors } from "@/constants"
 
 interface Props extends TextProps {
-  type?: "text" | "link";
+  type?: "text" | "link"
 }
 
 export const Text: React.FC<Props> = ({ type = "text", style, ...rest }) => {
@@ -12,16 +13,16 @@ export const Text: React.FC<Props> = ({ type = "text", style, ...rest }) => {
       style={[
         styles.text,
         { color: type === "link" ? colors.green : colors.black },
-        style,
+        style
       ]}
       {...rest}
     />
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   text: {
     fontSize: 14,
-    fontWeight: "400",
-  },
-});
+    fontWeight: "400"
+  }
+})

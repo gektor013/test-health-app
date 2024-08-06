@@ -16,4 +16,4 @@ export type SVGIconNames =
   | "neurokinetic_therapy"
   | "osteopat"
   | "shock_teraphy"
-  | "stretching";
+  | "stretching"
