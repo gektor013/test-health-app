@@ -7,6 +7,7 @@ export const colors = {
   dark_green: "#20943F",
   green: "#34A853",
   light_green: "#97D890",
+  transparent_green: "#d4ebdc",
   gray: "#BEBEBE",
   light_gray: "#F0F0F0",
   dark_gray: "#7A807B",
@@ -21,7 +22,7 @@ export const appTheme: Theme = {
     background: colors.white,
     card: colors.white,
     text: colors.black,
-    border: colors.green,
+    border: colors.white,
     notification: colors.green,
   },
 };

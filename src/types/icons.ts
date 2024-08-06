@@ -8,4 +8,12 @@ export type SVGIconNames =
   | "home"
   | "profile"
   | "search"
-  | "video";
+  | "video"
+  | "massage"
+  | "manual_terapy"
+  | "kinesitherapie"
+  | "medestec_tretman"
+  | "neurokinetic_therapy"
+  | "osteopat"
+  | "shock_teraphy"
+  | "stretching";

@@ -1,8 +1,8 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Header, SearchInput, SVGIcon } from "@/shared/components";
-import { UpcomingAppointment } from "./components/upcoming-appointment";
 import { colors } from "@/constants";
+import { Header, SearchInput } from "@/shared/components";
 import { Link } from "expo-router";
+import { StyleSheet, View } from "react-native";
+import { UpcomingAppointment } from "./components/upcoming-appointment";
 
 export const Home = () => {
   return (
@@ -11,9 +11,9 @@ export const Home = () => {
       <SearchInput />
       <UpcomingAppointment />
       <Link href={"/(app)/appointment/create"} style={styles.buttonContainer}>
-        <View style={styles.button}>
+        {/* <View style={styles.button}>
           <SVGIcon name="calendar_new" color={colors.white} />
-        </View>
+        </View> */}
       </Link>
     </View>
   );
