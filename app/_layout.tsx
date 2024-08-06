@@ -1,28 +1,28 @@
-import { Stack } from "expo-router";
-import { useEffect } from "react";
-import { ThemeProvider } from "@react-navigation/native";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider as ReduxProvider } from "react-redux";
-import store, { persistor } from "@/redux";
-import "react-native-reanimated";
-import * as SplashScreen from "expo-splash-screen";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { appTheme } from "@/constants";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StyleSheet } from "react-native";
+import { appTheme } from "@/constants"
+import store, { persistor } from "@/redux"
+import { ThemeProvider } from "@react-navigation/native"
+import { Stack } from "expo-router"
+import * as SplashScreen from "expo-splash-screen"
+import { useEffect } from "react"
+import { StyleSheet } from "react-native"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
+import "react-native-reanimated"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { Provider as ReduxProvider } from "react-redux"
+import { PersistGate } from "redux-persist/integration/react"
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 export const unstable_settings = {
-  initialRouteName: "index",
-};
+  initialRouteName: "index"
+}
 
 export default function RootLayout() {
   useEffect(() => {
     setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 1000);
-  }, []);
+      SplashScreen.hideAsync()
+    }, 1000)
+  }, [])
 
   return (
     <ReduxProvider store={store}>
@@ -33,32 +33,17 @@ export default function RootLayout() {
               <Stack>
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="welcome" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="onboarding"
-                  options={{ headerShown: false }}
-                />
+                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="auth/sign-in"
                   options={{
                     headerBackTitleVisible: false,
                     headerTitle: "Sign in",
                     headerTitleStyle: styles.headerTitle,
-                    headerShadowVisible: false,
+                    headerShadowVisible: false
                   }}
                 />
-                <Stack.Screen
-                  name="(app)/tabs"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="(app)/appointment/create/index"
-                  options={{
-                    headerBackTitleVisible: false,
-                    headerTitle: "Book a new appointment",
-                    headerTitleStyle: styles.headerTitle,
-                    headerShadowVisible: false,
-                  }}
-                />
+                <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
               </Stack>
             </GestureHandlerRootView>
@@ -66,13 +51,13 @@ export default function RootLayout() {
         </ThemeProvider>
       </PersistGate>
     </ReduxProvider>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 17,
     fontWeight: "400",
-    borderWidth: 4,
-  },
-});
+    borderWidth: 4
+  }
+})

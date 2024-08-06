@@ -1,5 +1,5 @@
-import { AppointmentCreate } from "@/features/appointment-create";
+import { AppointmentCreate } from "@/features/appointment-create"
 
 export default function AppointmentCreateScreen() {
-  return <AppointmentCreate />;
+  return <AppointmentCreate />
 }

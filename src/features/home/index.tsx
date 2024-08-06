@@ -1,5 +1,5 @@
-import { StyleSheet, View } from "react-native"
 import { Link } from "expo-router"
+import { StyleSheet, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Header, SearchInput } from "@/shared/components"
