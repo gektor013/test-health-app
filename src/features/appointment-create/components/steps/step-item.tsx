@@ -1,10 +1,10 @@
 import { colors } from "@/constants";
 import { SVGIcon } from "@/shared/components";
 import { SVGIconNames } from "@/types/icons";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { commonHelpers } from "@/utils/helpers/common";
+import { StyleSheet, Text, View } from "react-native";
 
-const screen_width = Dimensions.get("screen").width;
-const container_width = screen_width - 48;
+const container_width = commonHelpers.getDimensionsParams().width - 48;
 
 interface Props {
   title: string;

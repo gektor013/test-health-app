@@ -10,4 +10,10 @@ export type SVGIconNames =
   | "search"
   | "video"
   | "massage"
-  | "manual_terapy";
+  | "manual_terapy"
+  | "kinesitherapie"
+  | "medestec_tretman"
+  | "neurokinetic_therapy"
+  | "osteopat"
+  | "shock_teraphy"
+  | "stretching";

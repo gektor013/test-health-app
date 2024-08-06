@@ -8,24 +8,11 @@ export const AppointmentCreate = () => {
     <View style={styles.container}>
       <Steps />
 
-      <ScrollView style={{ paddingTop: 40 }}>
-        <View style={{ gap: 16 }}>
-          <Text
-            style={{
-              fontWeight: "600",
-            }}
-          >
-            Select the type of visit
-          </Text>
+      <ScrollView style={styles.pt40}>
+        <View style={styles.stepsContainer}>
+          <Text style={styles.stepsContainerTitle}>Select the type of visit</Text>
 
-          <View
-            style={{
-              flexGrow: 1,
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 8,
-            }}
-          >
+          <View style={styles.stepsItemsContainer}>
             <Stepitem icon="massage" title="Massage" isActive={false} />
             <Stepitem icon="massage" title="Manual therapy" isActive={true} />
             <Stepitem icon="massage" title="Kinesitherapia" isActive={false} />
