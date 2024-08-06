@@ -1,7 +1,8 @@
-import { ScrollView, Text, View } from "react-native";
-import { Steps } from "./components/steps";
-import { Stepitem } from "./components/steps/step-item";
-import { styles } from "./styles";
+import { ScrollView, Text, View } from "react-native"
+
+import { Steps } from "./components/steps"
+import { Stepitem } from "./components/steps/step-item"
+import { styles } from "./styles"
 
 export const AppointmentCreate = () => {
   return (
@@ -21,5 +22,5 @@ export const AppointmentCreate = () => {
         </View>
       </ScrollView>
     </View>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
 export const useTranslations = () => {
-  const t = (key: string) => key;
+  const t = (key: string) => key
 
-  return { t };
-};
+  return { t }
+}

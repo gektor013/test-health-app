@@ -1,6 +1,5 @@
-import { RootState } from "..";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL } from "@/constants/enviroments";
+import { API_URL } from "@/constants/enviroments"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const appApi = createApi({
   reducerPath: "appApi",
@@ -9,12 +8,12 @@ export const appApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: async (headers, { getState }) => {
-      const state: RootState = getState() as RootState;
+      // const state: RootState = getState() as RootState
       // const token = state.auth.user?.token;
 
       if (headers.has("Internal-key")) {
-        headers.set("Authorization", `Bearer ${headers.get("Internal-key")}`);
-        headers.delete("Internal-key");
+        headers.set("Authorization", `Bearer ${headers.get("Internal-key")}`)
+        headers.delete("Internal-key")
       }
 
       // else if (token) {
@@ -23,18 +22,18 @@ export const appApi = createApi({
 
       if (!headers.has("Ignore-Headers")) {
         if (!headers.has("Content-Type")) {
-          headers.set("Content-Type", "application/json");
-          headers.set("content-type", "application/json");
+          headers.set("Content-Type", "application/json")
+          headers.set("content-type", "application/json")
         }
         if (!headers.has("Accept")) {
-          headers.set("Accept", "application/json");
+          headers.set("Accept", "application/json")
         }
       } else {
-        headers.delete("Ignore-Headers");
+        headers.delete("Ignore-Headers")
       }
 
-      return headers;
-    },
+      return headers
+    }
   }),
-  endpoints: () => ({}),
-});
+  endpoints: () => ({})
+})

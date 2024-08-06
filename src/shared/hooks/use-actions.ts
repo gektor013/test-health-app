@@ -1,27 +1,16 @@
-import { useMemo } from "react";
+import { useMemo } from "react"
 
-import { useAppDispatch } from "@/redux";
-import {
-  logIn,
-  logOut,
-  setSort,
-  setFilter,
-  clearFilter,
-  setFilterShown,
-} from "@/redux/features";
-import { bindActionCreators } from "@reduxjs/toolkit";
+import { useAppDispatch } from "@/redux"
+import { logIn, logOut } from "@/redux/features"
+import { bindActionCreators } from "@reduxjs/toolkit"
 
 const rootActions = {
   logIn,
-  logOut,
-  setSort,
-  setFilter,
-  clearFilter,
-  setFilterShown,
-};
+  logOut
+}
 
 export const useActions = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
-};
+  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch])
+}

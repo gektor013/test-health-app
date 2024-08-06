@@ -1,4 +1,4 @@
-import { Theme } from "@react-navigation/native";
+import { Theme } from "@react-navigation/native"
 
 export const colors = {
   white: "#ffffff",
@@ -12,8 +12,8 @@ export const colors = {
   light_gray: "#F0F0F0",
   dark_gray: "#7A807B",
   disabled: "#BAC4BD",
-  red: "#FF0000",
-};
+  red: "#FF0000"
+}
 
 export const appTheme: Theme = {
   dark: false,
@@ -23,6 +23,6 @@ export const appTheme: Theme = {
     card: colors.white,
     text: colors.black,
     border: colors.white,
-    notification: colors.green,
-  },
-};
+    notification: colors.green
+  }
+}

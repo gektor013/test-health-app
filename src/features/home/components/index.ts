@@ -1,1 +1,1 @@
-export * from "./upcoming-appointment";
+export * from "./upcoming-appointment"

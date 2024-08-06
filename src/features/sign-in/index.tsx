@@ -1,46 +1,49 @@
-import { Image, StyleSheet, View } from "react-native";
-import { Button, FormError, Text, TextInput } from "@/shared/components";
-import { useAuth, useTranslations } from "@/shared/hooks";
-import { FieldError, SubmitHandler, useForm } from "react-hook-form";
-import { signInSchema, SignInSchemaType } from "./schemas";
-import { zodResolver } from "@/utils/zod";
-import imageLogo from "#/images/logo-black-text.png";
-import { useLoginMutation } from "@/redux/services/user-api";
+import { Image, StyleSheet, View } from "react-native"
+import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+
+import { useLoginMutation } from "@/redux/services/user-api"
+import { Button, FormError, Text, TextInput } from "@/shared/components"
+import { useAuth, useTranslations } from "@/shared/hooks"
+import { zodResolver } from "@/utils/zod"
+
+import imageLogo from "#/images/logo-black-text.png"
+
+import { signInSchema, SignInSchemaType } from "./schemas"
 
 const defaultValues = {
   email: "",
-  password: "",
-};
+  password: ""
+}
 
 export const SignIn = () => {
-  const [login, { isLoading }] = useLoginMutation();
-  const { loginUser } = useAuth();
+  const [login, { isLoading }] = useLoginMutation()
+  const { loginUser } = useAuth()
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    setError,
+    setError
   } = useForm({
     defaultValues,
-    resolver: zodResolver(signInSchema),
-  });
+    resolver: zodResolver(signInSchema)
+  })
 
   const onSubmit: SubmitHandler<SignInSchemaType> = async (body) => {
     try {
-      const result = await login(body).unwrap();
+      const result = await login(body).unwrap()
 
-      if (result?.token) loginUser(result);
-      else throw new Error();
+      if (result?.token) loginUser(result)
+      else throw new Error()
     } catch (error) {
       setError("root.serverError", {
         type: "401",
-        message: "Invalid credentials",
-      });
+        message: "Invalid credentials"
+      })
     }
-  };
+  }
 
-  const { t } = useTranslations();
+  const { t } = useTranslations()
 
   return (
     <View style={styles.container}>
@@ -52,7 +55,7 @@ export const SignIn = () => {
           name="email"
           inputProps={{
             keyboardType: "email-address",
-            placeholder: t("example@email.com"),
+            placeholder: t("example@email.com")
           }}
         />
         <TextInput
@@ -61,7 +64,7 @@ export const SignIn = () => {
           name="password"
           type="password"
           inputProps={{
-            placeholder: t("Enter your password"),
+            placeholder: t("Enter your password")
           }}
         />
         <FormError error={errors.root?.serverError as FieldError} />
@@ -82,28 +85,28 @@ export const SignIn = () => {
         </Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   logo: {
     width: 165,
     height: 100,
     alignSelf: "center",
-    marginBottom: 24,
+    marginBottom: 24
   },
   form: {
-    gap: 16,
+    gap: 16
   },
   forgotText: {
     textAlign: "right",
-    textDecorationLine: "underline",
+    textDecorationLine: "underline"
   },
   accountText: {
-    textAlign: "center",
+    textAlign: "center"
   },
-  signUpText: { textDecorationLine: "underline" },
-});
+  signUpText: { textDecorationLine: "underline" }
+})

@@ -1,7 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { Avatar, SVGIcon, Text } from "./ui-kit";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { colors } from "@/constants";
+import { StyleSheet, View } from "react-native"
+import { TouchableOpacity } from "react-native-gesture-handler"
+
+import { colors } from "@/constants"
+
+import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
   return (
@@ -16,27 +18,27 @@ export const Header = () => {
         <SVGIcon name="bell" />
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     height: 30,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "center"
   },
   userContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 16,
+    gap: 16
   },
   greenText: {
     fontSize: 17,
-    color: colors.green,
+    color: colors.green
   },
   text: {
     fontSize: 17,
-    color: colors.black,
-  },
-});
+    color: colors.black
+  }
+})

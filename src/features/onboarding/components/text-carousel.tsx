@@ -1,24 +1,26 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions, Animated } from "react-native";
-import { useTranslations } from "@/shared/hooks";
-import { OnboardingSlide } from "../types";
-import { colors } from "@/constants";
+import { Animated, Dimensions, StyleSheet, Text, View } from "react-native"
+import React from "react"
 
-const { width } = Dimensions.get("window");
+import { colors } from "@/constants"
+import { useTranslations } from "@/shared/hooks"
+
+import { OnboardingSlide } from "../types"
+
+const { width } = Dimensions.get("window")
 
 interface Props {
-  slides: OnboardingSlide[];
-  scrollX: Animated.Value;
+  slides: OnboardingSlide[]
+  scrollX: Animated.Value
 }
 
 export const TextCarousel: React.FC<Props> = ({ slides, scrollX }) => {
   const translateX = scrollX.interpolate({
     inputRange: slides.map((_, i) => i * width),
     outputRange: slides.map((_, i) => -i * width),
-    extrapolate: "clamp",
-  });
+    extrapolate: "clamp"
+  })
 
-  const { t } = useTranslations();
+  const { t } = useTranslations()
 
   return (
     <View style={styles.container}>
@@ -31,33 +33,33 @@ export const TextCarousel: React.FC<Props> = ({ slides, scrollX }) => {
         ))}
       </Animated.View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     width,
-    overflow: "hidden",
+    overflow: "hidden"
   },
   carousel: {
     flexDirection: "row",
-    width: width * 3,
+    width: width * 3
   },
   contentContainer: {
     width,
     paddingHorizontal: 32,
-    alignItems: "center",
+    alignItems: "center"
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: colors.dark_green,
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: 8
   },
   description: {
     fontSize: 16,
     color: colors.gray,
-    textAlign: "center",
-  },
-});
+    textAlign: "center"
+  }
+})

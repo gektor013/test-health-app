@@ -1,18 +1,14 @@
-import { useRef, useState } from "react";
-import {
-  Animated,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, Dimensions, Image, ScrollView, StyleSheet, View } from "react-native"
+import { useRef, useState } from "react"
 
-const { width } = Dimensions.get("window");
+import { slides } from "@/features/onboarding/util"
+
+const { width } = Dimensions.get("window")
 
 export const AppointmentCarousel = () => {
-  const scrollViewRef = useRef<ScrollView>(null);
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null)
+  const scrollX = useRef(new Animated.Value(0)).current
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   return (
     <View>
@@ -21,14 +17,13 @@ export const AppointmentCarousel = () => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+          useNativeDriver: false
+        })}
         scrollEventThrottle={16}
         onMomentumScrollEnd={(event) => {
-          const index = Math.floor(event.nativeEvent.contentOffset.x / width);
-          setCurrentIndex(index);
+          const index = Math.floor(event.nativeEvent.contentOffset.x / width)
+          setCurrentIndex(index)
         }}
       >
         {slides.map((slide, index) => (
@@ -40,9 +35,9 @@ export const AppointmentCarousel = () => {
         ))}
       </Animated.ScrollView>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  container: {},
-});
+  container: {}
+})

@@ -1,2 +1,2 @@
-export * from "./control";
-export * from "./text-carousel";
+export * from "./control"
+export * from "./text-carousel"

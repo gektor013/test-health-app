@@ -1,10 +1,12 @@
-import { StyleSheet, View } from "react-native";
-import { Text } from "./text";
-import { FieldError } from "react-hook-form";
-import { colors } from "@/constants";
+import { StyleSheet, View } from "react-native"
+import { FieldError } from "react-hook-form"
+
+import { colors } from "@/constants"
+
+import { Text } from "./text"
 
 interface Props {
-  error: FieldError | undefined;
+  error: FieldError | undefined
 }
 
 export const FormError: React.FC<Props> = ({ error }) => {
@@ -12,12 +14,12 @@ export const FormError: React.FC<Props> = ({ error }) => {
     <View>
       <Text style={styles.text}>{error.message}</Text>
     </View>
-  ) : null;
-};
+  ) : null
+}
 
 const styles = StyleSheet.create({
   text: {
     fontSize: 12,
-    color: colors.red,
-  },
-});
+    color: colors.red
+  }
+})
