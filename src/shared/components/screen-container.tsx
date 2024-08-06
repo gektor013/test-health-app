@@ -1,6 +1,6 @@
-import { StyleSheet, View, ViewProps } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
 import { LinearGradient } from "expo-linear-gradient"
+import { SafeAreaView, StyleSheet, View, ViewProps } from "react-native"
+import { SafeAreaView as RNSSafeAreaView } from "react-native-safe-area-context"
 
 import { colors } from "@/constants"
 
@@ -21,11 +21,11 @@ export const ScreenGradientContainer: React.FC<ViewProps> = ({ style, ...restPro
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <SafeAreaView edges={["top", "left", "right"]} style={styles.flex1}>
+        <RNSSafeAreaView edges={["top", "left", "right"]} style={styles.flex1}>
           <View style={[styles.container, style]} {...restProps} />
-        </SafeAreaView>
+        </RNSSafeAreaView>
       </LinearGradient>
-      <SafeAreaView
+      <RNSSafeAreaView
         edges={["bottom", "left", "right"]}
         style={{ backgroundColor: colors.white }}
       />

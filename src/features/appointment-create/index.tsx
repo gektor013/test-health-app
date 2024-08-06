@@ -1,7 +1,9 @@
-import { ScrollView, Text, View } from "react-native"
+import { ScrollView, View } from "react-native"
 
+import { Button } from "@/shared/components"
 import { Steps } from "./components/steps"
-import { Stepitem } from "./components/steps/step-item"
+import { TherapistList } from "./components/therapist-list/therapist-list"
+import { VisitsTypes } from "./components/visit-types"
 import { styles } from "./styles"
 
 export const AppointmentCreate = () => {
@@ -9,18 +11,16 @@ export const AppointmentCreate = () => {
     <View style={styles.container}>
       <Steps />
 
-      <ScrollView style={styles.pt40}>
-        <View style={styles.stepsContainer}>
-          <Text style={styles.stepsContainerTitle}>Select the type of visit</Text>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.pt40}>
+        <VisitsTypes />
 
-          <View style={styles.stepsItemsContainer}>
-            <Stepitem icon="massage" title="Massage" isActive={false} />
-            <Stepitem icon="massage" title="Manual therapy" isActive={true} />
-            <Stepitem icon="massage" title="Kinesitherapia" isActive={false} />
-            <Stepitem icon="massage" title="Osteopathy" isActive={true} />
-          </View>
-        </View>
+        <TherapistList />
       </ScrollView>
+      <Button
+        title="Next"
+        containerStyles={{ bottom: 10, width: "100%" }}
+        variant="primary"
+      />
     </View>
   )
 }
