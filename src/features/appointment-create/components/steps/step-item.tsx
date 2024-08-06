@@ -21,7 +21,11 @@ export const Stepitem = ({ icon, title, isActive }: Props) => {
         width={40}
         height={40}
       />
-      <Text style={{ color: isActive ? colors.white : colors.black }}>{title}</Text>
+      <Text
+        style={{ color: isActive ? colors.white : colors.black, textAlign: "center" }}
+      >
+        {title}
+      </Text>
     </View>
   )
 }
