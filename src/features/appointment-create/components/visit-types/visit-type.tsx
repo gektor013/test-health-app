@@ -12,7 +12,7 @@ interface Props {
   icon: SVGIconNames
   isActive: boolean
 }
-export const Stepitem = ({ icon, title, isActive }: Props) => {
+export const VisitType = ({ icon, title, isActive }: Props) => {
   return (
     <View style={[styles.stepContainer, isActive && styles.activeStepContainer]}>
       <SVGIcon
