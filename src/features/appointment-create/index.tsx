@@ -1,11 +1,11 @@
-import { Animated, ScrollView, StyleSheet, View } from "react-native"
+import { Animated, ScrollView, View } from "react-native"
 
-import { colors } from "@/constants"
 import { Button } from "@/shared/components"
 import { useRef, useState } from "react"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
 import { router } from "expo-router"
+import { ChooseDateTime } from "./components/chose-date-time/date-time"
 import { CustomHeader } from "./components/header/header"
 import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
@@ -26,7 +26,7 @@ const slides = [
   },
   {
     id: 2,
-    component: () => <></>
+    component: () => <ChooseDateTime />
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ export const AppointmentCreate = () => {
   }
 
   return (
-    <View style={styless.container}>
+    <View style={styles.container}>
       <CustomHeader onBackPress={onBackPress} />
       <Steps />
       <Animated.ScrollView
@@ -84,8 +84,6 @@ export const AppointmentCreate = () => {
             showsVerticalScrollIndicator={false}
             style={[styles.pt40, { width }]}
           >
-            {/* <VisitsTypes />
-            <TherapistList /> */}
             {slide.component()}
           </ScrollView>
         ))}
@@ -106,46 +104,3 @@ export const AppointmentCreate = () => {
     </View>
   )
 }
-
-const styless = StyleSheet.create({
-  container: {
-    flex: 1,
-    overflow: "visible"
-  },
-  header: {
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    padding: 16
-  },
-  headerText: {
-    color: colors.white
-  },
-  imageContainer: {
-    width: width - 32,
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  imageWrapper: {
-    position: "absolute",
-    top: -32,
-    width: width - 32
-  },
-  image: {
-    resizeMode: "contain",
-    width: undefined,
-    height: undefined,
-    aspectRatio: 0.5
-  },
-  bottomSheet: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    bottom: 0,
-    paddingVertical: 32,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30
-  }
-})
