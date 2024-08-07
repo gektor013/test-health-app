@@ -8,6 +8,7 @@ import { router } from "expo-router"
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"
+import { Patientdetails } from "./components/patient-form/patient-form"
 import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
@@ -34,7 +35,7 @@ const slides = [
   },
   {
     id: 3,
-    component: () => <></>
+    component: () => <Patientdetails />
   }
 ]
 
