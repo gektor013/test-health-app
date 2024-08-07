@@ -1,6 +1,7 @@
-import { CheckBox, Therapist } from "@/shared/components"
-import { useState } from "react"
 import { Text, View } from "react-native"
+import { useState } from "react"
+
+import { CheckBox, Therapist } from "@/shared/components"
 
 export const TherapistList = () => {
   const [check, setCheck] = useState(false)

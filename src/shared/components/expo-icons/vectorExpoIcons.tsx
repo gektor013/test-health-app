@@ -2,7 +2,7 @@ import React from "react"
 
 import { BarIconProps, IconType, VECTOR_ICONS_TYPE } from "@/types/expo-icons/icons"
 
-export function VectorExpoIcons<T extends keyof IconType>(props: BarIconProps<T>) {
+export const VectorExpoIcons = <T extends keyof IconType>(props: BarIconProps<T>) => {
   const { type, name, color, size = 28, style: styleProps } = props
 
   if (!type) {

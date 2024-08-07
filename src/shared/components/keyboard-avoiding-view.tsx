@@ -1,7 +1,7 @@
 import {
+  KeyboardAvoidingView as RNKeyboardAvoidingView,
   KeyboardAvoidingViewProps,
-  Platform,
-  KeyboardAvoidingView as RNKeyboardAvoidingView
+  Platform
 } from "react-native"
 
 export const KeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({

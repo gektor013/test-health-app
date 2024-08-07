@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
   stepContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 35,
     justifyContent: "space-between"
   },
   step: {

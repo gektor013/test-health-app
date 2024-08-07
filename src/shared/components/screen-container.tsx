@@ -1,6 +1,6 @@
-import { LinearGradient } from "expo-linear-gradient"
 import { SafeAreaView, StyleSheet, View, ViewProps } from "react-native"
 import { SafeAreaView as RNSSafeAreaView } from "react-native-safe-area-context"
+import { LinearGradient } from "expo-linear-gradient"
 
 import { colors } from "@/constants"
 
