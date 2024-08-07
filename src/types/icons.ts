@@ -17,3 +17,6 @@ export type SVGIconNames =
   | "osteopat"
   | "shock_teraphy"
   | "stretching"
+  | "arrow_down"
+  | "arrow_right"
+  | "standart_calendar"

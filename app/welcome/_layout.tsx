@@ -1,18 +1,11 @@
-import { Redirect, Stack } from "expo-router";
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { ScreenContainer } from "@/shared/components";
-import { StatusBar } from "expo-status-bar";
-import { useAuth } from "@/shared/hooks";
+import { ScreenContainer } from "@/shared/components"
+import { useAuth } from "@/shared/hooks"
+import { Stack } from "expo-router"
+import { StatusBar } from "expo-status-bar"
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 
 export default function WelcomeLayout() {
-  const { isAuthenticated, user } = useAuth();
-
-  console.log(isAuthenticated, user);
+  const { isAuthenticated, user } = useAuth()
 
   return (
     <ScreenContainer>
@@ -21,18 +14,18 @@ export default function WelcomeLayout() {
         <View style={styles.container}>
           <Stack
             screenOptions={{
-              headerShown: false,
+              headerShown: false
             }}
           />
         </View>
       </TouchableWithoutFeedback>
     </ScreenContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-  },
-});
+    justifyContent: "center"
+  }
+})

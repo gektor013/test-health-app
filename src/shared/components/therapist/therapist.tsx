@@ -1,7 +1,9 @@
+import { Image, StyleSheet, Text, View } from "react-native"
+
+import { colors } from "@/constants"
+
 import DoctorImg from "#/doctors/doctor-1.png"
 import StarIcon from "#/icons/star.svg"
-import { colors } from "@/constants"
-import { Image, StyleSheet, Text, View } from "react-native"
 
 interface Props {
   name: string

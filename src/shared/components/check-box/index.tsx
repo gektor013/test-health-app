@@ -1,7 +1,9 @@
-import { colors } from "@/constants"
-import { VectorExpoIcons } from "@/shared/components"
-import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
+import React from "react"
+
+import { colors } from "@/constants"
+
+import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
 
 interface CheckBoxProps {
   isChecked: boolean
