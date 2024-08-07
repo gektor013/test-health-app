@@ -5,14 +5,13 @@ import { useRef, useState } from "react"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
 import { router } from "expo-router"
-import { ChooseDateTime } from "./components/chose-date-time/date-time"
+import { ChooseDate } from "./components/chose-date-time/date"
+import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"
 import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
 import { styles } from "./styles"
-
-// const width = commonHelpers.getDimensionsParams().width
 
 const slides = [
   {
@@ -26,7 +25,12 @@ const slides = [
   },
   {
     id: 2,
-    component: () => <ChooseDateTime />
+    component: () => (
+      <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
+        <ChooseDate />
+        <ChooseTime />
+      </View>
+    )
   },
   {
     id: 3,

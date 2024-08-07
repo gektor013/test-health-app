@@ -1,14 +1,11 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
-import { useRef, useState } from "react"
-// import { slides } from "../onboarding/util"
 import { colors } from "@/constants"
+import { useState } from "react"
 import { Calendar } from "react-native-calendars"
 
 const width = Dimensions.get("window").width
-export const ChooseDateTime = () => {
-  const calendarRef = useRef<typeof Calendar | null>(null)
-
+export const ChooseDate = () => {
   const today = new Date()
   const [selectedDate, setSelectedDate] = useState<string>(
     today.toISOString().split("T")[0]
@@ -23,7 +20,6 @@ export const ChooseDateTime = () => {
       <Text style={styles.title}>Choose the date and time that suits you</Text>
       <View style={styles.calendarContainer}>
         <Calendar
-          ref={calendarRef}
           current={today}
           disableAllTouchEventsForDisabledDays={true}
           dayComponent={({ date }: any) => {
