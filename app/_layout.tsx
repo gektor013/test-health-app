@@ -1,11 +1,13 @@
 import { appTheme } from "@/constants"
 import store, { persistor } from "@/redux"
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import { ThemeProvider } from "@react-navigation/native"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import { StyleSheet } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { Host } from "react-native-portalize"
 import "react-native-reanimated"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Provider as ReduxProvider } from "react-redux"
@@ -28,26 +30,30 @@ export default function RootLayout() {
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
         <ThemeProvider value={appTheme}>
-          <SafeAreaProvider>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="welcome" options={{ headerShown: false }} />
-                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="auth/sign-in"
-                  options={{
-                    headerBackTitleVisible: false,
-                    headerTitle: "Sign in",
-                    headerTitleStyle: styles.headerTitle,
-                    headerShadowVisible: false
-                  }}
-                />
-                <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-              </Stack>
-            </GestureHandlerRootView>
-          </SafeAreaProvider>
+          <BottomSheetModalProvider>
+            <SafeAreaProvider>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <Host>
+                  <Stack>
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                    <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+                    <Stack.Screen
+                      name="auth/sign-in"
+                      options={{
+                        headerBackTitleVisible: false,
+                        headerTitle: "Sign in",
+                        headerTitleStyle: styles.headerTitle,
+                        headerShadowVisible: false
+                      }}
+                    />
+                    <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
+                    <Stack.Screen name="+not-found" />
+                  </Stack>
+                </Host>
+              </GestureHandlerRootView>
+            </SafeAreaProvider>
+          </BottomSheetModalProvider>
         </ThemeProvider>
       </PersistGate>
     </ReduxProvider>
