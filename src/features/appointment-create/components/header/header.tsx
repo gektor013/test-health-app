@@ -2,13 +2,11 @@ import { Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
-import { useNavigation } from "@react-navigation/native"
 
-export const CustomHeader = () => {
-  const navigations = useNavigation()
+export const CustomHeader = ({ onBackPress }: { onBackPress: () => void }) => {
   return (
     <View style={styles.headerContainer}>
-      <Pressable onPress={() => navigations.goBack()} style={styles.iconPress}>
+      <Pressable onPress={onBackPress} style={styles.iconPress}>
         <VectorExpoIcons
           type="MaterialIcons"
           name="arrow-back-ios-new"

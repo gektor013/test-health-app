@@ -1,5 +1,5 @@
+import { useMemo } from "react"
 import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native"
-import { useCallback, useMemo } from "react"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
@@ -32,17 +32,14 @@ export const Button: React.FC<Props> = ({
     return null
   }, [icon, variant])
 
-  const getContainerStyle = useCallback(
-    ({ pressed }: { pressed: boolean }) => {
-      let colorStyles = containerColorStyles[variant]
+  const getContainerStyle = ({ pressed }: { pressed: boolean }) => {
+    let colorStyles = containerColorStyles[variant]
 
-      if (pressed) colorStyles = containerPressedColorStyles[variant]
-      if (disabled) colorStyles = containerDisabledColorStyles[variant]
+    if (pressed) colorStyles = containerPressedColorStyles[variant]
+    if (disabled) colorStyles = containerDisabledColorStyles[variant]
 
-      return [styles.container, containerStyles, colorStyles]
-    },
-    [variant, disabled]
-  )
+    return [styles.container, containerStyles, colorStyles]
+  }
 
   return (
     <Pressable style={getContainerStyle} disabled={disabled} {...rest}>
