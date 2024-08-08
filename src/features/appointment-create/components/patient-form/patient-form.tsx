@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View } from "react-native"
-import DatePicker from "react-native-date-picker"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { StyleSheet, Text, View } from "react-native"
+import DatePicker from "react-native-date-picker"
 
 import { CheckBox, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
 import { DropdownComponent } from "../dropdown/dropdown"
+import { FinalAppointment } from "../final-appointment/final-appointment"
 
 const defaultValues = {
   email: "",
@@ -105,6 +106,13 @@ export const Patientdetails = () => {
             <CheckBox variant="square" isChecked={true} onPress={() => {}} />
             <Text>Booking for another person</Text>
           </View>
+
+          <View style={styles.finalAppointmentContainer}>
+            <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
+            <FinalAppointment t={t} />
+            <FinalAppointment t={t} />
+            <FinalAppointment t={t} />
+          </View>
         </View>
       </View>
     </>
@@ -115,7 +123,8 @@ const styles = StyleSheet.create({
   mainConatiner: {
     flex: 1,
     gap: 24,
-    maxWidth: width
+    maxWidth: width,
+    marginBottom: 100
   },
   title: {
     fontWeight: "600",
@@ -125,5 +134,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10
+  },
+  finalAppointmentContainer: {
+    gap: 16
+  },
+  appointmentTitle: {
+    fontWeight: "600"
   }
 })
