@@ -1,21 +1,29 @@
-import { Button, CheckBox, TextInput } from "@/shared/components"
-import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
+import { StyleSheet, Text, View } from "react-native"
+import DatePicker from "react-native-date-picker"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+
+import { CheckBox, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
-import BottomSheet from "@gorhom/bottom-sheet"
-import { useRef } from "react"
-import { useForm } from "react-hook-form"
-import { StyleSheet, Text, View } from "react-native"
+
+import { DropdownComponent } from "../dropdown/dropdown"
 
 const defaultValues = {
   email: "",
   password: ""
 }
 
+const data = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" }
+]
+
 const width = commonHelpers.getDimensionsParams().width - 32
 export const Patientdetails = () => {
   const { t } = useTranslations()
-  const bottomSheetRef = useRef<BottomSheet>(null)
+  const [date, setDate] = useState(new Date())
+  const [open, setOpen] = useState(false)
 
   const {
     control,
@@ -26,12 +34,23 @@ export const Patientdetails = () => {
     defaultValues
   })
 
-  const handleOpenPress = () => bottomSheetRef.current?.snapToPosition("20%")
-
   return (
     <>
       <View style={styles.mainConatiner}>
         <Text style={styles.title}>{t("Patient Details")}</Text>
+
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          onConfirm={(date) => {
+            setOpen(false)
+            setDate(date)
+          }}
+          onCancel={() => {
+            setOpen(false)
+          }}
+        />
 
         <View style={{ gap: 16 }}>
           <TextInput
@@ -52,17 +71,7 @@ export const Patientdetails = () => {
             }}
           />
 
-          <TextInput
-            label={t("Male")}
-            name="email"
-            control={control}
-            inputProps={{
-              placeholder: t("Male"),
-              onPress: handleOpenPress,
-              editable: false
-            }}
-            iconName="arrow_down"
-          />
+          <DropdownComponent data={data} label="Gender" plaseholder="Male" />
 
           <TextInput
             label={t("Date of birth")}
@@ -71,7 +80,7 @@ export const Patientdetails = () => {
             inputProps={{
               placeholder: t("June/01/1990"),
               onPress: () => {
-                console.log("asda")
+                setOpen(true)
               },
               editable: false
             }}
@@ -98,12 +107,6 @@ export const Patientdetails = () => {
           </View>
         </View>
       </View>
-      <CustomBottomSheet ref={bottomSheetRef}>
-        <View style={{ gap: 16 }}>
-          <Button title="Male" />
-          <Button title="Female" />
-        </View>
-      </CustomBottomSheet>
     </>
   )
 }

@@ -13,7 +13,8 @@ export const colors = {
   light_gray: "#F0F0F0",
   dark_gray: "#7A807B",
   disabled: "#BAC4BD",
-  red: "#FF0000"
+  red: "#FF0000",
+  white_green: "#DDE8E0"
 }
 
 export const appTheme: Theme = {

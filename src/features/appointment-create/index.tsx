@@ -1,10 +1,11 @@
 import { Animated, ScrollView, View } from "react-native"
+import { useRef, useState } from "react"
+import { router } from "expo-router"
 
 import { Button } from "@/shared/components"
-import { useRef, useState } from "react"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
-import { router } from "expo-router"
+
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"

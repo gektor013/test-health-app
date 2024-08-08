@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
+import { useState } from "react"
 
 import { CheckBox, Therapist } from "@/shared/components"
 
