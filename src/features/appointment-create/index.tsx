@@ -1,6 +1,6 @@
-import { Animated, ScrollView, View } from "react-native"
-import { useRef, useState } from "react"
 import { router } from "expo-router"
+import { useRef, useState } from "react"
+import { Animated, ScrollView, View } from "react-native"
 
 import { Button } from "@/shared/components"
 // import { slides } from "../onboarding/util"
@@ -101,9 +101,7 @@ export const AppointmentCreate = () => {
         containerStyles={{
           position: "absolute",
           bottom: 8,
-          width: "100%",
-          backgroundColor: "transparent",
-          zIndex: 1000
+          width: "100%"
         }}
         variant="primary"
       />

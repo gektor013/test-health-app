@@ -20,3 +20,6 @@ export type SVGIconNames =
   | "arrow_down"
   | "arrow_right"
   | "standart_calendar"
+  | "pdf"
+  | "trash"
+  | "upload"

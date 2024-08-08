@@ -7,6 +7,7 @@ import { CheckBox, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { router } from "expo-router"
 import { DropdownComponent } from "../dropdown/dropdown"
 import { FinalAppointment } from "../final-appointment/final-appointment"
 
@@ -94,9 +95,7 @@ export const Patientdetails = () => {
             control={control}
             inputProps={{
               placeholder: t("No documents uploaded"),
-              onPress: () => {
-                console.log("asda")
-              },
+              onPress: () => router.navigate("/upload-document"),
               editable: false
             }}
             iconName="arrow_right"

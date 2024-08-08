@@ -39,6 +39,14 @@ export default function RootLayout() {
                     <Stack.Screen name="welcome" options={{ headerShown: false }} />
                     <Stack.Screen name="onboarding" options={{ headerShown: false }} />
                     <Stack.Screen
+                      name="upload-document"
+                      options={{
+                        headerShown: true,
+                        title: "Upload Document",
+                        headerBackTitleVisible: false
+                      }}
+                    />
+                    <Stack.Screen
                       name="auth/sign-in"
                       options={{
                         headerBackTitleVisible: false,
