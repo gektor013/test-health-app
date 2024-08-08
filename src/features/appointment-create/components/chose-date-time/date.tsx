@@ -20,7 +20,7 @@ export const ChooseDate = () => {
       <Text style={styles.title}>Choose the date and time that suits you</Text>
       <View style={styles.calendarContainer}>
         <Calendar
-          current={today}
+          current={selectedDate}
           disableAllTouchEventsForDisabledDays={true}
           dayComponent={({ date }: any) => {
             const isSelected = date.dateString === selectedDate

@@ -1,13 +1,15 @@
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
 import React, { useEffect, useRef, useState } from "react"
-import { Animated, StyleSheet, View } from "react-native"
+import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
 
 interface Props {
   data: Record<string, string>[]
+  label?: string
+  plaseholder?: string
 }
-export const DropdownComponent = ({ data }: Props) => {
+export const DropdownComponent = ({ data, label, plaseholder }: Props) => {
   const [value, setValue] = useState<string | null>(null)
   const [isFocus, setIsFocus] = useState(false)
 
@@ -29,6 +31,7 @@ export const DropdownComponent = ({ data }: Props) => {
   return (
     <View style={styles.container}>
       {/* {renderLabel()} */}
+      {label && <Text style={{ fontWeight: "600" }}>{label}</Text>}
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: colors.green }]}
         placeholderStyle={styles.placeholderStyle}
@@ -49,7 +52,7 @@ export const DropdownComponent = ({ data }: Props) => {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Select item" : "..."}
+        placeholder={!isFocus ? plaseholder : "..."}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
@@ -69,14 +72,15 @@ export const DropdownComponent = ({ data }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    gap: 8
   },
   dropdown: {
     height: 50,
     borderColor: colors.light_gray,
     borderWidth: 0.5,
     borderRadius: 12,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     backgroundColor: colors.light_gray
   },
   icon: {

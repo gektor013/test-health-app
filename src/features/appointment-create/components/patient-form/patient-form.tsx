@@ -11,8 +11,8 @@ const defaultValues = {
 }
 
 const data = [
-  { label: "Male", value: "Male" },
-  { label: "Female", value: "Female" }
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" }
 ]
 
 const width = commonHelpers.getDimensionsParams().width - 32
@@ -50,19 +50,8 @@ export const Patientdetails = () => {
             placeholder: t("+0 (000) 000-00-00")
           }}
         />
-        {/* 
-        <TextInput
-          label={t("Male")}
-          name="email"
-          control={control}
-          inputProps={{
-            placeholder: t("Male"),
-            onPress: handleOpenPress,
-            editable: false
-          }}
-          iconName="arrow_down"
-        /> */}
-        <DropdownComponent data={data} />
+
+        <DropdownComponent data={data} label="Gender" plaseholder="Male" />
 
         <TextInput
           label={t("Date of birth")}
