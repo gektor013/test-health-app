@@ -38,13 +38,15 @@ export const Button: React.FC<Props> = ({
     if (pressed) colorStyles = containerPressedColorStyles[variant]
     if (disabled) colorStyles = containerDisabledColorStyles[variant]
 
-    return [styles.container, containerStyles, colorStyles]
+    return [styles.container, colorStyles, containerStyles]
   }
 
   return (
     <Pressable style={getContainerStyle} disabled={disabled} {...rest}>
       {Icon}
-      {variant !== "round" && <Text style={styles.text}>{title}</Text>}
+      {variant !== "round" && (
+        <Text style={[styles.text, textColorStyles[variant]]}>{title}</Text>
+      )}
     </Pressable>
   )
 }
@@ -75,7 +77,7 @@ const containerColorStyles = StyleSheet.create({
   },
   outline: {
     backgroundColor: colors.white,
-    borderColor: colors.white
+    borderColor: colors.green
   },
   round: {
     width: 40,
@@ -127,7 +129,7 @@ const containerDisabledColorStyles = StyleSheet.create({
   },
   outline: {
     backgroundColor: colors.white,
-    borderColor: colors.light_green
+    borderColor: colors.light_gray
   },
   round: {
     backgroundColor: colors.disabled,
@@ -137,4 +139,14 @@ const containerDisabledColorStyles = StyleSheet.create({
     backgroundColor: colors.light_green,
     borderColor: colors.light_green
   }
+})
+
+const textColorStyles = StyleSheet.create({
+  primary: {},
+  secondary: {},
+  outline: {
+    color: colors.black
+  },
+  round: {},
+  navigation: {}
 })

@@ -1,18 +1,18 @@
-import { useState } from "react"
-import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 import {
   Pressable,
-  TextInput as RNTextInput,
   StyleSheet,
+  TextInput as RNTextInput,
   TextInputProps,
   TextProps,
   View
 } from "react-native"
 import MaskInput from "react-native-mask-input"
+import { useState } from "react"
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 
 import { colors } from "@/constants"
-
 import { SVGIconNames } from "@/types/icons"
+
 import { FormError } from "./form-error"
 import { SVGIcon } from "./svg-icon"
 import { Text } from "./text"

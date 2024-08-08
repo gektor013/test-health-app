@@ -1,10 +1,11 @@
+import { router } from "expo-router"
+import { useRef, useState } from "react"
 import { Animated, ScrollView, View } from "react-native"
 
 import { Button } from "@/shared/components"
-import { useRef, useState } from "react"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
-import { router } from "expo-router"
+
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"
@@ -100,9 +101,7 @@ export const AppointmentCreate = () => {
         containerStyles={{
           position: "absolute",
           bottom: 8,
-          width: "100%",
-          backgroundColor: "transparent",
-          zIndex: 1000
+          width: "100%"
         }}
         variant="primary"
       />

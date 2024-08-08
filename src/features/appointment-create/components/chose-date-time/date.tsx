@@ -1,8 +1,8 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Calendar } from "react-native-calendars"
+import { useState } from "react"
 
 import { colors } from "@/constants"
-import { useState } from "react"
-import { Calendar } from "react-native-calendars"
 
 const width = Dimensions.get("window").width
 export const ChooseDate = () => {

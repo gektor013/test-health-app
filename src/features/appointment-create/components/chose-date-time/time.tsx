@@ -1,6 +1,7 @@
+import { Pressable, StyleSheet, Text, View } from "react-native"
+
 import { colors } from "@/constants"
 import { commonHelpers } from "@/utils/helpers/common"
-import { Pressable, StyleSheet, Text, View } from "react-native"
 
 const time = [
   "08:00-08:45",
