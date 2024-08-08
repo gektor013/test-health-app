@@ -13,8 +13,8 @@ import {
 import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 
+import { authSlice, mediaSlice } from "./features"
 import { unauthenticatedMiddleware } from "./middlewares/unauthenticated"
-import { authSlice } from "./features"
 import { appApi } from "./services"
 import { MMKVStorage } from "./storage"
 
@@ -26,7 +26,8 @@ const persistConfig = {
 
 const reducers = combineReducers({
   [appApi.reducerPath]: appApi.reducer,
-  [authSlice.name]: authSlice.reducer
+  [authSlice.name]: authSlice.reducer,
+  [mediaSlice.name]: mediaSlice.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)

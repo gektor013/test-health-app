@@ -23,3 +23,4 @@ export type SVGIconNames =
   | "pdf"
   | "trash"
   | "upload"
+  | "check"
