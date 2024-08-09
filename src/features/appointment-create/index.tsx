@@ -4,7 +4,10 @@ import { Button } from "@/shared/components"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { useGetAllEmployeesQuery } from "@/redux/services/employee-api"
+import {
+  useGetAllEmployeesQuery,
+  useGetEmployeeSchduleQuery
+} from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { appointmentSchema } from "@/schemas/appointment-create/appointment-create.schema"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
@@ -48,7 +51,7 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     birthdate: "",
     sex: "Male"
   },
-  startedAt: "",
+  startedAt: new Date().toISOString().split("T")[0],
   finishedAt: "",
   isPaid: true
 }
@@ -58,22 +61,30 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
 
 export const AppointmentCreate = () => {
   const { currentIndex, stepsMethods, refs } = useSetStep(width)
-  const { data: servicesData } = useGetAllServicesQuery()
-  const { data: employeeData } = useGetAllEmployeesQuery()
 
   const {
     control,
-    handleSubmit,
     watch,
-    setError,
+    getValues,
+    handleSubmit,
     formState: { errors }
   } = useForm<AppointmentCreateSchemaData>({
-    defaultValues: DEFAUL_DATA,
     mode: "onChange",
+    defaultValues: DEFAUL_DATA,
     resolver: zodResolver(appointmentSchema)
   })
+  const WATCH_STARTED_AT = watch("startedAt")
 
-  console.log(errors, "ERRRORS")
+  const { data: servicesData } = useGetAllServicesQuery()
+  const { data: employeeData } = useGetAllEmployeesQuery()
+  const { data: scheduleData, isFetching: isScheduleLoading } =
+    useGetEmployeeSchduleQuery(
+      { date: WATCH_STARTED_AT, employee_id: getValues("employee").id! },
+      {
+        skip: !getValues("employee").id || !WATCH_STARTED_AT,
+        refetchOnMountOrArgChange: true
+      }
+    )
 
   const slides = [
     {
@@ -89,8 +100,10 @@ export const AppointmentCreate = () => {
       id: 2,
       component: () => (
         <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
-          <ChooseDate />
-          <ChooseTime />
+          <ChooseDate control={control} />
+          <ChooseTime
+            data={{ scheduleData: scheduleData, isLoading: isScheduleLoading }}
+          />
         </View>
       )
     },
@@ -101,7 +114,6 @@ export const AppointmentCreate = () => {
   ]
 
   const onHandleSubmit = handleSubmit(async (data: AppointmentCreateSchemaData) => {
-    console.log(data)
     switch (currentIndex) {
       case 0:
         if (errors.service || errors.employee) {

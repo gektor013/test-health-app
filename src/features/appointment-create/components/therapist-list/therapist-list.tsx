@@ -1,6 +1,6 @@
 import { CheckBox, Therapist } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
-import { EmployeesResponse } from "@/types/employees/employees.tpye"
+import { EmployeesResponse } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
 import { Control, Controller } from "react-hook-form"
 import { Pressable, StyleSheet, Text, View } from "react-native"
@@ -31,9 +31,9 @@ export const TherapistList = ({ data, control }: Props) => {
               >
                 <Therapist
                   name={employee.name}
-                  // img={}
+                  img={employee.image}
                   teraphyType={employee.employee.speciality}
-                  rating={5.0}
+                  rating={employee.rating}
                 />
                 <CheckBox
                   variant="round"

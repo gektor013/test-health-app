@@ -1,5 +1,5 @@
 import { employeeSchemaDto } from "@/dto/employees/employess.dto"
-import { EmployeesResponse } from "@/types/employees/employees.tpye"
+import { EmployeesResponse, ScheduleEmloyeeTime } from "@/types/employees/employees.type"
 import { HydraData, TransformedData } from "@/types/transformData"
 import { transformDataHelpers } from "@/utils/helpers/transformData"
 import { appApi } from "./app-api"
@@ -27,8 +27,16 @@ export const endpointsmployeeApi = appApi.injectEndpoints({
 
         return {} as TransformedData<EmployeesResponse>
       }
+    }),
+    getEmployeeSchdule: builder.query<
+      ScheduleEmloyeeTime[],
+      { employee_id: number; date: string }
+    >({
+      query: ({ date, employee_id }) => ({
+        url: `/api/public/employees/${employee_id}/schedule/${date}`
+      })
     })
   })
 })
 
-export const { useGetAllEmployeesQuery } = endpointsmployeeApi
+export const { useGetAllEmployeesQuery, useGetEmployeeSchduleQuery } = endpointsmployeeApi

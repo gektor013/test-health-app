@@ -28,5 +28,7 @@ export const employeeSchemaDto = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   birthdate: z.string().nullable(),
-  sex: z.string().nullable()
+  sex: z.string().nullable(),
+  rating: z.string(),
+  image: z.string().nullable()
 })

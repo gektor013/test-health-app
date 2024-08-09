@@ -1,53 +1,64 @@
+import { Control, Controller } from "react-hook-form"
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Calendar } from "react-native-calendars"
-import { useState } from "react"
 
 import { colors } from "@/constants"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 
 const width = Dimensions.get("window").width
-export const ChooseDate = () => {
-  const today = new Date()
-  const [selectedDate, setSelectedDate] = useState<string>(
-    today.toISOString().split("T")[0]
-  )
 
-  const onDayPress = (day: any) => {
-    setSelectedDate(day.dateString)
-  }
+interface Props {
+  control: Control<AppointmentCreateSchemaData>
+}
 
+export const ChooseDate = ({ control }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose the date and time that suits you</Text>
       <View style={styles.calendarContainer}>
-        <Calendar
-          current={selectedDate}
-          disableAllTouchEventsForDisabledDays={true}
-          dayComponent={({ date }: any) => {
-            const isSelected = date.dateString === selectedDate
+        <Controller
+          control={control}
+          name="startedAt"
+          render={({ field: { onChange, value } }) => (
+            <Calendar
+              current={value}
+              disableAllTouchEventsForDisabledDays={true}
+              dayComponent={({ date }: any) => {
+                const isSelected = date.dateString === value
 
-            return (
-              <TouchableOpacity onPress={() => onDayPress(date)} style={{ flex: 1 }}>
-                <View
-                  style={[styles.dayContainer, isSelected && styles.selectedDayContainer]}
-                >
-                  <Text style={[styles.dayText, isSelected && styles.selectedDayText]}>
-                    {date.day}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )
-          }}
-          theme={{
-            todayTextColor: "#00adf5",
-            arrowColor: "black",
-            monthTextColor: "black",
-            textDayFontWeight: "300",
-            textMonthFontWeight: "bold",
-            textDayHeaderFontWeight: "300",
-            textDayFontSize: 16,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 16
-          }}
+                return (
+                  <TouchableOpacity
+                    onPress={() => onChange(date.dateString)}
+                    style={{ flex: 1 }}
+                  >
+                    <View
+                      style={[
+                        styles.dayContainer,
+                        isSelected && styles.selectedDayContainer
+                      ]}
+                    >
+                      <Text
+                        style={[styles.dayText, isSelected && styles.selectedDayText]}
+                      >
+                        {date.day}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )
+              }}
+              theme={{
+                todayTextColor: "#00adf5",
+                arrowColor: "black",
+                monthTextColor: "black",
+                textDayFontWeight: "300",
+                textMonthFontWeight: "bold",
+                textDayHeaderFontWeight: "300",
+                textDayFontSize: 16,
+                textMonthFontSize: 16,
+                textDayHeaderFontSize: 16
+              }}
+            />
+          )}
         />
       </View>
     </View>
