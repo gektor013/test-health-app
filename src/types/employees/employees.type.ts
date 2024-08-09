@@ -1,5 +1,6 @@
-import { employeeSchemaDto } from "@/dto/employees/employess.dto"
 import { z } from "zod"
+
+import { employeeSchemaDto } from "@/dto/employees/employess.dto"
 
 export type EmployeesResponse = z.infer<typeof employeeSchemaDto>
 

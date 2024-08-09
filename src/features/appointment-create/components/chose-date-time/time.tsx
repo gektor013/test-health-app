@@ -1,11 +1,11 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { ScheduleEmloyeeTime } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
-import { Control, Controller } from "react-hook-form"
 
 const width = commonHelpers.getDimensionsParams().width - 32
 

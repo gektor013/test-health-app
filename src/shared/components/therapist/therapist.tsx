@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
 
 import StarIcon from "#/icons/star.svg"
-import { API_URL } from "@/constants/enviroments"
 
 interface Props {
   name: string

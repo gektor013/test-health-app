@@ -1,13 +1,15 @@
-import { colors } from "@/constants"
-import { useAppSelector } from "@/redux"
-import { usePostMediaObjectMutation } from "@/redux/services"
-import { Button, SVGIcon } from "@/shared/components"
-import React, { useCallback, useState } from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
+import React, { useCallback, useState } from "react"
+
+import { colors } from "@/constants"
+import { useAppSelector } from "@/redux"
+import { usePostMediaObjectMutation } from "@/redux/services"
+import { Button, SVGIcon } from "@/shared/components"
+
 import CustomProgressBar from "./propgress-bar"
 
 const formatedSize = (size: number) => {

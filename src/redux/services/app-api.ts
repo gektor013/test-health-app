@@ -1,5 +1,6 @@
 import { API_URL } from "@/constants/enviroments"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+
 import { RootState } from ".."
 
 export const appApi = createApi({

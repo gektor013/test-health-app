@@ -1,6 +1,6 @@
-import { Control, Controller } from "react-hook-form"
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Calendar } from "react-native-calendars"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"

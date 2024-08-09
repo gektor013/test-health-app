@@ -1,7 +1,8 @@
+import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
 
 interface Props {
   t: (key: string) => string

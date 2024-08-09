@@ -1,5 +1,5 @@
-import { useMemo } from "react"
 import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native"
+import { useMemo } from "react"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"

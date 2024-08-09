@@ -40,28 +40,28 @@ export const Patientdetails = () => {
     <View style={styles.mainConatiner}>
       <Text style={styles.title}>{t("Patient Details")}</Text>
 
-        <DatePicker
-          modal
-          open={open}
-          date={date}
-          onConfirm={(date) => {
-            setOpen(false)
-            setDate(date)
-          }}
-          onCancel={() => {
-            setOpen(false)
+      <DatePicker
+        modal
+        open={open}
+        date={date}
+        onConfirm={(date) => {
+          setOpen(false)
+          setDate(date)
+        }}
+        onCancel={() => {
+          setOpen(false)
+        }}
+      />
+
+      <View style={{ gap: 16 }}>
+        <TextInput
+          label={t("Full name")}
+          name="email"
+          control={control}
+          inputProps={{
+            placeholder: t("Name")
           }}
         />
-
-        <View style={{ gap: 16 }}>
-          <TextInput
-            label={t("Full name")}
-            name="email"
-            control={control}
-            inputProps={{
-              placeholder: t("Name")
-            }}
-          />
 
         <TextInput
           label={t("Phone number")}
@@ -72,48 +72,47 @@ export const Patientdetails = () => {
           }}
         />
 
-          <DropdownComponent data={data} label="Gender" plaseholder="Male" />
+        <DropdownComponent data={data} label="Gender" plaseholder="Male" />
 
-          <TextInput
-            label={t("Date of birth")}
-            name="email"
-            control={control}
-            inputProps={{
-              placeholder: t("June/01/1990"),
-              onPress: () => {
-                setOpen(true)
-              },
-              editable: false
-            }}
-            iconName="standart_calendar"
-          />
+        <TextInput
+          label={t("Date of birth")}
+          name="email"
+          control={control}
+          inputProps={{
+            placeholder: t("June/01/1990"),
+            onPress: () => {
+              setOpen(true)
+            },
+            editable: false
+          }}
+          iconName="standart_calendar"
+        />
 
-          <TextInput
-            label={t("Uploaded documents")}
-            name="email"
-            control={control}
-            inputProps={{
-              placeholder: t("No documents uploaded"),
-              onPress: () => router.navigate("/upload-document"),
-              editable: false
-            }}
-            iconName="arrow_right"
-          />
+        <TextInput
+          label={t("Uploaded documents")}
+          name="email"
+          control={control}
+          inputProps={{
+            placeholder: t("No documents uploaded"),
+            onPress: () => router.navigate("/upload-document"),
+            editable: false
+          }}
+          iconName="arrow_right"
+        />
 
-          <View style={styles.checkboxContainer}>
-            <CheckBox variant="square" isChecked={true} onPress={() => {}} />
-            <Text>Booking for another person</Text>
-          </View>
+        <View style={styles.checkboxContainer}>
+          <CheckBox variant="square" isChecked={true} onPress={() => {}} />
+          <Text>Booking for another person</Text>
+        </View>
 
-          <View style={styles.finalAppointmentContainer}>
-            <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
-            <FinalAppointment t={t} />
-            <FinalAppointment t={t} />
-            <FinalAppointment t={t} />
-          </View>
+        <View style={styles.finalAppointmentContainer}>
+          <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
+          <FinalAppointment t={t} />
+          <FinalAppointment t={t} />
+          <FinalAppointment t={t} />
         </View>
       </View>
-    </>
+    </View>
   )
 }
 

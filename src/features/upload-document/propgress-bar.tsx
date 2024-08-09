@@ -1,12 +1,13 @@
 // CustomProgressBar.js
-import { colors } from "@/constants"
-import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from "react-native-reanimated"
+import React from "react"
+
+import { colors } from "@/constants"
 
 const CustomProgressBar = ({ progress }: { progress: number }) => {
   const progressValue = useSharedValue(progress)

@@ -1,7 +1,8 @@
-import { slides } from "@/features/onboarding/util"
-import { router } from "expo-router"
-import { useRef, useState } from "react"
 import { Animated, ScrollView } from "react-native"
+import { useRef, useState } from "react"
+import { router } from "expo-router"
+
+import { slides } from "@/features/onboarding/util"
 
 interface ReturnStepData {
   currentIndex: number

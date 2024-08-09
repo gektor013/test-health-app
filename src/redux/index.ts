@@ -13,8 +13,8 @@ import {
 import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 
-import { authSlice, mediaSlice } from "./features"
 import { unauthenticatedMiddleware } from "./middlewares/unauthenticated"
+import { authSlice, mediaSlice } from "./features"
 import { appApi } from "./services"
 import { MMKVStorage } from "./storage"
 

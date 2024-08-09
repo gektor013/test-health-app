@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native"
+import { Control, Controller } from "react-hook-form"
 
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { ServiceResponse } from "@/types/service/service.type"
-import { Control, Controller } from "react-hook-form"
+
 import { VisitType } from "./visit-type"
 
 interface Props {

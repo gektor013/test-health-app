@@ -1,8 +1,5 @@
 import { Animated, ScrollView, View } from "react-native"
-
-import { Button } from "@/shared/components"
-// import { slides } from "../onboarding/util"
-import { commonHelpers } from "@/utils/helpers/common"
+import { useForm } from "react-hook-form"
 
 import {
   useGetAllEmployeesQuery,
@@ -10,9 +7,12 @@ import {
 } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
+import { Button } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+// import { slides } from "../onboarding/util"
+import { commonHelpers } from "@/utils/helpers/common"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"
