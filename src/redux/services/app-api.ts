@@ -1,5 +1,6 @@
 import { API_URL } from "@/constants/enviroments"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { RootState } from ".."
 
 export const appApi = createApi({
   reducerPath: "appApi",
@@ -8,17 +9,15 @@ export const appApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: async (headers, { getState }) => {
-      // const state: RootState = getState() as RootState
-      // const token = state.auth.user?.token;
+      const state: RootState = getState() as RootState
+      const token = state.auth.token
 
       if (headers.has("Internal-key")) {
         headers.set("Authorization", `Bearer ${headers.get("Internal-key")}`)
         headers.delete("Internal-key")
+      } else if (token) {
+        headers.set("Authorization", `Bearer ${token}`)
       }
-
-      // else if (token) {
-      //   headers.set("Authorization", `Bearer ${token}`);
-      // }
 
       if (!headers.has("Ignore-Headers")) {
         if (!headers.has("Content-Type")) {

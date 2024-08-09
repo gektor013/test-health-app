@@ -4,6 +4,7 @@ import { Button } from "@/shared/components"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { useGetAllEmployeesQuery } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
@@ -17,16 +18,23 @@ import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
 
+// TROUBLESHOOTING
+// 1. HOW TO SHOW VISIT IMG?
+
 export const AppointmentCreate = () => {
   const { currentIndex, stepsMethods, refs } = useSetStep(width)
   const { data: servicesData } = useGetAllServicesQuery()
+  const { data: employeeData } = useGetAllEmployeesQuery()
+  console.log(employeeData, "employeeData")
+  // const { token } = useAppSelector((state) => state.auth)
+  // console.log(token)
 
   const slides = [
     {
       id: 1,
       component: () => (
         <>
-          <VisitsTypes />
+          <VisitsTypes data={servicesData?.data} />
           <TherapistList />
         </>
       )
@@ -49,7 +57,7 @@ export const AppointmentCreate = () => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={stepsMethods.onBackPress} />
-      <Steps />
+      <Steps currentIndexStep={currentIndex} />
       <Animated.ScrollView
         ref={refs.scrollViewRef}
         horizontal
