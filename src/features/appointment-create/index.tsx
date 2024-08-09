@@ -52,6 +52,10 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     sex: "Male"
   },
   startedAt: new Date().toISOString().split("T")[0],
+  choosenTime: {
+    endTime: "",
+    startTime: ""
+  },
   finishedAt: "",
   isPaid: true
 }
@@ -74,6 +78,7 @@ export const AppointmentCreate = () => {
     resolver: zodResolver(appointmentSchema)
   })
   const WATCH_STARTED_AT = watch("startedAt")
+  console.log(errors, "ERRORS")
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
@@ -102,6 +107,7 @@ export const AppointmentCreate = () => {
         <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
           <ChooseDate control={control} />
           <ChooseTime
+            control={control}
             data={{ scheduleData: scheduleData, isLoading: isScheduleLoading }}
           />
         </View>
@@ -117,6 +123,11 @@ export const AppointmentCreate = () => {
     switch (currentIndex) {
       case 0:
         if (errors.service || errors.employee) {
+          break
+        }
+        return stepsMethods.handleNext()
+      case 1:
+        if (errors.choosenTime?.endTime || errors.choosenTime?.startTime) {
           break
         }
         return stepsMethods.handleNext()

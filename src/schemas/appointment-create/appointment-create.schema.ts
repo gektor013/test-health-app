@@ -27,6 +27,10 @@ export const appointmentSchema = z.object({
     sex: z.string().nullable()
   }),
   startedAt: z.string(),
+  choosenTime: z.object({
+    startTime: z.string().min(1),
+    endTime: z.string().min(1)
+  }),
   finishedAt: z.string(),
   isPaid: z.boolean()
 })

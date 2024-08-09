@@ -2,16 +2,19 @@ import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-nati
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { ScheduleEmloyeeTime } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
+import { Control, Controller } from "react-hook-form"
 
 const width = commonHelpers.getDimensionsParams().width - 32
 
 interface Props {
+  control: Control<AppointmentCreateSchemaData>
   data: { scheduleData: ScheduleEmloyeeTime[] | undefined; isLoading: boolean }
 }
 
-export const ChooseTime = ({ data }: Props) => {
+export const ChooseTime = ({ data, control }: Props) => {
   const { t } = useTranslations()
 
   return (
@@ -31,14 +34,27 @@ export const ChooseTime = ({ data }: Props) => {
       </View>
       <View style={styles.timeContainer}>
         {data?.scheduleData?.map((t, i) => (
-          <Pressable
+          <Controller
+            name="choosenTime"
+            control={control}
             key={`${t.startTime}-${i}`}
-            style={[styles.time, i === 1 && styles.timeActive]}
-          >
-            <Text style={[i === 1 && styles.timeActive]}>
-              {t.startTime}-{t.endTime}
-            </Text>
-          </Pressable>
+            render={({ field: { onChange, value } }) => (
+              console.log(value, t),
+              (
+                <Pressable
+                  onPress={() => onChange(t)}
+                  style={[
+                    styles.time,
+                    value.startTime === t.startTime && styles.timeActive
+                  ]}
+                >
+                  <Text style={[value.startTime === t.startTime && styles.timeActive]}>
+                    {t.startTime}-{t.endTime}
+                  </Text>
+                </Pressable>
+              )
+            )}
+          />
         ))}
       </View>
     </View>
