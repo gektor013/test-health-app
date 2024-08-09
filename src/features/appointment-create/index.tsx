@@ -6,6 +6,10 @@ import { commonHelpers } from "@/utils/helpers/common"
 
 import { useGetAllEmployeesQuery } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
+import { appointmentSchema } from "@/schemas/appointment-create/appointment-create.schema"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
 import { CustomHeader } from "./components/header/header"
@@ -18,6 +22,35 @@ import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
 
+// export type AppointmentSchemaData = z.infer<typeof appointmentSchema>
+
+const DEFAUL_DATA: AppointmentCreateSchemaData = {
+  service: {
+    id: null,
+    name: "",
+    duration: 0,
+    price: "",
+    isActive: false,
+    createdAt: "",
+    updatedAt: ""
+  },
+  employee: {
+    name: "",
+    phone: "",
+    birthdate: "",
+    sex: ""
+  },
+  cabinet: {},
+  client: {
+    name: "",
+    phone: "",
+    birthdate: "",
+    sex: "Male"
+  },
+  startedAt: "",
+  finishedAt: "",
+  isPaid: true
+}
 // TROUBLESHOOTING
 // 1. HOW TO SHOW VISIT IMG?
 
@@ -25,17 +58,23 @@ export const AppointmentCreate = () => {
   const { currentIndex, stepsMethods, refs } = useSetStep(width)
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
-  console.log(employeeData, "employeeData")
+  // console.log(employeeData, "employeeData")
   // const { token } = useAppSelector((state) => state.auth)
   // console.log(token)
+
+  const { control, handleSubmit, watch } = useForm<AppointmentCreateSchemaData>({
+    defaultValues: DEFAUL_DATA,
+    mode: "onChange",
+    resolver: zodResolver(appointmentSchema)
+  })
 
   const slides = [
     {
       id: 1,
       component: () => (
         <>
-          <VisitsTypes data={servicesData?.data} />
-          <TherapistList />
+          <VisitsTypes data={servicesData?.data} controll={control} />
+          <TherapistList data={employeeData?.data} />
         </>
       )
     },
