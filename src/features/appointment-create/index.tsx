@@ -9,7 +9,7 @@ import {
   useGetEmployeeSchduleQuery
 } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
-import { appointmentSchema } from "@/schemas/appointment-create/appointment-create.schema"
+import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -75,10 +75,12 @@ export const AppointmentCreate = () => {
   } = useForm<AppointmentCreateSchemaData>({
     mode: "onChange",
     defaultValues: DEFAUL_DATA,
-    resolver: zodResolver(appointmentSchema)
+    resolver: zodResolver(appointmentSchemaFunction(currentIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
-  console.log(errors, "ERRORS")
+
+  console.log("render")
+  console.log(errors, currentIndex, "errors")
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
@@ -127,7 +129,7 @@ export const AppointmentCreate = () => {
         }
         return stepsMethods.handleNext()
       case 1:
-        if (errors.choosenTime?.endTime || errors.choosenTime?.startTime) {
+        if (errors.choosenTime) {
           break
         }
         return stepsMethods.handleNext()

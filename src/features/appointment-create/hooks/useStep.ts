@@ -20,6 +20,7 @@ export const useSetStep = (width: number): ReturnStepData => {
   const scrollViewRef = useRef<ScrollView>(null)
   const scrollX = useRef(new Animated.Value(0)).current
   const [currentIndex, setCurrentIndex] = useState(0)
+  // console.log(scrollX, "scrollX", currentIndex, "currentIndex")
 
   const handleNext = () => {
     if (currentIndex < slides.length - 1) {

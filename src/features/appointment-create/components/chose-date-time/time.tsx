@@ -39,20 +39,17 @@ export const ChooseTime = ({ data, control }: Props) => {
             control={control}
             key={`${t.startTime}-${i}`}
             render={({ field: { onChange, value } }) => (
-              console.log(value, t),
-              (
-                <Pressable
-                  onPress={() => onChange(t)}
-                  style={[
-                    styles.time,
-                    value.startTime === t.startTime && styles.timeActive
-                  ]}
-                >
-                  <Text style={[value.startTime === t.startTime && styles.timeActive]}>
-                    {t.startTime}-{t.endTime}
-                  </Text>
-                </Pressable>
-              )
+              <Pressable
+                onPress={() => onChange(t)}
+                style={[
+                  styles.time,
+                  value.startTime === t.startTime && styles.timeActive
+                ]}
+              >
+                <Text style={[value.startTime === t.startTime && styles.timeActive]}>
+                  {t.startTime}-{t.endTime}
+                </Text>
+              </Pressable>
             )}
           />
         ))}
