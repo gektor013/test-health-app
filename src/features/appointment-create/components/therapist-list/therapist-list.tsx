@@ -1,36 +1,48 @@
-import { useState } from "react"
-
 import { CheckBox, Therapist } from "@/shared/components"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { EmployeesResponse } from "@/types/employees/employees.tpye"
 import { commonHelpers } from "@/utils/helpers/common"
-import { StyleSheet, Text, View } from "react-native"
+import { Control, Controller } from "react-hook-form"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 
 interface Props {
+  control: Control<AppointmentCreateSchemaData>
   data: EmployeesResponse[] | undefined
 }
 
 const width = commonHelpers.getDimensionsParams().width - 32
 
-export const TherapistList = ({ data }: Props) => {
-  const [check, setCheck] = useState(false)
+export const TherapistList = ({ data, control }: Props) => {
   return (
     <View style={styles.therapistListMainContainer}>
       <Text style={styles.title}>Select the therapist</Text>
 
       <View style={styles.listContainer}>
         {data?.map((employee) => (
-          <View key={employee.id} style={styles.therapistContainer}>
-            <Therapist
-              name={employee.name}
-              teraphyType={employee.employee.speciality}
-              rating={5.0}
-            />
-            <CheckBox
-              onPress={() => setCheck(!check)}
-              isChecked={check}
-              variant="round"
-            />
-          </View>
+          <Controller
+            key={employee.id}
+            control={control}
+            name="employee"
+            render={({ field: { onChange, value } }) => (
+              <Pressable
+                onPress={() => onChange(employee)}
+                key={employee.id}
+                style={styles.therapistContainer}
+              >
+                <Therapist
+                  name={employee.name}
+                  // img={}
+                  teraphyType={employee.employee.speciality}
+                  rating={5.0}
+                />
+                <CheckBox
+                  variant="round"
+                  onPress={() => onChange(employee)}
+                  isChecked={value.id === employee.id}
+                />
+              </Pressable>
+            )}
+          />
         ))}
       </View>
     </View>

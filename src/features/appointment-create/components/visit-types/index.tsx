@@ -6,11 +6,11 @@ import { Control, Controller } from "react-hook-form"
 import { VisitType } from "./visit-type"
 
 interface Props {
-  controll: Control<AppointmentCreateSchemaData>
+  control: Control<AppointmentCreateSchemaData>
   data: ServiceResponse[] | undefined
 }
 
-export const VisitsTypes = ({ data, controll }: Props) => {
+export const VisitsTypes = ({ data, control }: Props) => {
   return (
     <View style={styles.visitsContainer}>
       <Text style={styles.visitsContainerTitle}>Select the type of visit</Text>
@@ -19,7 +19,7 @@ export const VisitsTypes = ({ data, controll }: Props) => {
         {data?.map((item) => (
           <Controller
             key={item.id}
-            control={controll}
+            control={control}
             name="service"
             render={({ field: { onChange, value } }) => (
               <VisitType

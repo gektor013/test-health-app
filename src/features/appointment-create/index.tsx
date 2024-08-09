@@ -35,6 +35,7 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     updatedAt: ""
   },
   employee: {
+    id: null,
     name: "",
     phone: "",
     birthdate: "",
@@ -53,28 +54,34 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
 }
 // TROUBLESHOOTING
 // 1. HOW TO SHOW VISIT IMG?
+// 2. /api/private/employees lacks employee's photo card and dont fave rating
 
 export const AppointmentCreate = () => {
   const { currentIndex, stepsMethods, refs } = useSetStep(width)
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
-  // console.log(employeeData, "employeeData")
-  // const { token } = useAppSelector((state) => state.auth)
-  // console.log(token)
 
-  const { control, handleSubmit, watch } = useForm<AppointmentCreateSchemaData>({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors }
+  } = useForm<AppointmentCreateSchemaData>({
     defaultValues: DEFAUL_DATA,
     mode: "onChange",
     resolver: zodResolver(appointmentSchema)
   })
+
+  console.log(errors, "ERRRORS")
 
   const slides = [
     {
       id: 1,
       component: () => (
         <>
-          <VisitsTypes data={servicesData?.data} controll={control} />
-          <TherapistList data={employeeData?.data} />
+          <VisitsTypes data={servicesData?.data} control={control} />
+          <TherapistList data={employeeData?.data} control={control} />
         </>
       )
     },
@@ -92,6 +99,17 @@ export const AppointmentCreate = () => {
       component: () => <Patientdetails />
     }
   ]
+
+  const onHandleSubmit = handleSubmit(async (data: AppointmentCreateSchemaData) => {
+    console.log(data)
+    switch (currentIndex) {
+      case 0:
+        if (errors.service || errors.employee) {
+          break
+        }
+        return stepsMethods.handleNext()
+    }
+  })
 
   return (
     <View style={styles.container}>
@@ -128,7 +146,7 @@ export const AppointmentCreate = () => {
 
       <Button
         title="Next"
-        onPress={stepsMethods.handleNext}
+        onPress={onHandleSubmit}
         containerStyles={{
           position: "absolute",
           bottom: 8,

@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native"
 import { colors } from "@/constants"
 
 import DoctorImg from "#/doctors/doctor-1.png"
-import StarIcon from "#/icons/star.svg"
+// import StarIcon from "#/icons/star.svg"
 
 interface Props {
   name: string
@@ -18,9 +18,7 @@ export const Therapist = ({ name, rating, teraphyType }: Props) => {
       <View style={styles.therapistInfoContainer}>
         <Text style={styles.text}>{name}</Text>
         <Text style={{ color: colors.green }}>{teraphyType}</Text>
-        <Text>
-          <StarIcon /> {rating}(12)
-        </Text>
+        <Text>{/* <StarIcon /> {rating}(12) */}</Text>
       </View>
     </View>
   )

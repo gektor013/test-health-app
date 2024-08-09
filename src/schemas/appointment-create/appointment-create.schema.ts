@@ -3,17 +3,18 @@ import { z } from "zod"
 export const appointmentSchema = z.object({
   service: z
     .object({
-      id: z.number().nullable(),
-      name: z.string(),
+      id: z.number().min(1).nullish(),
+      name: z.string().min(1),
       duration: z.number(),
       price: z.string(),
       isActive: z.boolean(),
       createdAt: z.string(),
       updatedAt: z.string()
     })
-    .nullable(),
+    .required(),
   employee: z.object({
-    name: z.string(),
+    id: z.number().nullable(),
+    name: z.string().min(1),
     phone: z.string().nullable(),
     sex: z.string().nullable(),
     birthdate: z.string().nullable()
