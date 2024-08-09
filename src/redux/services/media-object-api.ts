@@ -10,7 +10,7 @@ export const mediaObjectsApi = appApi.injectEndpoints({
       queryFn: async (param, api) => {
         try {
           const uploadTask = await FileSystem.createUploadTask(
-            API_URL + "apis/public/media_objects",
+            API_URL + "/api/public/media_objects",
             param,
 
             {

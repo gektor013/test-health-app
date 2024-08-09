@@ -2,7 +2,7 @@ import { useRouter } from "expo-router"
 import { ExpoRouter } from "expo-router/types/expo-router"
 
 import { useAppSelector } from "@/redux"
-import { User } from "@/types/user"
+import { LoginResponse } from "@/types/user"
 
 import { useActions } from "./use-actions"
 
@@ -22,7 +22,7 @@ export const useAuth = () => {
     if (extra?.redirect) router.push(extra.redirect)
   }
 
-  const loginUser = (user: User, extra?: ExtraParams) => {
+  const loginUser = (user: LoginResponse, extra?: ExtraParams) => {
     logIn(user)
     checkAndHandleExtraParams(extra)
   }

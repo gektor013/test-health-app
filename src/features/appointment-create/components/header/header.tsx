@@ -2,8 +2,10 @@ import { Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
-
-export const CustomHeader = ({ onBackPress }: { onBackPress: () => void }) => {
+interface Props {
+  onBackPress: () => void
+}
+export const CustomHeader = ({ onBackPress }: Props) => {
   return (
     <View style={styles.headerContainer}>
       <Pressable onPress={onBackPress} style={styles.iconPress}>

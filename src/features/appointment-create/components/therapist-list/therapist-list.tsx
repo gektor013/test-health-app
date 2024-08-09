@@ -1,31 +1,49 @@
-import { StyleSheet, Text, View } from "react-native"
-import { useState } from "react"
-
 import { CheckBox, Therapist } from "@/shared/components"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { EmployeesResponse } from "@/types/employees/employees.type"
+import { commonHelpers } from "@/utils/helpers/common"
+import { Control, Controller } from "react-hook-form"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 
-export const TherapistList = () => {
-  const [check, setCheck] = useState(false)
+interface Props {
+  control: Control<AppointmentCreateSchemaData>
+  data: EmployeesResponse[] | undefined
+}
+
+const width = commonHelpers.getDimensionsParams().width - 32
+
+export const TherapistList = ({ data, control }: Props) => {
   return (
     <View style={styles.therapistListMainContainer}>
       <Text style={styles.title}>Select the therapist</Text>
 
       <View style={styles.listContainer}>
-        <View style={styles.therapistContainer}>
-          <Therapist name="Ronnie C. Torres" teraphyType="massage" rating={5.0} />
-          <CheckBox onPress={() => setCheck(!check)} isChecked={check} />
-        </View>
-        <View style={styles.therapistContainer}>
-          <Therapist name="Ronnie C. Torres" teraphyType="massage" rating={5.0} />
-          <CheckBox onPress={() => setCheck(!check)} isChecked={check} />
-        </View>
-        <View style={styles.therapistContainer}>
-          <Therapist name="Ronnie C. Torres" teraphyType="massage" rating={5.0} />
-          <CheckBox onPress={() => setCheck(!check)} isChecked={check} />
-        </View>
-        <View style={styles.therapistContainer}>
-          <Therapist name="Ronnie C. Torres" teraphyType="massage" rating={5.0} />
-          <CheckBox onPress={() => setCheck(!check)} isChecked={check} />
-        </View>
+        {data?.map((employee) => (
+          <Controller
+            key={employee.id}
+            control={control}
+            name="employee"
+            render={({ field: { onChange, value } }) => (
+              <Pressable
+                onPress={() => onChange(employee)}
+                key={employee.id}
+                style={styles.therapistContainer}
+              >
+                <Therapist
+                  name={employee.name}
+                  img={employee.image}
+                  teraphyType={employee.employee.speciality}
+                  rating={employee.rating}
+                />
+                <CheckBox
+                  variant="round"
+                  onPress={() => onChange(employee)}
+                  isChecked={value.id === employee.id}
+                />
+              </Pressable>
+            )}
+          />
+        ))}
       </View>
     </View>
   )
@@ -36,7 +54,8 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingTop: 32,
     marginBottom: 100,
-    position: "relative"
+    position: "relative",
+    width
   },
   title: {
     lineHeight: 17,

@@ -1,25 +1,37 @@
 import { StyleSheet, Text, View } from "react-native"
 
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { ServiceResponse } from "@/types/service/service.type"
+import { Control, Controller } from "react-hook-form"
 import { VisitType } from "./visit-type"
 
-export const VisitsTypes = () => {
+interface Props {
+  control: Control<AppointmentCreateSchemaData>
+  data: ServiceResponse[] | undefined
+}
+
+export const VisitsTypes = ({ data, control }: Props) => {
   return (
     <View style={styles.visitsContainer}>
       <Text style={styles.visitsContainerTitle}>Select the type of visit</Text>
 
       <View style={styles.visitsItemsContainer}>
-        <VisitType icon="massage" title="Massage" isActive={true} />
-        <VisitType icon="manual_terapy" title="Manual therapy" isActive={false} />
-        <VisitType icon="kinesitherapie" title="Kinesitherapia" isActive={false} />
-        <VisitType icon="osteopat" title="Osteopathy" isActive={false} />
-        <VisitType
-          icon="neurokinetic_therapy"
-          title="Neurokinetička terapija"
-          isActive={false}
-        />
-        <VisitType icon="stretching" title="Miofascijalna istezanja" isActive={false} />
-        <VisitType icon="shock_teraphy" title="Terapija udarnim valom" isActive={false} />
-        <VisitType icon="medestec_tretman" title="Medestec tretman" isActive={false} />
+        {data?.map((item) => (
+          <Controller
+            key={item.id}
+            control={control}
+            name="service"
+            render={({ field: { onChange, value } }) => (
+              <VisitType
+                key={item.id}
+                title={item.name}
+                onPress={() => onChange(item)}
+                icon={"manual_terapy"}
+                isActive={item.id === value?.id}
+              />
+            )}
+          />
+        ))}
       </View>
     </View>
   )

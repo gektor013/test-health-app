@@ -1,34 +1,57 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
+import { useTranslations } from "@/shared/hooks"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { ScheduleEmloyeeTime } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
-
-const time = [
-  "08:00-08:45",
-  "09:00-09:45",
-  "10:00-10:45",
-  "11:00-11:45",
-  "12:00-12:45",
-  "13:00-13:45",
-  "14:00-14:45",
-  "15:00-15:45",
-  "16:00-16:45",
-  "17:00-17:45",
-  "18:00-18:45",
-  "19:00-19:45",
-  "20:00-20:45"
-]
+import { Control, Controller } from "react-hook-form"
 
 const width = commonHelpers.getDimensionsParams().width - 32
-export const ChooseTime = () => {
+
+interface Props {
+  control: Control<AppointmentCreateSchemaData>
+  data: { scheduleData: ScheduleEmloyeeTime[] | undefined; isLoading: boolean }
+}
+
+export const ChooseTime = ({ data, control }: Props) => {
+  const { t } = useTranslations()
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Choose time</Text>
+      <View style={{ flexDirection: "row", gap: 5 }}>
+        <Text style={[styles.title, { position: "relative" }]}>{t("Choose time")}</Text>
+        <ActivityIndicator
+          color={colors.green}
+          size="small"
+          style={{
+            position: "absolute",
+            left: 90,
+            bottom: 0,
+            display: data?.isLoading ? "flex" : "none"
+          }}
+        />
+      </View>
       <View style={styles.timeContainer}>
-        {time.map((t, i) => (
-          <Pressable key={t} style={[styles.time, i === 1 && styles.timeActive]}>
-            <Text style={[i === 1 && styles.timeActive]}>11:00-11:45</Text>
-          </Pressable>
+        {data?.scheduleData?.map((t, i) => (
+          <Controller
+            name="choosenTime"
+            control={control}
+            key={`${t.startTime}-${i}`}
+            render={({ field: { onChange, value } }) => (
+              <Pressable
+                onPress={() => onChange(t)}
+                style={[
+                  styles.time,
+                  value.startTime === t.startTime && styles.timeActive
+                ]}
+              >
+                <Text style={[value.startTime === t.startTime && styles.timeActive]}>
+                  {t.startTime}-{t.endTime}
+                </Text>
+              </Pressable>
+            )}
+          />
         ))}
       </View>
     </View>
@@ -53,8 +76,8 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderWidth: 1,
     borderColor: colors.green,
-    borderRadius: 8,
-    maxWidth: 109
+    borderRadius: 8
+    // maxWidth: 109
   },
   timeActive: {
     backgroundColor: colors.green,

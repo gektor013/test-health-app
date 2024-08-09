@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text } from "react-native"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
@@ -11,22 +11,27 @@ interface Props {
   title: string
   icon: SVGIconNames
   isActive: boolean
+  onPress: (...event: any[]) => void
 }
-export const VisitType = ({ icon, title, isActive }: Props) => {
+export const VisitType = ({ icon, title, isActive, onPress }: Props) => {
   return (
-    <View style={[styles.stepContainer, isActive && styles.activeStepContainer]}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.stepContainer, isActive && styles.activeStepContainer]}
+    >
       <SVGIcon
         name={icon}
         color={isActive ? colors.white : colors.green}
         width={40}
         height={40}
       />
+
       <Text
         style={{ color: isActive ? colors.white : colors.black, textAlign: "center" }}
       >
         {title}
       </Text>
-    </View>
+    </Pressable>
   )
 }
 

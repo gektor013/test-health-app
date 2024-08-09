@@ -2,24 +2,25 @@ import { Image, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 
-import DoctorImg from "#/doctors/doctor-1.png"
 import StarIcon from "#/icons/star.svg"
+import { API_URL } from "@/constants/enviroments"
 
 interface Props {
   name: string
   teraphyType: string
-  rating: number
+  rating: string
+  img?: string | null
 }
 
-export const Therapist = ({ name, rating, teraphyType }: Props) => {
+export const Therapist = ({ name, rating, teraphyType, img }: Props) => {
   return (
     <View style={styles.threpistConstainer}>
-      <Image source={DoctorImg} style={styles.therapistImg} />
+      <Image source={{ uri: `${API_URL}${img}` }} style={styles.therapistImg} />
       <View style={styles.therapistInfoContainer}>
         <Text style={styles.text}>{name}</Text>
         <Text style={{ color: colors.green }}>{teraphyType}</Text>
         <Text>
-          <StarIcon /> {rating}(12)
+          <StarIcon /> {rating}
         </Text>
       </View>
     </View>

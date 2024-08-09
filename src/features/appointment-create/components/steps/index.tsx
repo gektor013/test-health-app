@@ -2,36 +2,97 @@ import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 
-export const Steps = () => {
+interface Props {
+  currentIndexStep: number
+}
+
+export const Steps = ({ currentIndexStep }: Props) => {
   return (
     <View style={styles.stepContainer}>
       <View style={styles.step}>
-        <View style={styles.transparentRound}>
-          <View style={[styles.circle, styles.active]}>
-            <Text style={[styles.stepNumberActive, { color: colors.white }]}>1</Text>
+        <View
+          style={[
+            styles.transparentRound,
+            {
+              borderColor:
+                currentIndexStep === 0 ? colors.transparent_green : "transparent"
+            }
+          ]}
+        >
+          <View style={[styles.circle, currentIndexStep === 0 && styles.active]}>
+            <Text
+              style={[
+                styles.stepNumber,
+                currentIndexStep === 0 && styles.stepNumberActive
+              ]}
+            >
+              1
+            </Text>
           </View>
-          <Text style={styles.stepLabelActive}>Choose a type and therapist</Text>
+          <Text
+            style={[styles.stepLabel, currentIndexStep === 0 && styles.stepLabelActive]}
+          >
+            Choose a type and therapist
+          </Text>
         </View>
       </View>
       <View style={styles.line} />
 
       <View style={styles.step}>
-        <View style={[styles.transparentRound, { borderColor: "transparent" }]}>
-          <View style={styles.circle}>
-            <Text style={styles.stepNumber}>2</Text>
+        <View
+          style={[
+            styles.transparentRound,
+            {
+              borderColor:
+                currentIndexStep === 1 ? colors.transparent_green : "transparent"
+            }
+          ]}
+        >
+          <View style={[styles.circle, currentIndexStep === 1 && styles.active]}>
+            <Text
+              style={[
+                styles.stepNumber,
+                currentIndexStep === 1 && styles.stepNumberActive
+              ]}
+            >
+              2
+            </Text>
           </View>
-          <Text style={styles.stepLabel}>Select the date and time</Text>
+          <Text
+            style={[styles.stepLabel, currentIndexStep === 1 && styles.stepLabelActive]}
+          >
+            Select the date and time
+          </Text>
         </View>
       </View>
 
       <View style={styles.line} />
 
       <View style={styles.step}>
-        <View style={[styles.transparentRound, { borderColor: "transparent" }]}>
-          <View style={styles.circle}>
-            <Text style={styles.stepNumber}>3</Text>
+        <View
+          style={[
+            styles.transparentRound,
+            {
+              borderColor:
+                currentIndexStep === 2 ? colors.transparent_green : "transparent"
+            }
+          ]}
+        >
+          <View style={[styles.circle, currentIndexStep === 2 && styles.active]}>
+            <Text
+              style={[
+                styles.stepNumber,
+                currentIndexStep === 2 && styles.stepNumberActive
+              ]}
+            >
+              3
+            </Text>
           </View>
-          <Text style={styles.stepLabel}>Patient details and Confirmation</Text>
+          <Text
+            style={[styles.stepLabel, currentIndexStep === 2 && styles.stepLabelActive]}
+          >
+            Patient details and Confirmation
+          </Text>
         </View>
       </View>
     </View>
@@ -81,7 +142,7 @@ const styles = StyleSheet.create({
   },
   stepNumberActive: {
     fontSize: 18,
-    color: "#4CAF50"
+    color: colors.white
   },
   stepLabel: {
     marginTop: 8,
