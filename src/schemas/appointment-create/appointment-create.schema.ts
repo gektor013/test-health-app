@@ -27,7 +27,8 @@ export const appointmentSchema = z
       name: z.string(),
       phone: z.string().nullable(),
       birthdate: z.string().nullable(),
-      sex: z.string().nullable()
+      sex: z.string().nullable(),
+      email: z.string({ message: "qwjqwejqwjk" }).email()
     }),
     startedAt: z.string(),
     choosenTime: z.object({
@@ -75,10 +76,55 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
       }),
       cabinet: z.object({}),
       client: z.object({
-        name: z.string(),
-        phone: z.string().nullable(),
-        birthdate: z.string().nullable(),
-        sex: z.string().nullable()
+        name: z.string().transform((val, ctx) => {
+          if (currentIndex === 2 && !val) {
+            ctx.addIssue({
+              code: "custom",
+              message: "Name is required",
+              path: ctx.path
+            })
+          }
+          return val
+        }),
+        phone: z
+          .string()
+          .nullable()
+          .transform((val, ctx) => {
+            if (currentIndex === 2 && !val) {
+              ctx.addIssue({
+                code: "custom",
+                message: "Name is required",
+                path: ctx.path
+              })
+            }
+            return val
+          }),
+        birthdate: z
+          .string()
+          .nullable()
+          .transform((val, ctx) => {
+            if (currentIndex === 2 && !val) {
+              ctx.addIssue({
+                code: "custom",
+                message: "Name is required",
+                path: ctx.path
+              })
+            }
+            return val
+          }),
+        sex: z
+          .string()
+          .nullable()
+          .transform((val, ctx) => {
+            if (currentIndex === 2 && !val) {
+              ctx.addIssue({
+                code: "custom",
+                message: "Gender is required",
+                path: ctx.path
+              })
+            }
+            return val
+          })
       }),
       startedAt: z.string(),
       choosenTime: z.object({

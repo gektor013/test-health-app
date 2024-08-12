@@ -49,7 +49,8 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     name: "",
     phone: "",
     birthdate: "",
-    sex: "Male"
+    sex: "",
+    email: ""
   },
   startedAt: new Date().toISOString().split("T")[0],
   choosenTime: {
@@ -78,9 +79,6 @@ export const AppointmentCreate = () => {
     resolver: zodResolver(appointmentSchemaFunction(currentIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
-
-  console.log("render")
-  console.log(errors, currentIndex, "errors")
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
@@ -117,7 +115,7 @@ export const AppointmentCreate = () => {
     },
     {
       id: 3,
-      component: () => <Patientdetails />
+      component: () => <Patientdetails control={control} />
     }
   ]
 
@@ -155,7 +153,10 @@ export const AppointmentCreate = () => {
         scrollEnabled={false}
         onMomentumScrollEnd={(event) => {
           const index = Math.floor(event.nativeEvent.contentOffset.x / width)
-          stepsMethods.setCurrentIndex(index)
+
+          if (index !== 1 || event.nativeEvent.contentOffset.x === 0) {
+            stepsMethods.setCurrentIndex(index)
+          }
         }}
       >
         {slides.map((slide, index) => (

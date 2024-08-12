@@ -1,12 +1,14 @@
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Control, Controller } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
 
-import { CheckBox, TextInput } from "@/shared/components"
+import { Button, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { colors } from "@/constants"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { router } from "expo-router"
 import { DropdownComponent } from "../dropdown/dropdown"
 import { FinalAppointment } from "../final-appointment/final-appointment"
@@ -22,19 +24,15 @@ const data = [
 ]
 
 const width = commonHelpers.getDimensionsParams().width - 32
-export const Patientdetails = () => {
+
+interface Props {
+  control: Control<AppointmentCreateSchemaData>
+}
+
+export const Patientdetails = ({ control }: Props) => {
   const { t } = useTranslations()
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setError
-  } = useForm({
-    defaultValues
-  })
 
   return (
     <>
@@ -57,7 +55,7 @@ export const Patientdetails = () => {
         <View style={{ gap: 16 }}>
           <TextInput
             label={t("Full name")}
-            name="email"
+            name="client.name"
             control={control}
             inputProps={{
               placeholder: t("Name")
@@ -66,18 +64,32 @@ export const Patientdetails = () => {
 
           <TextInput
             label={t("Phone number")}
-            name="email"
+            type="phone"
+            name="client.phone"
             control={control}
             inputProps={{
               placeholder: t("+0 (000) 000-00-00")
             }}
           />
 
-          <DropdownComponent data={data} label="Gender" plaseholder="Male" />
+          <Controller
+            control={control}
+            name="client.sex"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <DropdownComponent
+                data={data}
+                label="Gender"
+                plaseholder="Male"
+                isError={!!error}
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
 
           <TextInput
             label={t("Date of birth")}
-            name="email"
+            name="client.birthdate"
             control={control}
             inputProps={{
               placeholder: t("June/01/1990"),
@@ -89,22 +101,31 @@ export const Patientdetails = () => {
             iconName="standart_calendar"
           />
 
-          <TextInput
-            label={t("Uploaded documents")}
-            name="email"
-            control={control}
-            inputProps={{
-              placeholder: t("No documents uploaded"),
-              onPress: () => router.navigate("/upload-document"),
-              editable: false
+          <Text style={{ fontWeight: "600", marginBottom: -7 }}>
+            {t("Uploaded documents")}
+          </Text>
+
+          <Button
+            onPress={() => {
+              router.navigate("/upload-document")
             }}
-            iconName="arrow_right"
+            title={t("No documents uploaded")}
+            variant="outline"
+            containerStyles={styles.btnContainer}
+            iconRight={{
+              icon: "arrow_right",
+              color: colors.dark_gray,
+              size: 16
+            }}
+            titleStyle={{
+              color: colors.dark_gray
+            }}
           />
 
-          <View style={styles.checkboxContainer}>
+          {/* <View style={styles.checkboxContainer}>
             <CheckBox variant="square" isChecked={true} onPress={() => {}} />
             <Text>Booking for another person</Text>
-          </View>
+          </View> */}
 
           <View style={styles.finalAppointmentContainer}>
             <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
@@ -139,5 +160,11 @@ const styles = StyleSheet.create({
   },
   appointmentTitle: {
     fontWeight: "600"
+  },
+  btnContainer: {
+    backgroundColor: colors.light_gray,
+    borderColor: colors.light_gray,
+    justifyContent: "space-between",
+    paddingHorizontal: 16
   }
 })

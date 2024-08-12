@@ -1,6 +1,6 @@
+import React, { useEffect, useRef, useState } from "react"
 import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
-import React, { useEffect, useRef, useState } from "react"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
@@ -9,9 +9,19 @@ interface Props {
   data: Record<string, string>[]
   label?: string
   plaseholder?: string
+  isError?: boolean
+  value: string | null
+  onChange: (...event: any[]) => void
 }
-export const DropdownComponent = ({ data, label, plaseholder }: Props) => {
-  const [value, setValue] = useState<string | null>(null)
+export const DropdownComponent = ({
+  data,
+  label,
+  plaseholder,
+  isError,
+  value,
+  onChange
+}: Props) => {
+  // const [value, setValue] = useState<string | null>(null)
   const [isFocus, setIsFocus] = useState(false)
 
   const rotateAnim = useRef(new Animated.Value(0)).current
@@ -33,7 +43,15 @@ export const DropdownComponent = ({ data, label, plaseholder }: Props) => {
     <View style={styles.container}>
       {label && <Text style={{ fontWeight: "600" }}>{label}</Text>}
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: colors.green }]}
+        style={[
+          styles.dropdown,
+          isFocus && { borderColor: colors.green },
+          {
+            borderColor: isError ? colors.red : colors.light_gray,
+
+            borderWidth: isError ? 1 : 0
+          }
+        ]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
@@ -57,7 +75,7 @@ export const DropdownComponent = ({ data, label, plaseholder }: Props) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value)
+          onChange(item.value)
           setIsFocus(false)
         }}
         renderRightIcon={() => (

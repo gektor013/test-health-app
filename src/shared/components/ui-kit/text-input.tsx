@@ -1,14 +1,14 @@
+import { useState } from "react"
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 import {
   Pressable,
-  StyleSheet,
   TextInput as RNTextInput,
+  StyleSheet,
   TextInputProps,
   TextProps,
   View
 } from "react-native"
 import MaskInput from "react-native-mask-input"
-import { useState } from "react"
-import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
@@ -74,8 +74,7 @@ export const TextInput = <T extends FieldValues>({
         control={control}
         render={({
           field: { onChange, onBlur, value },
-          fieldState: { error },
-          formState: { isSubmitted }
+          fieldState: { error, isDirty }
         }) => (
           <View style={styles.container}>
             <Text style={[styles.label, labelStyle]}>{label}</Text>
@@ -85,7 +84,11 @@ export const TextInput = <T extends FieldValues>({
                   {...inputProps}
                   value={value}
                   onChangeText={(masked) => onChange(masked.replace(/[ +]/g, ""))}
-                  style={[styles.input, inputProps?.style]}
+                  style={[
+                    styles.input,
+                    inputProps?.style,
+                    { borderColor: getBorderColor(isDirty, !!error) }
+                  ]}
                   placeholderTextColor={colors.dark_gray}
                   onBlur={onBlur}
                   mask={phoneNumberMask}
@@ -96,7 +99,7 @@ export const TextInput = <T extends FieldValues>({
                   secureTextEntry={type === "password" && !isPasswordVisible}
                   style={[
                     styles.input,
-                    { borderColor: getBorderColor(isSubmitted, !!error) },
+                    { borderColor: getBorderColor(isDirty, !!error) },
                     inputProps?.style
                   ]}
                   placeholderTextColor={colors.dark_gray}

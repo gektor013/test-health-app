@@ -160,10 +160,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 12,
     lineHeight: 13,
-
     color: "#000",
-    textAlign: "center",
-    width: 91
+    textAlign: "center"
   },
   line: {
     height: 2,
