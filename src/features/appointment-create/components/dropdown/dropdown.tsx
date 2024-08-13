@@ -45,11 +45,13 @@ export const DropdownComponent = ({
       <Dropdown
         style={[
           styles.dropdown,
-          isFocus && { borderColor: colors.green },
           {
-            borderColor: isError ? colors.red : colors.light_gray,
-
-            borderWidth: isError ? 1 : 0
+            borderColor: isError
+              ? colors.red
+              : value || isFocus
+              ? colors.green
+              : colors.light_gray,
+            borderWidth: isError ? 1 : value || isFocus ? 1 : 0.5
           }
         ]}
         placeholderStyle={styles.placeholderStyle}

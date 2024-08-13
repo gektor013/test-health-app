@@ -51,7 +51,8 @@ export const Patientdetails = ({ control }: Props) => {
             name="client.phone"
             control={control}
             inputProps={{
-              placeholder: t("+0 (000) 000-00-00")
+              placeholder: t("+0 (000) 000-00-00"),
+              maxLength: 17
             }}
           />
 
@@ -82,13 +83,20 @@ export const Patientdetails = ({ control }: Props) => {
                 <Button
                   onPress={() => setOpen(true)}
                   title={
-                    dateHelper.formatedData(value ?? "", "DD.MM.YYYY") ||
-                    t("June/01/1990")
+                    value
+                      ? dateHelper.formatedData(value ?? "", "DD.MM.YYYY")
+                      : t("June/01/1990")
                   }
                   variant="outline"
                   containerStyles={[
                     styles.btnContainer,
-                    { borderColor: error ? "red" : styles.btnContainer.borderColor }
+                    {
+                      borderColor: error
+                        ? "red"
+                        : value
+                        ? colors.green
+                        : styles.btnContainer.borderColor
+                    }
                   ]}
                   iconRight={{
                     icon: "arrow_right",

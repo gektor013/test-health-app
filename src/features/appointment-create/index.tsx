@@ -9,7 +9,10 @@ import {
   useGetEmployeeSchduleQuery
 } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
+import { useCreateVisitMutation } from "@/redux/services/visit-api"
 import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
+import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
+import { useTranslations } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -51,13 +54,14 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     birthdate: "",
     sex: ""
   },
-  startedAt: new Date().toISOString().split("T")[0],
   choosenTime: {
     endTime: "",
     startTime: ""
   },
+  startedAt: new Date().toISOString().split("T")[0],
   finishedAt: "",
-  isPaid: true
+
+  isPaid: false
 }
 // TROUBLESHOOTING
 // 1. HOW TO SHOW VISIT IMG?
@@ -65,6 +69,8 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
 
 export const AppointmentCreate = () => {
   const { currentIndex, stepsMethods, refs } = useSetStep(width)
+  const [createVisit] = useCreateVisitMutation()
+  const { t } = useTranslations()
 
   const {
     control,
@@ -78,15 +84,19 @@ export const AppointmentCreate = () => {
     resolver: zodResolver(appointmentSchemaFunction(currentIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
-  console.log(errors)
+  console.log(errors, "ERRORS")
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
   const { data: scheduleData, isFetching: isScheduleLoading } =
     useGetEmployeeSchduleQuery(
-      { date: WATCH_STARTED_AT, employee_id: getValues("employee").id! },
       {
-        skip: !getValues("employee").id || !WATCH_STARTED_AT,
+        date: WATCH_STARTED_AT,
+        employee_id: getValues("employee").id!,
+        service_duration: getValues("service.duration")
+      },
+      {
+        skip: !getValues("employee").id || !WATCH_STARTED_AT || !getValues("service.id"),
         refetchOnMountOrArgChange: true
       }
     )
@@ -125,12 +135,27 @@ export const AppointmentCreate = () => {
         if (errors.service || errors.employee) {
           break
         }
+
         return stepsMethods.handleNext()
       case 1:
         if (errors.choosenTime) {
           break
         }
+        console.log(data, "DAtA STEP 2")
+
         return stepsMethods.handleNext()
+
+      case 2:
+        const editData = {
+          ...data,
+          startedAt: `${data.startedAt}T${data.choosenTime.startTime}`,
+          finishedAt: `${data.startedAt}T${data.choosenTime.endTime}`
+        }
+
+        return await createVisit(editData)
+          .unwrap()
+          .then((res) => console.log(res, "CREATE VISIT"))
+          .catch((err) => console.log(err, "ERRRORR CREATE"))
     }
   })
 
@@ -179,6 +204,11 @@ export const AppointmentCreate = () => {
           width: "100%"
         }}
         variant="primary"
+      />
+      <AppointmentCreateModals
+        isVisible={false}
+        onClose={() => {}}
+        onViewAppointment={() => {}}
       />
     </View>
   )

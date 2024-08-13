@@ -29,11 +29,11 @@ export const appointmentSchema = z
       birthdate: z.date().or(z.string()).nullable(),
       sex: z.string().nullable()
     }),
-    startedAt: z.string(),
     choosenTime: z.object({
       startTime: z.string().min(1),
       endTime: z.string().min(1)
     }),
+    startedAt: z.string(),
     finishedAt: z.string(),
     isPaid: z.boolean()
   })

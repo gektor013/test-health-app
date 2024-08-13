@@ -64,14 +64,15 @@ const styles = StyleSheet.create({
   },
   title: { fontWeight: "600", lineHeight: 17 },
   timeContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
     flex: 1,
+    gap: 6,
+    flexWrap: "wrap",
+    flexDirection: "row",
     justifyContent: "space-between",
     maxWidth: width
   },
   time: {
+    flexShrink: 1,
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderWidth: 1,

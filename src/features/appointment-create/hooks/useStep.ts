@@ -1,6 +1,6 @@
 import { slides } from "@/features/onboarding/util"
 import { router, usePathname } from "expo-router"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Animated, ScrollView } from "react-native"
 
 interface ReturnStepData {
@@ -40,18 +40,17 @@ export const useSetStep = (width: number): ReturnStepData => {
       animated: true
     })
   }
-  
 
   // ITS NEED FOR CORRECT ANIMATION WORK
-  // useEffect(() => {
-  //   if (pathName === "/upload-document") {
-  //     setCurrentIndex(2)
-  //     scrollViewRef.current?.scrollTo({
-  //       x: 750,
-  //       animated: false
-  //     })
-  //   }
-  // }, [pathName, currentIndex])
+  useEffect(() => {
+    if (pathName === "/upload-document") {
+      setCurrentIndex(2)
+      scrollViewRef.current?.scrollTo({
+        x: 750,
+        animated: false
+      })
+    }
+  }, [pathName, currentIndex])
 
   return {
     currentIndex,

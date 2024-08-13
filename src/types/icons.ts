@@ -24,3 +24,7 @@ export type SVGIconNames =
   | "trash"
   | "upload"
   | "check"
+  | "success_appointment"
+  | "user"
+  | "location"
+  | "clock"
