@@ -9,7 +9,7 @@ import { Text } from "./text"
 
 interface Props extends PressableProps {
   variant?: "primary" | "secondary" | "outline" | "round" | "navigation"
-  containerStyles?: ViewStyle
+  containerStyles?: ViewStyle | ViewStyle[]
   title: string
   icon?: SVGIconNames
   titleStyle?: TextStyle

@@ -40,6 +40,7 @@ export const useSetStep = (width: number): ReturnStepData => {
       animated: true
     })
   }
+  
 
   // ITS NEED FOR CORRECT ANIMATION WORK
   // useEffect(() => {

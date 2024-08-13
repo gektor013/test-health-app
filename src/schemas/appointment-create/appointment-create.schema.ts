@@ -26,9 +26,8 @@ export const appointmentSchema = z
     client: z.object({
       name: z.string(),
       phone: z.string().nullable(),
-      birthdate: z.string().nullable(),
-      sex: z.string().nullable(),
-      email: z.string({ message: "qwjqwejqwjk" }).email()
+      birthdate: z.date().or(z.string()).nullable(),
+      sex: z.string().nullable()
     }),
     startedAt: z.string(),
     choosenTime: z.object({
@@ -101,6 +100,7 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
           }),
         birthdate: z
           .string()
+          .or(z.date())
           .nullable()
           .transform((val, ctx) => {
             if (currentIndex === 2 && !val) {

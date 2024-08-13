@@ -9,14 +9,10 @@ import { commonHelpers } from "@/utils/helpers/common"
 
 import { colors } from "@/constants"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 import { router } from "expo-router"
 import { DropdownComponent } from "../dropdown/dropdown"
 import { FinalAppointment } from "../final-appointment/final-appointment"
-
-const defaultValues = {
-  email: "",
-  password: ""
-}
 
 const data = [
   { value: "Male", label: "Male" },
@@ -38,19 +34,6 @@ export const Patientdetails = ({ control }: Props) => {
     <>
       <View style={styles.mainConatiner}>
         <Text style={styles.title}>{t("Patient Details")}</Text>
-
-        <DatePicker
-          modal
-          open={open}
-          date={date}
-          onConfirm={(date) => {
-            setOpen(false)
-            setDate(date)
-          }}
-          onCancel={() => {
-            setOpen(false)
-          }}
-        />
 
         <View style={{ gap: 16 }}>
           <TextInput
@@ -87,18 +70,52 @@ export const Patientdetails = ({ control }: Props) => {
             )}
           />
 
-          <TextInput
-            label={t("Date of birth")}
-            name="client.birthdate"
+          <Controller
             control={control}
-            inputProps={{
-              placeholder: t("June/01/1990"),
-              onPress: () => {
-                setOpen(true)
-              },
-              editable: false
-            }}
-            iconName="standart_calendar"
+            name="client.birthdate"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <Text style={{ fontWeight: "600", marginBottom: -7 }}>
+                  {t("Date of birth")}
+                </Text>
+
+                <Button
+                  onPress={() => setOpen(true)}
+                  title={
+                    dateHelper.formatedData(value ?? "", "DD.MM.YYYY") ||
+                    t("June/01/1990")
+                  }
+                  variant="outline"
+                  containerStyles={[
+                    styles.btnContainer,
+                    { borderColor: error ? "red" : styles.btnContainer.borderColor }
+                  ]}
+                  iconRight={{
+                    icon: "arrow_right",
+                    color: colors.dark_gray,
+                    size: 16
+                  }}
+                  titleStyle={{
+                    color: colors.dark_gray
+                  }}
+                />
+
+                <DatePicker
+                  modal
+                  open={open}
+                  mode="date"
+                  date={(value as Date) || new Date()}
+                  maximumDate={new Date()}
+                  onConfirm={(date) => {
+                    setOpen(false)
+                    onChange(date)
+                  }}
+                  onCancel={() => {
+                    setOpen(false)
+                  }}
+                />
+              </>
+            )}
           />
 
           <Text style={{ fontWeight: "600", marginBottom: -7 }}>

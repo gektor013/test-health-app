@@ -49,8 +49,7 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     name: "",
     phone: "",
     birthdate: "",
-    sex: "",
-    email: ""
+    sex: ""
   },
   startedAt: new Date().toISOString().split("T")[0],
   choosenTime: {
@@ -79,6 +78,7 @@ export const AppointmentCreate = () => {
     resolver: zodResolver(appointmentSchemaFunction(currentIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
+  console.log(errors)
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
