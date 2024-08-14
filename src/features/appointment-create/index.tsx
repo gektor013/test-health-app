@@ -84,7 +84,6 @@ export const AppointmentCreate = () => {
     resolver: zodResolver(appointmentSchemaFunction(currentIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
-  console.log(errors, "ERRORS")
 
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
@@ -125,7 +124,7 @@ export const AppointmentCreate = () => {
     },
     {
       id: 3,
-      component: () => <Patientdetails control={control} />
+      component: () => <Patientdetails control={control} formValues={getValues} />
     }
   ]
 

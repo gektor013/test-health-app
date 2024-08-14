@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Control, Controller } from "react-hook-form"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
 
@@ -22,12 +22,12 @@ const data = [
 const width = commonHelpers.getDimensionsParams().width - 32
 
 interface Props {
+  formValues: UseFormGetValues<AppointmentCreateSchemaData>
   control: Control<AppointmentCreateSchemaData>
 }
 
-export const Patientdetails = ({ control }: Props) => {
+export const Patientdetails = ({ control, formValues }: Props) => {
   const { t } = useTranslations()
-  const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
 
   return (
@@ -92,7 +92,7 @@ export const Patientdetails = ({ control }: Props) => {
                     styles.btnContainer,
                     {
                       borderColor: error
-                        ? "red"
+                        ? colors.red
                         : value
                         ? colors.green
                         : styles.btnContainer.borderColor
@@ -154,9 +154,21 @@ export const Patientdetails = ({ control }: Props) => {
 
           <View style={styles.finalAppointmentContainer}>
             <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
-            <FinalAppointment t={t} />
-            <FinalAppointment t={t} />
-            <FinalAppointment t={t} />
+            <FinalAppointment
+              title={"Type of visit"}
+              description={t(formValues("service.name"))}
+            />
+            <FinalAppointment
+              title={"Therapist"}
+              description={t(formValues("employee.name"))}
+            />
+            <FinalAppointment
+              title={"Booking date and time"}
+              description={formValues("startedAt")}
+              subDescription={`${formValues("choosenTime.startTime")}-${formValues(
+                "choosenTime.endTime"
+              )}`}
+            />
           </View>
         </View>
       </View>
