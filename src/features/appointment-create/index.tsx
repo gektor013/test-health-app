@@ -1,4 +1,4 @@
-import { Animated, ScrollView, View } from "react-native"
+import { ScrollView, View } from "react-native"
 
 import { Button } from "@/shared/components"
 // import { slides } from "../onboarding/util"
@@ -18,12 +18,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
-import { CustomHeader } from "./components/header/header"
 import { Patientdetails } from "./components/patient-form/patient-form"
 import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
-import { useSetStep } from "./hooks/useStep"
 import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
@@ -63,14 +61,26 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
 
   isPaid: false
 }
-// TROUBLESHOOTING
-// 1. HOW TO SHOW VISIT IMG?
-// 2. /api/private/employees lacks employee's photo card and dont fave rating
+
+import { useState } from "react"
+import Animated, {
+  runOnJS,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from "react-native-reanimated"
+import { CustomHeader } from "./components/header/header"
+import { useSetStep } from "./hooks/useStep"
 
 export const AppointmentCreate = () => {
-  const { currentIndex, stepsMethods, refs } = useSetStep(width)
+  const { stepsMethods, refs } = useSetStep(width)
   const [createVisit] = useCreateVisitMutation()
   const { t } = useTranslations()
+
+  const currentIndex = useSharedValue(0)
+
+  const [slideIndex, setSlideIndex] = useState(0)
 
   const {
     control,
@@ -81,7 +91,7 @@ export const AppointmentCreate = () => {
   } = useForm<AppointmentCreateSchemaData>({
     mode: "onChange",
     defaultValues: DEFAUL_DATA,
-    resolver: zodResolver(appointmentSchemaFunction(currentIndex))
+    resolver: zodResolver(appointmentSchemaFunction(slideIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
 
@@ -129,18 +139,22 @@ export const AppointmentCreate = () => {
   ]
 
   const onHandleSubmit = handleSubmit(async (data: AppointmentCreateSchemaData) => {
-    switch (currentIndex) {
+    switch (slideIndex) {
       case 0:
         if (errors.service || errors.employee) {
           break
         }
-
+        if (currentIndex.value < slides.length - 1) {
+          currentIndex.value += 1
+        }
         return stepsMethods.handleNext()
       case 1:
         if (errors.choosenTime) {
           break
         }
-        console.log(data, "DAtA STEP 2")
+        if (currentIndex.value < slides.length - 1) {
+          currentIndex.value += 1
+        }
 
         return stepsMethods.handleNext()
 
@@ -158,41 +172,43 @@ export const AppointmentCreate = () => {
     }
   })
 
+  useAnimatedReaction(
+    () => currentIndex.value,
+    (newIndex) => {
+      runOnJS(setSlideIndex)(newIndex)
+    }
+  )
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: withTiming(-currentIndex.value * width) }]
+    }
+  })
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={stepsMethods.onBackPress} />
-      <Steps currentIndexStep={currentIndex} />
-      <Animated.ScrollView
-        ref={refs.scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: refs.scrollX } } }],
+      <Steps currentIndexStep={slideIndex} />
+      <Animated.View
+        style={[
           {
-            useNativeDriver: false
-          }
-        )}
-        scrollEventThrottle={16}
-        scrollEnabled={false}
-        onMomentumScrollEnd={(event) => {
-          const index = Math.floor(event.nativeEvent.contentOffset.x / width)
-
-          if (index !== 1 || event.nativeEvent.contentOffset.x === 0) {
-            stepsMethods.setCurrentIndex(index)
-          }
-        }}
+            flex: 1,
+            flexDirection: "row",
+            width: width * slides.length
+          },
+          animatedStyle
+        ]}
       >
-        {slides.map((slide, index) => (
+        {slides.map((slide) => (
           <ScrollView
-            key={index}
+            key={slide.id}
             showsVerticalScrollIndicator={false}
             style={[styles.pt40, { width }]}
           >
             {slide.component()}
           </ScrollView>
         ))}
-      </Animated.ScrollView>
+      </Animated.View>
 
       <Button
         title="Next"
@@ -204,6 +220,7 @@ export const AppointmentCreate = () => {
         }}
         variant="primary"
       />
+
       <AppointmentCreateModals
         isVisible={false}
         onClose={() => {}}
