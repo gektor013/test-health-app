@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native"
+import { Alert, ScrollView, View } from "react-native"
 
 import { Button } from "@/shared/components"
 // import { slides } from "../onboarding/util"
@@ -12,7 +12,6 @@ import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { useCreateVisitMutation } from "@/redux/services/visit-api"
 import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
 import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
-import { useTranslations } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -62,25 +61,13 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
   isPaid: false
 }
 
-import { useState } from "react"
-import Animated, {
-  runOnJS,
-  useAnimatedReaction,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from "react-native-reanimated"
+import Animated from "react-native-reanimated"
 import { CustomHeader } from "./components/header/header"
 import { useSetStep } from "./hooks/useStep"
 
 export const AppointmentCreate = () => {
-  const { stepsMethods, refs } = useSetStep(width)
+  const { currentIndex, animatedStyle, stepsMethods, slideIndex } = useSetStep(width)
   const [createVisit] = useCreateVisitMutation()
-  const { t } = useTranslations()
-
-  const currentIndex = useSharedValue(0)
-
-  const [slideIndex, setSlideIndex] = useState(0)
 
   const {
     control,
@@ -144,19 +131,18 @@ export const AppointmentCreate = () => {
         if (errors.service || errors.employee) {
           break
         }
-        if (currentIndex.value < slides.length - 1) {
-          currentIndex.value += 1
-        }
-        return stepsMethods.handleNext()
+
+        return stepsMethods.handleSetSlideIndex(1)
       case 1:
         if (errors.choosenTime) {
           break
         }
+
         if (currentIndex.value < slides.length - 1) {
           currentIndex.value += 1
         }
 
-        return stepsMethods.handleNext()
+        return stepsMethods.handleSetSlideIndex(2)
 
       case 2:
         const editData = {
@@ -168,27 +154,14 @@ export const AppointmentCreate = () => {
         return await createVisit(editData)
           .unwrap()
           .then((res) => console.log(res, "CREATE VISIT"))
-          .catch((err) => console.log(err, "ERRRORR CREATE"))
-    }
-  })
-
-  useAnimatedReaction(
-    () => currentIndex.value,
-    (newIndex) => {
-      runOnJS(setSlideIndex)(newIndex)
-    }
-  )
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: withTiming(-currentIndex.value * width) }]
+          .catch((err) => Alert.alert("Error", err.data.message))
     }
   })
 
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={stepsMethods.onBackPress} />
-      <Steps currentIndexStep={slideIndex} />
+      <Steps currentIndexStep={slideIndex} onSetStep={stepsMethods.handleSetSlideIndex} />
       <Animated.View
         style={[
           {

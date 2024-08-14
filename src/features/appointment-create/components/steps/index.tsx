@@ -1,100 +1,64 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
+import React from "react"
 
 interface Props {
   currentIndexStep: number
+  onSetStep: (step: number) => void
 }
 
-export const Steps = ({ currentIndexStep }: Props) => {
+const SLIDERS_DATA = [
+  { title: "Choose a type and therapist", id: 0, step: 1 },
+  { title: "Select the date and time", id: 1, step: 2 },
+  { title: "Patient details and Confirmation", id: 2, step: 3 }
+]
+
+export const Steps = ({ currentIndexStep, onSetStep }: Props) => {
   return (
     <View style={styles.stepContainer}>
-      <View style={styles.step}>
-        <View
-          style={[
-            styles.transparentRound,
-            {
-              borderColor:
-                currentIndexStep === 0 ? colors.transparent_green : "transparent"
-            }
-          ]}
-        >
-          <View style={[styles.circle, currentIndexStep === 0 && styles.active]}>
-            <Text
+      {SLIDERS_DATA.map((slide) => (
+        <React.Fragment key={slide.id}>
+          <Pressable
+            onPress={() => onSetStep(slide.id)}
+            style={[
+              styles.transparentRound,
+              {
+                borderColor:
+                  currentIndexStep === slide.id ? colors.transparent_green : "transparent"
+              }
+            ]}
+          >
+            <View
               style={[
-                styles.stepNumber,
-                currentIndexStep === 0 && styles.stepNumberActive
+                styles.circle,
+                currentIndexStep === slide.id && styles.active,
+                currentIndexStep >= slide.step && styles.successStep
               ]}
             >
-              1
-            </Text>
-          </View>
-          <Text
-            style={[styles.stepLabel, currentIndexStep === 0 && styles.stepLabelActive]}
-          >
-            Choose a type and therapist
-          </Text>
-        </View>
-      </View>
-      <View style={styles.line} />
-
-      <View style={styles.step}>
-        <View
-          style={[
-            styles.transparentRound,
-            {
-              borderColor:
-                currentIndexStep === 1 ? colors.transparent_green : "transparent"
-            }
-          ]}
-        >
-          <View style={[styles.circle, currentIndexStep === 1 && styles.active]}>
+              <Text
+                style={[
+                  styles.stepNumber,
+                  currentIndexStep >= slide.step && styles.successStep,
+                  currentIndexStep === slide.id && styles.stepNumberActive
+                ]}
+              >
+                {slide.step}
+              </Text>
+            </View>
             <Text
               style={[
-                styles.stepNumber,
-                currentIndexStep === 1 && styles.stepNumberActive
+                styles.stepLabel,
+                currentIndexStep === slide.id && styles.stepLabelActive, //The order in which classes are called is important
+                currentIndexStep >= slide.step && styles.successStep
               ]}
             >
-              2
+              {slide.title}
             </Text>
-          </View>
-          <Text
-            style={[styles.stepLabel, currentIndexStep === 1 && styles.stepLabelActive]}
-          >
-            Select the date and time
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.line} />
-
-      <View style={styles.step}>
-        <View
-          style={[
-            styles.transparentRound,
-            {
-              borderColor:
-                currentIndexStep === 2 ? colors.transparent_green : "transparent"
-            }
-          ]}
-        >
-          <View style={[styles.circle, currentIndexStep === 2 && styles.active]}>
-            <Text
-              style={[
-                styles.stepNumber,
-                currentIndexStep === 2 && styles.stepNumberActive
-              ]}
-            >
-              3
-            </Text>
-          </View>
-          <Text
-            style={[styles.stepLabel, currentIndexStep === 2 && styles.stepLabelActive]}
-          >
-            Patient details and Confirmation
-          </Text>
-        </View>
-      </View>
+          </Pressable>
+          {slide.id !== SLIDERS_DATA.length - 1 && <View style={styles.line} />}
+        </React.Fragment>
+      ))}
     </View>
   )
 }
@@ -131,6 +95,10 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     alignItems: "center",
     justifyContent: "center"
+  },
+  successStep: {
+    borderColor: colors.green,
+    color: colors.black
   },
   active: {
     borderColor: colors.green,
