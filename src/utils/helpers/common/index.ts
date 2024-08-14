@@ -26,7 +26,7 @@ export const commonHelpers = {
       let currentTime = start
 
       while (currentTime < end) {
-        const nextTime = new Date(currentTime.getTime() + duration * 60000 + 60000)
+        const nextTime = new Date(currentTime.getTime() + duration * 60000)
 
         if (nextTime <= end) {
           const formattedCurrentTime = currentTime.toTimeString().slice(0, 5)
@@ -38,11 +38,11 @@ export const commonHelpers = {
           })
         }
 
-        currentTime = new Date(currentTime.getTime() + duration * 60000 + 60000)
+        currentTime = nextTime
       }
     })
 
-    return availableTimes?.length > 0
+    return availableTimes.length > 0
       ? availableTimes
       : ["No time available for selected date"]
   }

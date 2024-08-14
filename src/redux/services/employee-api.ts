@@ -41,6 +41,8 @@ export const endpointsmployeeApi = appApi.injectEndpoints({
         _,
         params
       ): ScheduleEmloyeeTime[] => {
+        console.log(baseQueryReturnValue)
+
         return commonHelpers.defineAllAvailableTime(
           baseQueryReturnValue,
           params.service_duration

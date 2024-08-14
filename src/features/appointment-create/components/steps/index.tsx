@@ -15,12 +15,16 @@ const SLIDERS_DATA = [
 ]
 
 export const Steps = ({ currentIndexStep, onSetStep }: Props) => {
+  const handleSetStep = (stepId: number) => {
+    if (currentIndexStep < stepId) return
+    onSetStep(stepId)
+  }
   return (
     <View style={styles.stepContainer}>
       {SLIDERS_DATA.map((slide) => (
         <React.Fragment key={slide.id}>
           <Pressable
-            onPress={() => onSetStep(slide.id)}
+            onPress={() => handleSetStep(slide.id)}
             style={[
               styles.transparentRound,
               {
