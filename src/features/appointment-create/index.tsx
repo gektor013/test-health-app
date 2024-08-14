@@ -55,12 +55,13 @@ const DEFAUL_DATA: AppointmentCreateSchemaData = {
     endTime: "",
     startTime: ""
   },
-  startedAt: new Date().toISOString().split("T")[0],
+  startedAt: dateHelper.plusOneDayToCurrentDay(),
   finishedAt: "",
 
   isPaid: false
 }
 
+import { dateHelper } from "@/utils/helpers/date"
 import Animated from "react-native-reanimated"
 import { CustomHeader } from "./components/header/header"
 import { useSetStep } from "./hooks/useStep"

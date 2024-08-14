@@ -4,6 +4,7 @@ import { Calendar } from "react-native-calendars"
 
 import { colors } from "@/constants"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 
 const width = Dimensions.get("window").width
 
@@ -22,14 +23,17 @@ export const ChooseDate = ({ control }: Props) => {
           render={({ field: { onChange, value } }) => (
             <Calendar
               current={value}
+              minDate={dateHelper.plusOneDayToCurrentDay()}
+              disableMonthChange={true}
               disableAllTouchEventsForDisabledDays={true}
-              dayComponent={({ date }: any) => {
+              dayComponent={({ date, ...dayInfo }: any) => {
                 const isSelected = date.dateString === value
 
                 return (
                   <TouchableOpacity
                     onPress={() => onChange(date.dateString)}
                     style={{ flex: 1 }}
+                    disabled={dayInfo.state === "disabled"}
                   >
                     <View
                       style={[
@@ -38,7 +42,16 @@ export const ChooseDate = ({ control }: Props) => {
                       ]}
                     >
                       <Text
-                        style={[styles.dayText, isSelected && styles.selectedDayText]}
+                        style={[
+                          styles.dayText,
+                          {
+                            color:
+                              dayInfo.state === "disabled"
+                                ? colors.dark_gray
+                                : colors.black
+                          },
+                          isSelected && styles.selectedDayText
+                        ]}
                       >
                         {date.day}
                       </Text>
@@ -55,7 +68,9 @@ export const ChooseDate = ({ control }: Props) => {
                 textDayHeaderFontWeight: "300",
                 textDayFontSize: 16,
                 textMonthFontSize: 16,
-                textDayHeaderFontSize: 16
+                textDayHeaderFontSize: 16,
+                textDayHeaderFontFamily: "Poppins-SemiBold",
+                textSectionTitleDisabledColor: "#fff"
               }}
             />
           )}
