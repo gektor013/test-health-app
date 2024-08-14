@@ -122,7 +122,13 @@ export const AppointmentCreate = () => {
     },
     {
       id: 3,
-      component: () => <Patientdetails control={control} formValues={getValues} />
+      component: () => (
+        <Patientdetails
+          control={control}
+          formValues={getValues}
+          onSetStep={stepsMethods.handleSetSlideIndex}
+        />
+      )
     }
   ]
 

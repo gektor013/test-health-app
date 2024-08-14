@@ -24,9 +24,10 @@ const width = commonHelpers.getDimensionsParams().width - 32
 interface Props {
   formValues: UseFormGetValues<AppointmentCreateSchemaData>
   control: Control<AppointmentCreateSchemaData>
+  onSetStep: (step: number) => void
 }
 
-export const Patientdetails = ({ control, formValues }: Props) => {
+export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
   const { t } = useTranslations()
   const [open, setOpen] = useState(false)
 
@@ -156,13 +157,16 @@ export const Patientdetails = ({ control, formValues }: Props) => {
             <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
             <FinalAppointment
               title={"Type of visit"}
+              onPress={() => onSetStep(0)}
               description={t(formValues("service.name"))}
             />
             <FinalAppointment
               title={"Therapist"}
+              onPress={() => onSetStep(0)}
               description={t(formValues("employee.name"))}
             />
             <FinalAppointment
+              onPress={() => onSetStep(1)}
               title={"Booking date and time"}
               description={formValues("startedAt")}
               subDescription={`${formValues("choosenTime.startTime")}-${formValues(

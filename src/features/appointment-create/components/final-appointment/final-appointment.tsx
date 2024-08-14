@@ -1,17 +1,23 @@
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 
 interface Props {
   title: string
   description: string
   subDescription?: string
+  onPress?: () => void
 }
 
-export const FinalAppointment = ({ title, description, subDescription }: Props) => {
+export const FinalAppointment = ({
+  title,
+  description,
+  subDescription,
+  onPress
+}: Props) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.type}>{title}</Text>
         <VectorExpoIcons type="Feather" name="edit" size={15} />
@@ -22,7 +28,7 @@ export const FinalAppointment = ({ title, description, subDescription }: Props) 
       </Text>
 
       <View style={styles.line} />
-    </View>
+    </Pressable>
   )
 }
 
