@@ -60,27 +60,60 @@ export const ChooseTime = ({ data, control }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16
+    gap: 16,
+    width
   },
-  title: { fontWeight: "600", lineHeight: 17 },
+  title: {
+    fontWeight: "600",
+    lineHeight: 17
+  },
   timeContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
     flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
     justifyContent: "space-between",
-    maxWidth: width
+    gap: 6
   },
   time: {
-    paddingHorizontal: 16,
+    flexBasis: "30%",
+    maxWidth: "32%",
+    flexGrow: 1,
+    alignItems: "center",
     paddingVertical: 14,
     borderWidth: 1,
     borderColor: colors.green,
     borderRadius: 8
-    // maxWidth: 109
   },
   timeActive: {
     backgroundColor: colors.green,
     color: colors.white
   }
 })
+
+// const styles = StyleSheet.create({
+//   container: {
+//     gap: 16
+//   },
+//   title: { fontWeight: "600", lineHeight: 17 },
+//   timeContainer: {
+//     flex: 1,
+//     gap: 6,
+//     flexWrap: "wrap",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     maxWidth: width
+//   },
+//   time: {
+//     flexShrink: 1,
+//     paddingHorizontal: 16,
+//     paddingVertical: 14,
+//     borderWidth: 1,
+//     borderColor: colors.green,
+//     borderRadius: 8
+//     // maxWidth: 109
+//   },
+//   timeActive: {
+//     backgroundColor: colors.green,
+//     color: colors.white
+//   }
+// })

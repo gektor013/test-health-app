@@ -20,6 +20,7 @@ export const mediaObjectsApi = appApi.injectEndpoints({
               fieldName: "file",
               httpMethod: "POST",
               uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+
               headers: {
                 Accept: "application/json"
               }

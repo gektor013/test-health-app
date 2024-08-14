@@ -1,5 +1,5 @@
+import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
 import { z } from "zod"
 
-import { appointmentSchema } from "@/schemas/appointment-create/appointment-create.schema"
-
+const appointmentSchema = appointmentSchemaFunction(0)
 export type AppointmentCreateSchemaData = z.infer<typeof appointmentSchema>

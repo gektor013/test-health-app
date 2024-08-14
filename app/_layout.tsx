@@ -43,7 +43,8 @@ export default function RootLayout() {
                       options={{
                         headerShown: true,
                         title: "Upload Document",
-                        headerBackTitleVisible: false
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false
                       }}
                     />
                     <Stack.Screen

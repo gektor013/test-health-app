@@ -1,3 +1,4 @@
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { appApi } from "./app-api"
 
 export const visitApi = appApi.injectEndpoints({
@@ -6,8 +7,19 @@ export const visitApi = appApi.injectEndpoints({
       query: () => ({
         url: `/api/protected/visits`
       })
+    }),
+
+    createVisit: builder.mutation<
+      AppointmentCreateSchemaData,
+      AppointmentCreateSchemaData
+    >({
+      query: (body) => ({
+        url: `/api/private/visits`,
+        method: "POST",
+        body
+      })
     })
   })
 })
 
-export const { useGetVisitsQuery } = visitApi
+export const { useGetVisitsQuery, useCreateVisitMutation } = visitApi

@@ -1,5 +1,5 @@
-import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native"
 import { useMemo } from "react"
+import { Pressable, PressableProps, StyleSheet, TextStyle, ViewStyle } from "react-native"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
@@ -9,9 +9,15 @@ import { Text } from "./text"
 
 interface Props extends PressableProps {
   variant?: "primary" | "secondary" | "outline" | "round" | "navigation"
-  containerStyles?: ViewStyle
+  containerStyles?: ViewStyle | ViewStyle[]
   title: string
   icon?: SVGIconNames
+  titleStyle?: TextStyle
+  iconRight?: {
+    icon: SVGIconNames
+    size?: number
+    color?: string
+  }
 }
 
 export const Button: React.FC<Props> = ({
@@ -21,9 +27,11 @@ export const Button: React.FC<Props> = ({
   icon,
   disabled,
   children,
+  titleStyle,
+  iconRight,
   ...rest
 }) => {
-  const Icon = useMemo(() => {
+  const IconLeft = useMemo(() => {
     if (variant === "round") {
       return <SVGIcon name={"arrow_back_ios_new"} color={colors.white} />
     } else if (icon) {
@@ -43,9 +51,12 @@ export const Button: React.FC<Props> = ({
 
   return (
     <Pressable style={getContainerStyle} disabled={disabled} {...rest}>
-      {Icon}
+      {IconLeft}
       {variant !== "round" && (
-        <Text style={[styles.text, textColorStyles[variant]]}>{title}</Text>
+        <Text style={[styles.text, textColorStyles[variant], titleStyle]}>{title}</Text>
+      )}
+      {iconRight && (
+        <SVGIcon name={iconRight.icon} color={iconRight.color} size={iconRight.size} />
       )}
     </Pressable>
   )

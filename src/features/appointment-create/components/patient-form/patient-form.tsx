@@ -1,20 +1,18 @@
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
 
-import { CheckBox, TextInput } from "@/shared/components"
+import { Button, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { colors } from "@/constants"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 import { router } from "expo-router"
 import { DropdownComponent } from "../dropdown/dropdown"
 import { FinalAppointment } from "../final-appointment/final-appointment"
-
-const defaultValues = {
-  email: "",
-  password: ""
-}
 
 const data = [
   { value: "Male", label: "Male" },
@@ -22,94 +20,163 @@ const data = [
 ]
 
 const width = commonHelpers.getDimensionsParams().width - 32
-export const Patientdetails = () => {
-  const { t } = useTranslations()
-  const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setError
-  } = useForm({
-    defaultValues
-  })
+interface Props {
+  formValues: UseFormGetValues<AppointmentCreateSchemaData>
+  control: Control<AppointmentCreateSchemaData>
+  onSetStep: (step: number) => void
+}
+
+export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
+  const { t } = useTranslations()
+  const [open, setOpen] = useState(false)
 
   return (
     <View style={styles.mainConatiner}>
       <Text style={styles.title}>{t("Patient Details")}</Text>
 
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      />
+        <View style={{ gap: 16 }}>
+          <TextInput
+            label={t("Full name")}
+            name="client.name"
+            control={control}
+            inputProps={{
+              placeholder: t("Name")
+            }}
+          />
 
-      <View style={{ gap: 16 }}>
-        <TextInput
-          label={t("Full name")}
-          name="email"
-          control={control}
-          inputProps={{
-            placeholder: t("Name")
-          }}
-        />
+          <TextInput
+            label={t("Phone number")}
+            type="phone"
+            name="client.phone"
+            control={control}
+            inputProps={{
+              maxLength: 17,
+              placeholder: t("+0 (000) 000-00-00"),
+              keyboardType: "number-pad"
+            }}
+          />
 
-        <TextInput
-          label={t("Phone number")}
-          name="email"
-          control={control}
-          inputProps={{
-            placeholder: t("+0 (000) 000-00-00")
-          }}
-        />
+          <Controller
+            control={control}
+            name="client.sex"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              console.log(value, "VALUE"),
+              (
+                <DropdownComponent
+                  data={data}
+                  label="Gender"
+                  plaseholder="Male"
+                  isError={!!error}
+                  value={value}
+                  onChange={onChange}
+                />
+              )
+            )}
+          />
 
-        <DropdownComponent data={data} label="Gender" plaseholder="Male" />
+          <Controller
+            control={control}
+            name="client.birthdate"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <Text style={{ fontWeight: "600", marginBottom: -7 }}>
+                  {t("Date of birth")}
+                </Text>
 
-        <TextInput
-          label={t("Date of birth")}
-          name="email"
-          control={control}
-          inputProps={{
-            placeholder: t("June/01/1990"),
-            onPress: () => {
-              setOpen(true)
-            },
-            editable: false
-          }}
-          iconName="standart_calendar"
-        />
+                <Button
+                  onPress={() => setOpen(true)}
+                  title={
+                    value
+                      ? dateHelper.formatedData(value ?? "", "DD.MM.YYYY")
+                      : t("June/01/1990")
+                  }
+                  variant="outline"
+                  containerStyles={[
+                    styles.btnContainer,
+                    {
+                      borderColor: error
+                        ? colors.red
+                        : value
+                        ? colors.green
+                        : styles.btnContainer.borderColor
+                    }
+                  ]}
+                  iconRight={{
+                    icon: "arrow_right",
+                    color: colors.dark_gray,
+                    size: 16
+                  }}
+                  titleStyle={{
+                    color: colors.dark_gray
+                  }}
+                />
 
-        <TextInput
-          label={t("Uploaded documents")}
-          name="email"
-          control={control}
-          inputProps={{
-            placeholder: t("No documents uploaded"),
-            onPress: () => router.navigate("/upload-document"),
-            editable: false
-          }}
-          iconName="arrow_right"
-        />
+                <DatePicker
+                  modal
+                  open={open}
+                  mode="date"
+                  date={(value as Date) || new Date()}
+                  maximumDate={new Date()}
+                  onConfirm={(date) => {
+                    setOpen(false)
+                    onChange(date)
+                  }}
+                  onCancel={() => {
+                    setOpen(false)
+                  }}
+                />
+              </>
+            )}
+          />
 
-        <View style={styles.checkboxContainer}>
-          <CheckBox variant="square" isChecked={true} onPress={() => {}} />
-          <Text>Booking for another person</Text>
-        </View>
+          <Text style={{ fontWeight: "600", marginBottom: -7 }}>
+            {t("Uploaded documents")}
+          </Text>
 
-        <View style={styles.finalAppointmentContainer}>
-          <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
-          <FinalAppointment t={t} />
-          <FinalAppointment t={t} />
-          <FinalAppointment t={t} />
+          <Button
+            onPress={() => {
+              router.navigate("/upload-document")
+            }}
+            title={t("No documents uploaded")}
+            variant="outline"
+            containerStyles={styles.btnContainer}
+            iconRight={{
+              icon: "arrow_right",
+              color: colors.dark_gray,
+              size: 16
+            }}
+            titleStyle={{
+              color: colors.dark_gray
+            }}
+          />
+
+          {/* <View style={styles.checkboxContainer}>
+            <CheckBox variant="square" isChecked={true} onPress={() => {}} />
+            <Text>Booking for another person</Text>
+          </View> */}
+
+          <View style={styles.finalAppointmentContainer}>
+            <Text style={styles.appointmentTitle}>{t("Finalize your appointment")}</Text>
+            <FinalAppointment
+              title={"Type of visit"}
+              onPress={() => onSetStep(0)}
+              description={t(formValues("service.name"))}
+            />
+            <FinalAppointment
+              title={"Therapist"}
+              onPress={() => onSetStep(0)}
+              description={t(formValues("employee.name"))}
+            />
+            <FinalAppointment
+              onPress={() => onSetStep(1)}
+              title={"Booking date and time"}
+              description={formValues("startedAt")}
+              subDescription={`${formValues("choosenTime.startTime")}-${formValues(
+                "choosenTime.endTime"
+              )}`}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -137,5 +204,11 @@ const styles = StyleSheet.create({
   },
   appointmentTitle: {
     fontWeight: "600"
+  },
+  btnContainer: {
+    backgroundColor: colors.light_gray,
+    borderColor: colors.light_gray,
+    justifyContent: "space-between",
+    paddingHorizontal: 16
   }
 })
