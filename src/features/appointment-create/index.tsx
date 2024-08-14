@@ -68,7 +68,15 @@ import { useSetStep } from "./hooks/useStep"
 
 export const AppointmentCreate = () => {
   const { currentIndex, animatedStyle, stepsMethods, slideIndex } = useSetStep(width)
-  const [createVisit] = useCreateVisitMutation()
+  const [
+    createVisit,
+    {
+      data: createVisitData,
+      reset: resetCreateVisit,
+      isLoading: isCreateVisitLoading,
+      isSuccess: isCreateVisitSuccess
+    }
+  ] = useCreateVisitMutation()
 
   const {
     control,
@@ -193,6 +201,7 @@ export const AppointmentCreate = () => {
       <Button
         title="Next"
         onPress={onHandleSubmit}
+        disabled={isCreateVisitLoading}
         containerStyles={{
           position: "absolute",
           bottom: 8,
@@ -202,9 +211,10 @@ export const AppointmentCreate = () => {
       />
 
       <AppointmentCreateModals
-        isVisible={false}
-        onClose={() => {}}
-        onViewAppointment={() => {}}
+        onClose={resetCreateVisit}
+        visitData={createVisitData}
+        onViewAppointment={resetCreateVisit}
+        isVisible={isCreateVisitSuccess}
       />
     </View>
   )

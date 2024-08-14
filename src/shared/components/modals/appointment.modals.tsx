@@ -1,18 +1,21 @@
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native"
 
 import { Button, SVGIcon } from "@/shared/components"
-// import { slides } from "../onboarding/util"
 
 import { colors } from "@/constants"
+import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 import { router } from "expo-router"
 
 interface Props {
-  onClose: () => void
   isVisible: boolean
+  visitData: AppointmentCreateSchemaData | undefined
+  onClose: () => void
   onViewAppointment: () => void
 }
 
 export const AppointmentCreateModals = ({
+  visitData,
   isVisible,
   onClose,
   onViewAppointment
@@ -52,22 +55,28 @@ export const AppointmentCreateModals = ({
             <View style={styles.infoItem}>
               <View style={styles.infoItemRow}>
                 <SVGIcon name="user" size={18} />
-                <Text style={{ fontWeight: "600" }}>Ronnie C. Torres</Text>
+                <Text style={{ fontWeight: "600" }}>{visitData?.employee.name}</Text>
               </View>
               <View style={styles.infoItemRow}>
                 <SVGIcon name="calendar" size={18} color={colors.green} />
-                <Text style={{ fontWeight: "600" }}>02.09.2024</Text>
+                <Text style={{ fontWeight: "600" }}>
+                  {visitData?.startedAt &&
+                    dateHelper.formatedData(visitData?.startedAt, "DD.MM.YYYY")}
+                </Text>
               </View>
             </View>
 
             <View style={styles.infoItem}>
               <View style={styles.infoItemRow}>
                 <SVGIcon name="location" size={18} />
-                <Text style={{ fontWeight: "600" }}>Room 123</Text>
+                <Text style={{ fontWeight: "600" }}>Room {visitData?.cabinet.name}</Text>
               </View>
               <View style={styles.infoItemRow}>
                 <SVGIcon name="clock" size={18} color={colors.green} />
-                <Text style={{ fontWeight: "600" }}>9:00 AM</Text>
+                <Text style={{ fontWeight: "600" }}>
+                  {visitData?.startedAt &&
+                    dateHelper.formatedData(visitData?.startedAt, "HH:mm")}
+                </Text>
               </View>
             </View>
           </View>

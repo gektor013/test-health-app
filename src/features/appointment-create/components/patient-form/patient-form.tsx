@@ -52,8 +52,9 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
             name="client.phone"
             control={control}
             inputProps={{
+              maxLength: 17,
               placeholder: t("+0 (000) 000-00-00"),
-              maxLength: 17
+              keyboardType: "number-pad"
             }}
           />
 
@@ -61,14 +62,17 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
             control={control}
             name="client.sex"
             render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <DropdownComponent
-                data={data}
-                label="Gender"
-                plaseholder="Male"
-                isError={!!error}
-                value={value}
-                onChange={onChange}
-              />
+              console.log(value, "VALUE"),
+              (
+                <DropdownComponent
+                  data={data}
+                  label="Gender"
+                  plaseholder="Male"
+                  isError={!!error}
+                  value={value}
+                  onChange={onChange}
+                />
+              )
             )}
           />
 

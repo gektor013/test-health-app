@@ -21,8 +21,9 @@ export const DropdownComponent = ({
   value,
   onChange
 }: Props) => {
-  // const [value, setValue] = useState<string | null>(null)
   const [isFocus, setIsFocus] = useState(false)
+  const [aaa, setAaa] = useState("")
+  console.log(aaa, "AAAA")
 
   const rotateAnim = useRef(new Animated.Value(0)).current
 
