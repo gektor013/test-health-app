@@ -1,5 +1,3 @@
-import { useFocusEffect } from "@react-navigation/native"
-import React, { useEffect, useState } from "react"
 import { Button, Dimensions, Text, View } from "react-native"
 import Animated, {
   runOnJS,
@@ -9,6 +7,9 @@ import Animated, {
   useSharedValue,
   withTiming
 } from "react-native-reanimated"
+import React, { useEffect, useState } from "react"
+
+import { useFocusEffect } from "@react-navigation/native"
 
 const { width } = Dimensions.get("window")
 
@@ -20,8 +21,6 @@ const slides = [
 
 export const Profile = () => {
   const currentIndex = useSharedValue(0)
-  console.log(currentIndex)
-
   const [index, setIndex] = useState(0)
 
   useAnimatedReaction(

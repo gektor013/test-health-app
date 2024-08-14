@@ -1,11 +1,10 @@
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native"
-
-import { Button, SVGIcon } from "@/shared/components"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
+import { Button, SVGIcon } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { dateHelper } from "@/utils/helpers/date"
-import { router } from "expo-router"
 
 interface Props {
   isVisible: boolean

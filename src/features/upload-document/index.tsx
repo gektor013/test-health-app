@@ -36,7 +36,6 @@ export const UploadDocument = () => {
 
       if (mediaResult) {
         setFiles((prev) => [...prev, ...mediaResult])
-        const finded = files.find((f) => f.uri === mediaResult[0].uri)
 
         try {
           const upload = await postMediaObject(mediaResult[0].uri).unwrap()

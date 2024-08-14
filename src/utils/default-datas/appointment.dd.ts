@@ -1,4 +1,5 @@
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+
 import { dateHelper } from "../helpers/date"
 
 export const APPOINTMENT_CREATE_DEFAUL_DATA: AppointmentCreateSchemaData = {

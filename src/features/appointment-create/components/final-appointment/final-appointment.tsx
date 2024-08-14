@@ -1,7 +1,8 @@
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
-import React from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
 
 interface Props {
   title: string

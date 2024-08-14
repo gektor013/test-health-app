@@ -1,22 +1,21 @@
 import { ScrollView, View } from "react-native"
+import Animated from "react-native-reanimated"
 
 import { Button } from "@/shared/components"
+import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
 // import { slides } from "../onboarding/util"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
 import { ChooseDate } from "./components/chose-date-time/date"
 import { ChooseTime } from "./components/chose-date-time/time"
+import { CustomHeader } from "./components/header/header"
 import { Patientdetails } from "./components/patient-form/patient-form"
 import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
-import { styles } from "./styles"
-
-import Animated from "react-native-reanimated"
-import { CustomHeader } from "./components/header/header"
 import { useCreateAppointment } from "./hooks/useCreateAppointment"
 import { useSetStep } from "./hooks/useStep"
+import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
 

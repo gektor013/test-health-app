@@ -1,5 +1,5 @@
-import { useMemo } from "react"
 import { Pressable, PressableProps, StyleSheet, TextStyle, ViewStyle } from "react-native"
+import { useMemo } from "react"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
@@ -26,7 +26,6 @@ export const Button: React.FC<Props> = ({
   title,
   icon,
   disabled,
-  children,
   titleStyle,
   iconRight,
   ...rest

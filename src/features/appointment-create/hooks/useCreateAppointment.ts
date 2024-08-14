@@ -1,6 +1,6 @@
-import { SharedValue } from "react-native-reanimated"
-
 import { Alert } from "react-native"
+import { SharedValue } from "react-native-reanimated"
+import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
 import {
   useGetAllEmployeesQuery,
@@ -15,7 +15,6 @@ import { ServiceResponse } from "@/types/service/service.type"
 import { TransformedData } from "@/types/transformData"
 import { APPOINTMENT_CREATE_DEFAUL_DATA } from "@/utils/default-datas/appointment.dd"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
 interface Props {
   slideIndex: number
@@ -121,7 +120,6 @@ export const useCreateAppointment = ({
 
         return await createVisit(editData)
           .unwrap()
-          .then((res) => console.log(res, "CREATE VISIT"))
           .catch((err) => Alert.alert("Error", err.data.message))
     }
   })

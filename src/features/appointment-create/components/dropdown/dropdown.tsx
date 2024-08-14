@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react"
 import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
+import React, { useEffect, useRef, useState } from "react"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
@@ -22,9 +22,6 @@ export const DropdownComponent = ({
   onChange
 }: Props) => {
   const [isFocus, setIsFocus] = useState(false)
-  const [aaa, setAaa] = useState("")
-  console.log(aaa, "AAAA")
-
   const rotateAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {

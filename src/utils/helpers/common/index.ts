@@ -10,8 +10,7 @@ export const commonHelpers = {
 
   defineAllAvailableTime: (
     employeeSchedule: { startTime: string; endTime: string }[],
-    duration: number = 10,
-    selectDate?: string
+    duration: number = 10
   ): Record<"startTime" | "endTime", string>[] | string[] => {
     if (!employeeSchedule || !employeeSchedule.length) {
       return ["No time available for selected date"]

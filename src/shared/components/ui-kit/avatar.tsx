@@ -8,7 +8,7 @@ interface Props {
   size?: number
 }
 
-export const Avatar: React.FC<Props> = ({ name, size = 30 }) => {
+export const Avatar: React.FC<Props> = ({ size = 30 }) => {
   return (
     <View style={[styles.container, { width: size, height: size, borderRadius: size }]} />
   )

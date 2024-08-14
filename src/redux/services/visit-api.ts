@@ -1,4 +1,5 @@
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+
 import { appApi } from "./app-api"
 
 export const visitApi = appApi.injectEndpoints({

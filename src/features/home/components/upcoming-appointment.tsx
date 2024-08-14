@@ -1,14 +1,10 @@
 import { StyleSheet, View } from "react-native"
 import { Link } from "expo-router"
 
-import { useGetVisitsQuery } from "@/redux/services/visit-api"
 import { Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
 export const UpcomingAppointment = () => {
-  //   const { data: visits } = useGetVisitsQuery();
-  //   console.log({ visits });
-
   const { t } = useTranslations()
 
   return (
