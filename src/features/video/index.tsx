@@ -1,11 +1,20 @@
-import { View } from "react-native"
+import { ScrollView, View } from "react-native"
+import { Tags } from "./_components/tags"
+import { Video } from "./_components/video"
 
-import { Text } from "@/shared/components"
-
-export const Video = () => {
+export const Videos = () => {
   return (
-    <View>
-      <Text>Video</Text>
+    <View style={{ flex: 1, paddingTop: 32, gap: 16 }}>
+      <Tags />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ gap: 16 }}
+      >
+        <Video />
+        <Video />
+        <Video />
+        <Video />
+      </ScrollView>
     </View>
   )
 }

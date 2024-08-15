@@ -28,3 +28,4 @@ export type SVGIconNames =
   | "user"
   | "location"
   | "clock"
+  | "play_transparent"
