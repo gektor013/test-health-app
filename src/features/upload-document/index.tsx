@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import React, { useCallback, useState } from "react"
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
-import React, { useCallback, useState } from "react"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
@@ -48,7 +48,8 @@ export const UploadDocument = () => {
             ])
           }
         } catch (error) {
-          console.log(error)
+          Alert.alert("Upload Media Error", "Please try again")
+          console.log(error, "Upload Media Error")
         }
       }
     } catch (err) {
@@ -63,6 +64,8 @@ export const UploadDocument = () => {
   const removeFile = (idx: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== idx))
   }
+
+  console.log(uploadServerFiles)
 
   return (
     <View style={styles.root}>

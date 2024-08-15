@@ -5,15 +5,19 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
 import { setUploadStatus } from "../features"
 
+import { RootState } from ".."
 import { appApi } from "./app-api"
 
 export const mediaObjectsApi = appApi.injectEndpoints({
+  overrideExisting: true,
   endpoints: (builder) => ({
     postMediaObject: builder.mutation<FileSystem.FileSystemUploadResult, string>({
       queryFn: async (param, api) => {
+        const state = api.getState() as RootState
+
         try {
           const uploadTask = await FileSystem.createUploadTask(
-            API_URL + "/api/public/media_objects",
+            API_URL + "/api/private/media_objects",
             param,
 
             {
@@ -22,7 +26,8 @@ export const mediaObjectsApi = appApi.injectEndpoints({
               uploadType: FileSystem.FileSystemUploadType.MULTIPART,
 
               headers: {
-                Accept: "application/json"
+                Accept: "application/json",
+                Authorization: `Bearer ${state.auth.token}`
               }
             },
             ({ totalBytesSent, totalBytesExpectedToSend }) => {

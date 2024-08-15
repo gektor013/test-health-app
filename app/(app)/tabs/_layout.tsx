@@ -2,7 +2,7 @@ import { colors } from "@/constants"
 import { ScreenContainer, SVGIcon } from "@/shared/components"
 import { useAuth } from "@/shared/hooks"
 import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs"
-import { router, Tabs, usePathname } from "expo-router"
+import { Redirect, router, Tabs } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
@@ -16,8 +16,9 @@ const CentralTabButton = (props: BottomTabBarButtonProps) => (
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets()
-  const pathname = usePathname()
   const { user } = useAuth()
+
+  if (!user) return <Redirect href={"/auth/sign-in"} />
 
   return (
     <ScreenContainer style={styles.screenContainer}>

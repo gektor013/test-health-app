@@ -1,5 +1,5 @@
-import { Image, StyleSheet, View } from "react-native"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
@@ -16,6 +16,7 @@ const defaultValues = {
 }
 
 export const SignIn = () => {
+  const { t } = useTranslations()
   const [login, { isLoading }] = useLoginMutation()
   const { loginUser } = useAuth()
 
@@ -42,8 +43,6 @@ export const SignIn = () => {
       })
     }
   }
-
-  const { t } = useTranslations()
 
   return (
     <View style={styles.container}>
