@@ -1,37 +1,20 @@
-import VideoPreviewImg from "#/images/video/video_preview.png"
 import { colors } from "@/constants"
-import { SVGIcon } from "@/shared/components"
 import React from "react"
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native"
+import { StyleSheet, Text, View } from "react-native"
+import YoutubePlayer from "react-native-youtube-iframe"
 
 export const Video = () => {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.videoContainer}>
-        <ImageBackground source={VideoPreviewImg} style={styles.video}>
-          <TouchableOpacity>
-            <SVGIcon name="play_transparent" size={72} color={colors.white} />
-          </TouchableOpacity>
-        </ImageBackground>
-        <Text style={styles.videoTitle}>How to Balance Your Diet</Text>
-        <Text style={styles.videoSubtitle}>Nutrition</Text>
-        <View style={styles.divider} />
-      </View>
-    </ScrollView>
+    <View style={styles.videoContainer}>
+      <YoutubePlayer height={200} videoId={"VWlj001F0cY"} />
+      <Text style={styles.videoTitle}>How to Balance Your Diet</Text>
+      <Text style={styles.videoSubtitle}>Nutrition</Text>
+      <View style={styles.divider} />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16
-  },
   videoContainer: {
     gap: 8
   },
