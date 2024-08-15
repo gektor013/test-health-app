@@ -1,11 +1,11 @@
 import { View } from "react-native"
-
-import { Text } from "@/shared/components"
+import { Tags } from "./_components/tags"
 
 export const Video = () => {
   return (
-    <View>
-      <Text>Video</Text>
+    <View style={{ flex: 1, paddingTop: 32, gap: 16 }}>
+      <Tags />
+      <Video />
     </View>
   )
 }

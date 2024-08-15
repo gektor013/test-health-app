@@ -75,9 +75,7 @@ export default function TabLayout() {
                 width={10}
               />
             ),
-            headerStyle: {
-              backgroundColor: "red"
-            },
+
             tabBarStyle: { display: "none" },
             tabBarButton: (props) => <CentralTabButton {...props} />,
             tabBarIcon: () => <SVGIcon name="calendar_new" color={colors.white} />
@@ -90,7 +88,11 @@ export default function TabLayout() {
             title: "Video",
             tabBarIcon: ({ focused }) => (
               <SVGIcon name="video" color={focused ? colors.green : colors.dark_gray} />
-            )
+            ),
+            headerStatusBarHeight: 0,
+            headerTitleStyle: {
+              fontWeight: "400"
+            }
           }}
         />
         <Tabs.Screen
