@@ -44,5 +44,11 @@ export const commonHelpers = {
     return availableTimes.length > 0
       ? availableTimes
       : ["No time available for selected date"]
+  },
+
+  getUrlHash: (url: string) => {
+    const regex = /[?&]v=([^&#]+)/
+    const match = url.match(regex)
+    return match ? match[1] : null
   }
 }

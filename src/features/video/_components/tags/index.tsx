@@ -1,8 +1,16 @@
 import { Button } from "@/shared/components"
+import { CategoriesResponse } from "@/types/categories/categories.type"
 import React from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 
-export const Tags = () => {
+interface Props {
+  currentCategory: string | null
+  setCategory: (category: string | null) => void
+  data: CategoriesResponse[] | undefined
+}
+
+export const Tags = ({ data, currentCategory, setCategory }: Props) => {
+  if (!data?.length) return
   return (
     <View style={styles.container}>
       <ScrollView
@@ -10,27 +18,21 @@ export const Tags = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 8 }}
       >
-        <Button variant="primary" title="All" containerStyles={styles.buttonContainer} />
         <Button
-          variant="outline"
-          title="Nutrition"
+          title="All"
+          onPress={() => setCategory(null)}
+          variant={!currentCategory ? "primary" : "outline"}
           containerStyles={styles.buttonContainer}
         />
-        <Button
-          variant="outline"
-          title="Fitness"
-          containerStyles={styles.buttonContainer}
-        />
-        <Button
-          variant="outline"
-          title="Fitness"
-          containerStyles={styles.buttonContainer}
-        />
-        <Button
-          variant="outline"
-          title="Fitness"
-          containerStyles={styles.buttonContainer}
-        />
+        {data.map((category) => (
+          <Button
+            key={category.id}
+            onPress={() => setCategory(category.name)}
+            variant={currentCategory === category.name ? "primary" : "outline"}
+            title={category.name}
+            containerStyles={styles.buttonContainer}
+          />
+        ))}
       </ScrollView>
     </View>
   )

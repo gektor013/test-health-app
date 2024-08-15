@@ -1,14 +1,21 @@
 import { colors } from "@/constants"
+import { UserVideoResponse } from "@/types/user-video/user-video.type"
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import YoutubePlayer from "react-native-youtube-iframe"
 
-export const Video = () => {
+interface Props {
+  data: UserVideoResponse
+}
+
+export const Video = ({ data }: Props) => {
   return (
     <View style={styles.videoContainer}>
-      <YoutubePlayer height={200} videoId={"VWlj001F0cY"} />
-      <Text style={styles.videoTitle}>How to Balance Your Diet</Text>
-      <Text style={styles.videoSubtitle}>Nutrition</Text>
+      <YoutubePlayer height={200} videoId={data.hash} />
+      <Text style={styles.videoTitle}>{data.title}</Text>
+      <Text style={styles.videoSubtitle}>{data.category}</Text>
+      <Text style={styles.videoTitle}>{data.firstDescription}</Text>
+      <Text style={styles.videoTitle}>{data.secondDescription}</Text>
       <View style={styles.divider} />
     </View>
   )
