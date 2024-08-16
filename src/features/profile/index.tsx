@@ -55,7 +55,7 @@ export const Profile = () => {
           <View style={{ gap: 8, marginBottom: 50 }}>
             <Button
               onPress={() => {
-                router.navigate("/upload-document")
+                router.navigate("/user-profile")
               }}
               title={t("Your profile")}
               variant="outline"

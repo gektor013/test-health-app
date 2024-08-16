@@ -48,6 +48,16 @@ export default function RootLayout() {
                       }}
                     />
                     <Stack.Screen
+                      name="user-profile"
+                      options={{
+                        headerShown: true,
+                        title: "Your profile",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+                    <Stack.Screen
                       name="auth/sign-in"
                       options={{
                         headerBackTitleVisible: false,
