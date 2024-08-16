@@ -70,7 +70,7 @@ export const Profile = () => {
 
             <Button
               onPress={() => {
-                router.navigate("/upload-document")
+                router.navigate("/settings")
               }}
               title={t("Settings")}
               variant="outline"
