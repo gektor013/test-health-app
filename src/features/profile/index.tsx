@@ -1,102 +1,212 @@
-import { Button, Dimensions, Text, View } from "react-native"
-import Animated, {
-  runOnJS,
-  useAnimatedReaction,
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withTiming
-} from "react-native-reanimated"
-import React, { useEffect, useState } from "react"
+import { colors } from "@/constants"
+import { useAppSelector } from "@/redux"
+import { Button, SVGIcon, Switch, VectorExpoIcons } from "@/shared/components"
+import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
+import { useActions, useTranslations } from "@/shared/hooks"
+import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
+import { router } from "expo-router"
+import React, { useRef, useState } from "react"
+import { Dimensions, StyleSheet, Text, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 
-import { useFocusEffect } from "@react-navigation/native"
-
-const { width } = Dimensions.get("window")
-
-const slides = [
-  { id: 1, text: "Slide 1" },
-  { id: 2, text: "Slide 2" },
-  { id: 3, text: "Slide 3" }
-]
+const { width, height } = Dimensions.get("window")
 
 export const Profile = () => {
-  const currentIndex = useSharedValue(0)
-  const [index, setIndex] = useState(0)
+  const { t } = useTranslations()
+  const { logOut } = useActions()
 
-  useAnimatedReaction(
-    () => currentIndex.value,
-    (newIndex) => {
-      runOnJS(setIndex)(newIndex)
-    }
-  )
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     console.log("Mounting")
 
-  const derivedIndex = useDerivedValue(() => {
-    return currentIndex.value
-  })
+  //     return () => {
+  //       setIndex(0)
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: withTiming(-currentIndex.value * width) }]
-    }
-  })
+  //       // Do something that should run on blur
+  //     }
+  //   }, [])
+  // )
+  const [isEnabled, setIsEnabled] = useState(false)
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
-  const handleNext = () => {
-    if (currentIndex.value < slides.length - 1) {
-      currentIndex.value += 1
-    }
-  }
+  const ref = useRef<BottomSheet>(null)
 
-  useEffect(() => {
-    return () => console.log("Unmounting")
-  }, [])
-
-  useFocusEffect(
-    React.useCallback(() => {
-      console.log("Mounting")
-
-      return () => {
-        setIndex(0)
-
-        // Do something that should run on blur
-      }
-    }, [])
-  )
+  const auth = useAppSelector((s) => s.auth)
+  console.log(auth)
 
   return (
-    <View style={{ flex: 1 }}>
-      <Animated.View
-        style={[
-          {
-            flexDirection: "row",
-            width: width * slides.length,
-            justifyContent: "flex-start",
-            backgroundColor: "red"
-          },
-          animatedStyle
-        ]}
-      >
-        {slides.map((slide) => (
+    <>
+      <View style={{ flex: 1, paddingTop: 40, gap: 16 }}>
+        <View style={{ alignItems: "center", justifyContent: "center", gap: 16 }}>
+          <View style={{ position: "relative" }}>
+            <SVGIcon name="empty_avatar" size={60} />
+            <VectorExpoIcons
+              type="Feather"
+              name="edit"
+              size={15}
+              color={colors.green}
+              style={{ position: "absolute", right: 1, bottom: 5 }}
+            />
+          </View>
+          <Text style={{ fontSize: 19, lineHeight: 23 }}>Kevin Lablabce</Text>
+        </View>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ gap: 8, marginBottom: 50 }}>
+            <Button
+              onPress={() => {
+                router.navigate("/upload-document")
+              }}
+              title={t("Your profile")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              iconRight={{
+                icon: "arrow_right",
+                color: colors.black,
+                size: 14
+              }}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              onPress={() => {
+                router.navigate("/upload-document")
+              }}
+              title={t("Uploaded documents")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              iconRight={{
+                icon: "arrow_right",
+                color: colors.black,
+                size: 14
+              }}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              onPress={() => {
+                router.navigate("/upload-document")
+              }}
+              title={t("Settings")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              iconRight={{
+                icon: "arrow_right",
+                color: colors.black,
+                size: 14
+              }}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              onPress={toggleSwitch}
+              title={t("Notification")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              customRenderComponent={() => (
+                <Switch
+                  handleOnPress={toggleSwitch}
+                  value={isEnabled}
+                  inActiveTrackColor={colors.gray}
+                  activeTrackColor={colors.green}
+                  thumbColor={colors.white}
+                />
+              )}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              onPress={() => {
+                router.navigate("/upload-document")
+              }}
+              title={t("FAQ’s")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              iconRight={{
+                icon: "arrow_right",
+                color: colors.black,
+                size: 14
+              }}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              onPress={() => {
+                router.navigate("/upload-document")
+              }}
+              title={t("Terms & Conditions")}
+              variant="outline"
+              containerStyles={styles.btnContainer}
+              iconRight={{
+                icon: "arrow_right",
+                color: colors.black,
+                size: 14
+              }}
+              titleStyle={{
+                color: colors.black
+              }}
+            />
+
+            <Button
+              title="Log Out"
+              variant="outline"
+              icon="log_out"
+              onPress={() => {
+                if (ref.current) ref.current.snapToPosition("40%")
+              }}
+              containerStyles={{ backgroundColor: "#F2FDFC", marginTop: 8 }}
+            />
+          </View>
+        </ScrollView>
+      </View>
+
+      <CustomBottomSheet ref={ref}>
+        <View style={{ gap: 24 }}>
           <View
-            key={slide.id}
             style={{
-              width,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "green"
+              paddingVertical: 16,
+              gap: 16
             }}
           >
-            <Text style={{ fontSize: 24, backgroundColor: "red", textAlign: "center" }}>
-              {slide.text} {index}
-            </Text>
+            <Text style={{ fontSize: 17, lineHeight: 21 }}>Logout</Text>
+            <View
+              style={{ borderWidth: 1, borderColor: colors.light_gray, width: "100%" }}
+            />
           </View>
-        ))}
-      </Animated.View>
-      <Button title="Next" onPress={handleNext} />
-      <View style={{ position: "absolute", bottom: 50, left: 20 }}>
-        <Animated.Text style={{ fontSize: 20 }}>
-          {`Current Index: ${index}`}
-        </Animated.Text>
-      </View>
-    </View>
+
+          <View style={{ gap: 16 }}>
+            <Button onPress={() => logOut()} title="Yes, Logout" />
+            <Button
+              title="Cancel"
+              variant="outline"
+              onPress={() => ref.current?.close()}
+              containerStyles={{ borderColor: colors.red }}
+              titleStyle={{ color: colors.red }}
+            />
+          </View>
+        </View>
+      </CustomBottomSheet>
+    </>
   )
 }
+
+const styles = StyleSheet.create({
+  btnContainer: {
+    backgroundColor: colors.light_gray,
+    borderColor: colors.light_gray,
+    justifyContent: "space-between",
+    paddingHorizontal: 16
+  }
+})

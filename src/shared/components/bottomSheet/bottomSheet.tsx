@@ -1,6 +1,6 @@
+import { forwardRef, useCallback, useMemo } from "react"
 import { Portal } from "react-native-portalize"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { forwardRef, useCallback, useMemo } from "react"
 
 import { colors } from "@/constants"
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet"
@@ -27,15 +27,31 @@ const CustomBottomSheet = forwardRef<Ref, CustomBottomSheetProps>((props, ref) =
       <BottomSheet
         ref={ref}
         index={-1}
-        snapPoints={initialSnapPoints}
+        topInset={insets.top}
         enableDynamicSizing={true}
         enablePanDownToClose={true}
-        topInset={insets.top}
-        handleIndicatorStyle={{ backgroundColor: colors.gray }}
-        backgroundStyle={{ backgroundColor: colors.white }}
+        snapPoints={initialSnapPoints}
         backdropComponent={renderBackdrop}
+        backgroundStyle={{ backgroundColor: colors.white }}
+        handleIndicatorStyle={{ backgroundColor: colors.black, width: 70 }}
+        handleStyle={{
+          height: 50,
+          overflow: "visible",
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50
+        }}
+        style={{
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 50
+        }}
       >
-        <BottomSheetView style={{ paddingHorizontal: 20 }}>
+        <BottomSheetView
+          style={{
+            paddingHorizontal: 20,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 50
+          }}
+        >
           {props.children}
         </BottomSheetView>
       </BottomSheet>

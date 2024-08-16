@@ -98,10 +98,15 @@ export default function TabLayout() {
         <Tabs.Screen
           name="profile"
           options={{
+            headerShown: true,
             title: "Profile",
             tabBarIcon: ({ focused }) => (
               <SVGIcon name="profile" color={focused ? colors.green : colors.dark_gray} />
-            )
+            ),
+            headerStatusBarHeight: 0,
+            headerTitleStyle: {
+              fontWeight: "400"
+            }
           }}
         />
       </Tabs>
