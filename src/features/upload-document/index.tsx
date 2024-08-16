@@ -65,8 +65,6 @@ export const UploadDocument = () => {
     setFiles((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  console.log(uploadServerFiles)
-
   return (
     <View style={styles.root}>
       {files.length > 0 ? (

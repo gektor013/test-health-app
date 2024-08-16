@@ -29,3 +29,5 @@ export type SVGIconNames =
   | "location"
   | "clock"
   | "play_transparent"
+  | "empty_avatar"
+  | "log_out"

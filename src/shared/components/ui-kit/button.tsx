@@ -13,6 +13,7 @@ interface Props extends PressableProps {
   title: string
   icon?: SVGIconNames
   titleStyle?: TextStyle
+  customRenderComponent?: () => JSX.Element
   iconRight?: {
     icon: SVGIconNames
     size?: number
@@ -28,6 +29,7 @@ export const Button: React.FC<Props> = ({
   disabled,
   titleStyle,
   iconRight,
+  customRenderComponent,
   ...rest
 }) => {
   const IconLeft = useMemo(() => {
@@ -57,6 +59,8 @@ export const Button: React.FC<Props> = ({
       {iconRight && (
         <SVGIcon name={iconRight.icon} color={iconRight.color} size={iconRight.size} />
       )}
+
+      {customRenderComponent && customRenderComponent()}
     </Pressable>
   )
 }
