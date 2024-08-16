@@ -34,7 +34,7 @@ export const Button: React.FC<Props> = ({
 }) => {
   const IconLeft = useMemo(() => {
     if (variant === "round") {
-      return <SVGIcon name={"arrow_back_ios_new"} color={colors.white} />
+      return <SVGIcon name={"arrow_right"} color={colors.white} />
     } else if (icon) {
       return <SVGIcon name={icon} color={colors.white} />
     }

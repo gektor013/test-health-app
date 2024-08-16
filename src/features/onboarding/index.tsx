@@ -1,3 +1,5 @@
+import { router } from "expo-router"
+import React, { useRef, useState } from "react"
 import {
   Animated,
   Dimensions,
@@ -7,8 +9,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native"
-import React, { useRef, useState } from "react"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { Text } from "@/shared/components"
