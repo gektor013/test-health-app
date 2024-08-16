@@ -1,5 +1,6 @@
 export * from "./avatar"
 export * from "./button"
+export * from "./dropdown"
 export * from "./form-error"
 export * from "./search-input"
 export * from "./svg-icon"
