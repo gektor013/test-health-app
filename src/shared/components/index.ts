@@ -1,3 +1,4 @@
+export * from "./accordion/accordion"
 export * from "./check-box"
 export * from "./expo-icons/vectorExpoIcons"
 export * from "./header"

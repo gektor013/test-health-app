@@ -48,6 +48,47 @@ export default function RootLayout() {
                       }}
                     />
                     <Stack.Screen
+                      name="password-manager"
+                      options={{
+                        headerShown: true,
+                        title: "Password manager",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: true,
+                        title: "Settings",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+                    <Stack.Screen
+                      name="user-profile"
+                      options={{
+                        headerShown: true,
+                        title: "Your profile",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+
+                    <Stack.Screen
+                      name="faq"
+                      options={{
+                        headerShown: true,
+                        title: "FAQ’s",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+                    <Stack.Screen
                       name="auth/sign-in"
                       options={{
                         headerBackTitleVisible: false,

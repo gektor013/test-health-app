@@ -1,23 +1,18 @@
+import { router } from "expo-router"
+import { useState } from "react"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
-import { useState } from "react"
-import { router } from "expo-router"
-import { Control, Controller, UseFormGetValues } from "react-hook-form"
 
 import { colors } from "@/constants"
-import { Button, TextInput } from "@/shared/components"
+import { Button, DropdownComponent, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
 import { dateHelper } from "@/utils/helpers/date"
 
-import { DropdownComponent } from "../dropdown/dropdown"
+import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { FinalAppointment } from "../final-appointment/final-appointment"
-
-const data = [
-  { value: "Male", label: "Male" },
-  { value: "Female", label: "Female" }
-]
 
 const width = commonHelpers.getDimensionsParams().width - 32
 
@@ -62,7 +57,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
           name="client.sex"
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <DropdownComponent
-              data={data}
+              data={GENDER_DATA}
               label="Gender"
               plaseholder="Male"
               isError={!!error}

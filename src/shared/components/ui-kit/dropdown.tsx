@@ -1,9 +1,9 @@
+import React, { useEffect, useRef, useState } from "react"
 import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
-import React, { useEffect, useRef, useState } from "react"
 
 import { colors } from "@/constants"
-import { SVGIcon } from "@/shared/components"
+import { SVGIcon } from "./svg-icon"
 
 interface Props {
   data: Record<string, string>[]
@@ -36,10 +36,13 @@ export const DropdownComponent = ({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"]
   })
+  console.log(label)
 
   return (
     <View style={styles.container}>
-      {label && <Text style={{ fontWeight: "600" }}>{label}</Text>}
+      {label && (
+        <Text style={{ fontWeight: "600", fontSize: 14, marginBottom: 5 }}>{label}</Text>
+      )}
       <Dropdown
         style={[
           styles.dropdown,
@@ -90,7 +93,6 @@ export const DropdownComponent = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     gap: 8
   },
   dropdown: {
