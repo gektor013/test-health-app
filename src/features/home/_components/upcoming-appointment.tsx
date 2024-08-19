@@ -1,6 +1,5 @@
 import { Link } from "expo-router"
 
-import { colors } from "@/constants"
 import { Appointment, Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import Animated, {
@@ -75,7 +74,7 @@ export const UpcomingAppointment = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{t("Upcoming appointment")}</Text>
-        <Link href="/(app)/tabs/appointment" style={styles.link}>
+        <Link href="/(app)/tabs/appointment">
           <Text type="link">{t("See all")}</Text>
         </Link>
       </View>
@@ -121,8 +120,8 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   link: {
-    borderBottomWidth: 1,
-    borderColor: colors.green
+    // borderBottomWidth: 1,
+    // borderColor: colors.green
   },
   bottomContainer: {
     alignItems: "center"
