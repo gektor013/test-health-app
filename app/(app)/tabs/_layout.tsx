@@ -52,7 +52,12 @@ export default function TabLayout() {
         <Tabs.Screen
           name="appointment"
           options={{
+            headerShown: true,
             title: "Appointment",
+            headerStatusBarHeight: 0,
+            headerTitleStyle: {
+              fontWeight: "400"
+            },
             tabBarIcon: ({ focused }) => (
               <SVGIcon
                 name="calendar"

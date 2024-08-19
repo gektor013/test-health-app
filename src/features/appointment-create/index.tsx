@@ -3,7 +3,7 @@ import Animated from "react-native-reanimated"
 
 import { Button } from "@/shared/components"
 import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
-// import { slides } from "../onboarding/util"
+
 import { commonHelpers } from "@/utils/helpers/common"
 
 import { ChooseDate } from "./components/chose-date-time/date"
@@ -14,56 +14,20 @@ import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
 import { useCreateAppointment } from "./hooks/useCreateAppointment"
-import { useSetStep } from "./hooks/useStep"
+
+import { useSlideStep } from "@/shared/hooks"
 import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
 
 export const AppointmentCreate = () => {
-  const { currentIndex, animatedStyle, stepsMethods, slideIndex } = useSetStep(width)
+  const { currentIndex, animatedStyle, stepsMethods, slideIndex } = useSlideStep(width)
 
   const { visitData, datas, onHandleSubmit, form } = useCreateAppointment({
     slideIndex,
     stepsMethods,
     currentIndex
   })
-
-  const slides = [
-    {
-      id: 1,
-      component: () => (
-        <>
-          <VisitsTypes data={datas.servicesData?.data} control={form.control} />
-          <TherapistList data={datas.employeeData?.data} control={form.control} />
-        </>
-      )
-    },
-    {
-      id: 2,
-      component: () => (
-        <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
-          <ChooseDate control={form.control} />
-          <ChooseTime
-            control={form.control}
-            data={{
-              scheduleData: datas.scheduleData,
-              isLoading: datas.isScheduleLoading
-            }}
-          />
-        </View>
-      )
-    },
-    {
-      id: 3,
-      component: () => (
-        <Patientdetails
-          control={form.control}
-          formValues={form.getValues}
-          onSetStep={stepsMethods.handleSetSlideIndex}
-        />
-      )
-    }
-  ]
 
   return (
     <View style={styles.container}>
@@ -74,20 +38,36 @@ export const AppointmentCreate = () => {
           {
             flex: 1,
             flexDirection: "row",
-            width: width * slides.length
+            width: width * 3
           },
           animatedStyle
         ]}
       >
-        {slides.map((slide) => (
-          <ScrollView
-            key={slide.id}
-            showsVerticalScrollIndicator={false}
-            style={[styles.pt40, { width }]}
-          >
-            {slide.component()}
-          </ScrollView>
-        ))}
+        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+          <VisitsTypes data={datas.servicesData?.data} control={form.control} />
+          <TherapistList data={datas.employeeData?.data} control={form.control} />
+        </ScrollView>
+
+        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+          <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
+            <ChooseDate control={form.control} />
+            <ChooseTime
+              control={form.control}
+              data={{
+                scheduleData: datas.scheduleData,
+                isLoading: datas.isScheduleLoading
+              }}
+            />
+          </View>
+        </ScrollView>
+
+        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+          <Patientdetails
+            control={form.control}
+            formValues={form.getValues}
+            onSetStep={stepsMethods.handleSetSlideIndex}
+          />
+        </ScrollView>
       </Animated.View>
 
       <Button
