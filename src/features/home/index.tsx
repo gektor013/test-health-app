@@ -1,22 +1,25 @@
-import { StyleSheet, View } from "react-native"
-import { Link } from "expo-router"
+import { ScrollView, StyleSheet, View } from "react-native"
 
-import { colors } from "@/constants"
 import { Header, SearchInput } from "@/shared/components"
 
-import { UpcomingAppointment } from "./components/upcoming-appointment"
+import { AvailableToday } from "./_components/available-today"
+import { TherapistsSpecialist } from "./_components/therapists-specialist"
+import { UpcomingAppointment } from "./_components/upcoming-appointment"
 
 export const Home = () => {
   return (
     <View style={styles.container}>
       <Header />
       <SearchInput />
-      <UpcomingAppointment />
-      <Link href={"/(app)/appointment/create"} style={styles.buttonContainer}>
-        {/* <View style={styles.button}>
-          <SVGIcon name="calendar_new" color={colors.white} />
-        </View> */}
-      </Link>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ gap: 24 }}
+      >
+        <UpcomingAppointment />
+        <TherapistsSpecialist />
+        <AvailableToday />
+      </ScrollView>
+      {/* <Appointment /> */}
     </View>
   )
 }
@@ -26,19 +29,5 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     gap: 24
-  },
-  buttonContainer: {
-    position: "absolute",
-    bottom: 10,
-    right: 0
-  },
-  button: {
-    width: 60,
-    height: 60,
-    borderRadius: 100,
-    backgroundColor: colors.green,
-
-    justifyContent: "center",
-    alignItems: "center"
   }
 })

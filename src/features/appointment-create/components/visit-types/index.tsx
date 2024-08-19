@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native"
 import { Control, Controller } from "react-hook-form"
+import { StyleSheet, Text, View } from "react-native"
 
+import { VisitType } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { ServiceResponse } from "@/types/service/service.type"
-
-import { VisitType } from "./visit-type"
 
 interface Props {
   control: Control<AppointmentCreateSchemaData>
