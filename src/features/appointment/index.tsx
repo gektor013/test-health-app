@@ -1,10 +1,13 @@
-import { ScrollView, Text, View } from "react-native"
+import { View } from "react-native"
 
 import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
 import Animated from "react-native-reanimated"
+import { CanceledAppointment } from "./_components/canceled-appointment"
+import { CompletedAppointment } from "./_components/completed-appointment"
+import { UpcommingAppointment } from "./_components/upcomming-appointment"
 
 const options = ["Upcoming", "Completed", "Cancelled"]
 const width = commonHelpers.getDimensionsParams().width
@@ -13,7 +16,7 @@ export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingTop: 15, gap: 24 }}>
       <SegmentedControl
         options={options}
         selectedOption={slideIndex}
@@ -29,17 +32,9 @@ export const Appointment = () => {
           animatedStyle
         ]}
       >
-        <ScrollView showsVerticalScrollIndicator={false} style={[{ width }]}>
-          <Text style={{ textAlign: "center", backgroundColor: "red" }}>1 slide</Text>
-        </ScrollView>
-
-        <ScrollView showsVerticalScrollIndicator={false} style={[{ width }]}>
-          <Text style={{ textAlign: "center", backgroundColor: "red" }}>2 slide</Text>
-        </ScrollView>
-
-        <ScrollView showsVerticalScrollIndicator={false} style={[{ width }]}>
-          <Text style={{ textAlign: "center", backgroundColor: "red" }}>3 slide</Text>
-        </ScrollView>
+        <UpcommingAppointment />
+        <CompletedAppointment />
+        <CanceledAppointment />
       </Animated.View>
     </View>
   )

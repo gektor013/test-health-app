@@ -2,18 +2,26 @@ import DoctorImg from "#/doctors/doctor-1.png"
 import { colors } from "@/constants"
 import { commonHelpers } from "@/utils/helpers/common"
 import React from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
 
-import { SharedValue } from "react-native-reanimated"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
-  x: SharedValue<number>
+  isHeaderButtonNeed?: boolean
+  children?: React.ReactNode
+  headerTitle?: {
+    title: string
+    style?: TextProps["style"]
+  }
 }
 
-export const Appointment = () => {
+export const Appointment = ({
+  isHeaderButtonNeed = true,
+  children,
+  headerTitle
+}: Props) => {
   return (
     <View style={[styles.container]}>
       <View style={styles.mainContainer}>
@@ -24,10 +32,15 @@ export const Appointment = () => {
             <Text>Massage, Room 53 </Text>
           </View>
         </View>
-
-        <View style={styles.arrowContainer}>
-          <SVGIcon name="arrow_right" color={colors.white} size={14} />
-        </View>
+        {isHeaderButtonNeed ? (
+          <Pressable style={styles.arrowContainer}>
+            <SVGIcon name="arrow_right" color={colors.white} size={14} />
+          </Pressable>
+        ) : (
+          <Text style={[{ color: colors.green }, headerTitle?.style]}>
+            {headerTitle?.title}
+          </Text>
+        )}
       </View>
 
       <View style={styles.devider} />
@@ -48,6 +61,8 @@ export const Appointment = () => {
           <Text>Room 123</Text>
         </View>
       </View>
+
+      {children}
     </View>
   )
 }
