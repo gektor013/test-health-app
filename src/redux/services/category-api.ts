@@ -2,6 +2,7 @@ import { categorySchemaDto } from "@/dto/categories/categories.dto"
 import { CategoriesResponse } from "@/types/categories/categories.type"
 import { HydraData, TransformedData } from "@/types/transformData"
 import { transformDataHelpers } from "@/utils/helpers/transformData"
+
 import { appApi } from "./app-api"
 
 export const categoryApi = appApi.injectEndpoints({

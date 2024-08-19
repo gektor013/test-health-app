@@ -1,5 +1,5 @@
-import React from "react"
 import { Animated, StyleSheet, View } from "react-native"
+import React from "react"
 
 import { colors } from "@/constants"
 import { Button } from "@/shared/components"

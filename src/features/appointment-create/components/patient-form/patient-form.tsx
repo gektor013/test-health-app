@@ -1,17 +1,17 @@
-import { router } from "expo-router"
-import { useState } from "react"
-import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
+import { useState } from "react"
+import { router } from "expo-router"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { Button, DropdownComponent, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { commonHelpers } from "@/utils/helpers/common"
 import { dateHelper } from "@/utils/helpers/date"
 
-import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { FinalAppointment } from "../final-appointment/final-appointment"
 
 const width = commonHelpers.getDimensionsParams().width - 32

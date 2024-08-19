@@ -1,14 +1,10 @@
+import { ScrollView, StyleSheet, View } from "react-native"
+import React from "react"
+
 import { Accordion } from "@/shared/components"
 import data from "@/utils/default-datas/faq"
 
-import React from "react"
-import { ScrollView, StyleSheet, View } from "react-native"
-
 export const Faq = () => {
-  // useEffect(() => {
-  //   maxHeight.value = withTiming(isOpen ? 3000 : 0, { duration: 300 })
-  // }, [isOpen])
-
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

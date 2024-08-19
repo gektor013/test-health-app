@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
 import { SvgProps, SvgXml } from "react-native-svg"
+import React, { useEffect, useState } from "react"
 
 import { colors } from "@/constants"
 import * as SVGIcons from "@/constants/icons"

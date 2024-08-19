@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react"
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
+import React, { useCallback, useState } from "react"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"

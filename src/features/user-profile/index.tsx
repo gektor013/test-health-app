@@ -1,3 +1,8 @@
+import { ScrollView, StyleSheet, Text, View } from "react-native"
+import DatePicker from "react-native-date-picker"
+import React from "react"
+import { Controller, useForm } from "react-hook-form"
+
 import { colors } from "@/constants"
 import {
   Button,
@@ -9,10 +14,6 @@ import {
 import { useTranslations } from "@/shared/hooks"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
-import React from "react"
-import { Controller, useForm } from "react-hook-form"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
-import DatePicker from "react-native-date-picker"
 
 export const UserProfile = () => {
   const { control } = useForm()

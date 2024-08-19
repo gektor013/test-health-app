@@ -1,7 +1,3 @@
-import React from "react"
-
-import { colors } from "@/constants"
-import { Category } from "@/utils/default-datas/faq"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import Animated, {
   measure,
@@ -12,6 +8,11 @@ import Animated, {
   useSharedValue,
   withTiming
 } from "react-native-reanimated"
+import React from "react"
+
+import { colors } from "@/constants"
+import { Category } from "@/utils/default-datas/faq"
+
 import { SVGIcon } from "../ui-kit"
 
 type Props = {

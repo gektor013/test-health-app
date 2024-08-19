@@ -1,4 +1,3 @@
-import { useCallback, useEffect } from "react"
 import { Pressable, StyleSheet } from "react-native"
 import Animated, {
   interpolateColor,
@@ -6,6 +5,7 @@ import Animated, {
   useSharedValue,
   withSpring
 } from "react-native-reanimated"
+import { useCallback, useEffect } from "react"
 
 interface IProps {
   handleOnPress: (flag: boolean) => void

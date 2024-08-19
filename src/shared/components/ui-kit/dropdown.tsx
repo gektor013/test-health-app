@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
 import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
+import React, { useEffect, useRef, useState } from "react"
 
 import { colors } from "@/constants"
+
 import { SVGIcon } from "./svg-icon"
 
 interface Props {

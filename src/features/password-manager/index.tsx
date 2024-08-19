@@ -1,9 +1,10 @@
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { useForm } from "react-hook-form"
+
 import { colors } from "@/constants"
 import { Button, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
-import React from "react"
-import { useForm } from "react-hook-form"
-import { Pressable, StyleSheet, Text, View } from "react-native"
 
 export const PasswordManager = () => {
   const { t } = useTranslations()

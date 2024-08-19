@@ -1,15 +1,15 @@
+import { Text, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
+import React, { useRef, useState } from "react"
+import { router } from "expo-router"
+
 import { colors } from "@/constants"
 import { Button, SVGIcon, Switch, VectorExpoIcons } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
-import { router } from "expo-router"
-import React, { useRef, useState } from "react"
-import { Dimensions, Text, View } from "react-native"
-import { ScrollView } from "react-native-gesture-handler"
-import { styles } from "./_style"
 
-const { width, height } = Dimensions.get("window")
+import { styles } from "./_style"
 
 export const Profile = () => {
   const { t } = useTranslations()

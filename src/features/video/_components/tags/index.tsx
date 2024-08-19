@@ -1,7 +1,8 @@
+import { ScrollView, StyleSheet, View } from "react-native"
+import React from "react"
+
 import { Button } from "@/shared/components"
 import { CategoriesResponse } from "@/types/categories/categories.type"
-import React from "react"
-import { ScrollView, StyleSheet, View } from "react-native"
 
 interface Props {
   currentCategory: string | null

@@ -1,9 +1,10 @@
+import { StyleSheet, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
+
 import { colors } from "@/constants"
 import { Button } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
-import { router } from "expo-router"
-import React from "react"
-import { StyleSheet, View } from "react-native"
 
 export const Settings = () => {
   const { t } = useTranslations()
