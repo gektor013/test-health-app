@@ -1,10 +1,9 @@
 import { StyleSheet, View } from "react-native"
-import { Link } from "expo-router"
 
 import { colors } from "@/constants"
 import { Header, SearchInput } from "@/shared/components"
 
-import { UpcomingAppointment } from "./components/upcoming-appointment"
+import { UpcomingAppointment } from "./_components/upcoming-appointment"
 
 export const Home = () => {
   return (
@@ -12,11 +11,7 @@ export const Home = () => {
       <Header />
       <SearchInput />
       <UpcomingAppointment />
-      <Link href={"/(app)/appointment/create"} style={styles.buttonContainer}>
-        {/* <View style={styles.button}>
-          <SVGIcon name="calendar_new" color={colors.white} />
-        </View> */}
-      </Link>
+      {/* <Appointment /> */}
     </View>
   )
 }

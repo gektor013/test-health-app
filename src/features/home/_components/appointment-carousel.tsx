@@ -1,7 +1,5 @@
-import { Animated, Dimensions, Image, ScrollView, StyleSheet, View } from "react-native"
 import { useRef, useState } from "react"
-
-import { slides } from "@/features/onboarding/util"
+import { Animated, Dimensions, ScrollView, StyleSheet, View } from "react-native"
 
 const { width } = Dimensions.get("window")
 
@@ -26,13 +24,13 @@ export const AppointmentCarousel = () => {
           setCurrentIndex(index)
         }}
       >
-        {slides.map((slide, index) => (
+        {/* {slides.map((slide, index) => (
           <View key={index} style={styles.imageContainer}>
             <View style={styles.imageWrapper}>
               <Image source={slide.image} style={styles.image} />
             </View>
           </View>
-        ))}
+        ))} */}
       </Animated.ScrollView>
     </View>
   )
