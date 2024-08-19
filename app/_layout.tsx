@@ -77,6 +77,17 @@ export default function RootLayout() {
                         headerTitleStyle: { fontWeight: "400" }
                       }}
                     />
+
+                    <Stack.Screen
+                      name="faq"
+                      options={{
+                        headerShown: true,
+                        title: "FAQ’s",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
                     <Stack.Screen
                       name="auth/sign-in"
                       options={{
