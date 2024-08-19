@@ -1,17 +1,17 @@
 import { Pressable, StyleSheet, Text } from "react-native"
 
 import { colors } from "@/constants"
-import { SVGIcon } from "@/shared/components"
 import { SVGIconNames } from "@/types/icons"
 import { commonHelpers } from "@/utils/helpers/common"
+import { SVGIcon } from "../ui-kit"
 
 const container_width = commonHelpers.getDimensionsParams().width - 48
 
 interface Props {
   title: string
   icon: SVGIconNames
-  isActive: boolean
-  onPress: (...event: any[]) => void
+  isActive?: boolean
+  onPress?: (...event: any[]) => void
 }
 export const VisitType = ({ icon, title, isActive, onPress }: Props) => {
   return (
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     width: container_width / 3,
     height: container_width / 3,
     borderWidth: 1,
-    borderColor: colors.light_gray
+    borderColor: colors.secondary_gray
   },
   activeStepContainer: {
     borderWidth: 0,

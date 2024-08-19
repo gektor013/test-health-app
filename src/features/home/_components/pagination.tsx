@@ -27,7 +27,6 @@ export const Pagination = ({ data, x }: Props) => {
 
 const styles = StyleSheet.create({
   paginationContainer: {
-    flexDirection: "row",
-    marginBottom: 10
+    flexDirection: "row"
   }
 })

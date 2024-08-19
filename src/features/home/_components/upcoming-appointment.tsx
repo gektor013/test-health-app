@@ -80,12 +80,12 @@ export const UpcomingAppointment = () => {
         </Link>
       </View>
 
-      <View>
+      <View style={{ gap: 8 }}>
         <Animated.FlatList
           ref={flatListRef}
           onScroll={onScroll}
           data={data}
-          renderItem={({ item }) => {
+          renderItem={() => {
             return <Appointment />
           }}
           keyExtractor={(item) => item.id.toString()}
@@ -110,8 +110,7 @@ export const UpcomingAppointment = () => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
-    flex: 1
+    gap: 16
   },
   header: {
     flexDirection: "row",
@@ -126,8 +125,6 @@ const styles = StyleSheet.create({
     borderColor: colors.green
   },
   bottomContainer: {
-    alignItems: "center",
-    paddingVertical: 30,
-    bottom: 20
+    alignItems: "center"
   }
 })

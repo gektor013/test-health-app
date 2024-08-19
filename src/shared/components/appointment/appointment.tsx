@@ -3,13 +3,19 @@ import { colors } from "@/constants"
 import { commonHelpers } from "@/utils/helpers/common"
 import React from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
+
+import { SharedValue } from "react-native-reanimated"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width
 
+interface Props {
+  x: SharedValue<number>
+}
+
 export const Appointment = () => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <View style={styles.mainContainer}>
         <View style={styles.doctorContainer}>
           <Image source={DoctorImg} style={styles.doctorImage} />

@@ -1,6 +1,7 @@
 import { colors } from "@/constants"
+import { commonHelpers } from "@/utils/helpers/common"
 import React from "react"
-import { StyleSheet, useWindowDimensions } from "react-native"
+import { StyleSheet } from "react-native"
 import Animated, {
   Extrapolation,
   SharedValue,
@@ -14,9 +15,9 @@ type Props = {
   x: SharedValue<number>
 }
 
-export const PaginationDot = ({ index, x }: Props) => {
-  const { width: SCREEN_WIDTH } = useWindowDimensions()
+const SCREEN_WIDTH = commonHelpers.getDimensionsParams().width
 
+export const PaginationDot = ({ index, x }: Props) => {
   const animatedDotStyle = useAnimatedStyle(() => {
     const widthAnimation = interpolate(
       x.value,
