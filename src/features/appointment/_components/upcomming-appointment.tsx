@@ -1,6 +1,7 @@
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"
+import { router } from "expo-router"
 import React from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 
@@ -18,7 +19,11 @@ export const UpcommingAppointment = () => {
         <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Confirmed" }}>
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
+            <Button
+              onPress={() => router.push("/details-appointment")}
+              title="Reschedule"
+              containerStyles={styles.button}
+            />
           </View>
         </Appointment>
       </View>

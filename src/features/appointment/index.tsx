@@ -1,4 +1,4 @@
-import { View } from "react-native"
+import { StyleSheet, View } from "react-native"
 
 import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
@@ -16,22 +16,13 @@ export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
 
   return (
-    <View style={{ flex: 1, paddingTop: 15, gap: 24 }}>
+    <View style={styles.container}>
       <SegmentedControl
         options={options}
         selectedOption={slideIndex}
         onOptionPress={stepsMethods.handleSetSlideIndex}
       />
-      <Animated.View
-        style={[
-          {
-            flex: 1,
-            flexDirection: "row",
-            width: width * 3
-          },
-          animatedStyle
-        ]}
-      >
+      <Animated.View style={[styles.animatedContainer, animatedStyle]}>
         <UpcommingAppointment />
         <CompletedAppointment />
         <CanceledAppointment />
@@ -39,3 +30,16 @@ export const Appointment = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 15,
+    gap: 24
+  },
+  animatedContainer: {
+    flex: 1,
+    flexDirection: "row",
+    width: width * 3
+  }
+})
