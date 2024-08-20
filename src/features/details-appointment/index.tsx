@@ -1,11 +1,13 @@
+import { StyleSheet, Text, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
+import React, { useRef } from "react"
+
 import { colors } from "@/constants"
 import { Button } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { AppointmentDetailModals } from "@/shared/components/modals/detail-appointment.modals"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
-import React, { useRef } from "react"
-import { StyleSheet, Text, View } from "react-native"
-import { ScrollView } from "react-native-gesture-handler"
+
 import { AppointmentDetail } from "./_components/appointment-detail"
 import { AppointmentStatus } from "./_components/appointment-status"
 import { AppointmentTerapist } from "./_components/appointment-terapist"

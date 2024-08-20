@@ -1,8 +1,9 @@
+import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { Link } from "expo-router"
+
 import { colors } from "@/constants"
 import { Therapist } from "@/shared/components"
-import { Link } from "expo-router"
-import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 export const AvailableToday = () => {
   return (
@@ -11,7 +12,7 @@ export const AvailableToday = () => {
         <Text style={styles.title}>Available today</Text>
         <View>
           <Link
-            href={"/(app)/tabs/appointment"}
+            href={"/therapist-list"}
             style={{
               color: colors.green
             }}

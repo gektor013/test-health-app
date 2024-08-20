@@ -1,4 +1,3 @@
-import { router } from "expo-router"
 import { Modal, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
@@ -15,11 +14,6 @@ export const AppointmentDetailModals = ({
   onClose,
   onViewAppointment
 }: Props) => {
-  const onGoHome = () => {
-    onClose()
-    router.push("/")
-  }
-
   return (
     <Modal
       transparent={true}

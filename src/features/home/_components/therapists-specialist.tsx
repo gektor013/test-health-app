@@ -1,7 +1,8 @@
+import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { VisitType } from "@/shared/components"
-import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 export const TherapistsSpecialist = () => {
   const { data: servicesData } = useGetAllServicesQuery()

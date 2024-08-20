@@ -1,7 +1,8 @@
+import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
 
 export const UploadedDocuments = () => {
   return (

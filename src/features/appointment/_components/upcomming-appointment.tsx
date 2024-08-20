@@ -1,9 +1,10 @@
+import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
+
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"
-import { router } from "expo-router"
-import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 const width = commonHelpers.getDimensionsParams().width
 

@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text } from "react-native"
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
 import { commonHelpers } from "@/utils/helpers/common"
+
 import { SVGIcon } from "../ui-kit"
 
 const container_width = commonHelpers.getDimensionsParams().width - 48

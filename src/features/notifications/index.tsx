@@ -1,10 +1,8 @@
+import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
-import { commonHelpers } from "@/utils/helpers/common"
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-
-const width = commonHelpers.getDimensionsParams().width
 
 export const Notifications = () => {
   return (

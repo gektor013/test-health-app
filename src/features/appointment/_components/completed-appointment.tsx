@@ -1,7 +1,8 @@
+import { ScrollView, StyleSheet, View } from "react-native"
+import React from "react"
+
 import { Appointment, Button } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"
-import React from "react"
-import { ScrollView, StyleSheet, View } from "react-native"
 const width = commonHelpers.getDimensionsParams().width
 
 export const CompletedAppointment = () => {
