@@ -1,6 +1,6 @@
+import { Control, useForm, UseFormGetValues } from "react-hook-form"
 import { Alert } from "react-native"
 import { SharedValue } from "react-native-reanimated"
-import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
 import {
   useGetAllEmployeesQuery,
@@ -67,6 +67,7 @@ export const useCreateAppointment = ({
   // REQUESTS
   const { data: servicesData } = useGetAllServicesQuery()
   const { data: employeeData } = useGetAllEmployeesQuery()
+
   const { data: scheduleData, isFetching: isScheduleLoading } =
     useGetEmployeeSchduleQuery(
       {

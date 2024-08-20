@@ -1,25 +1,29 @@
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 import { Image, StyleSheet, View } from "react-native"
 
-import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
-import { useAuth, useTranslations } from "@/shared/hooks"
-import { zodResolver } from "@/utils/zod"
+import { useTranslations } from "@/shared/hooks"
 
 import imageLogo from "#/images/logo-black-text.png"
 
+import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "expo-router"
-import { signInSchema, SignInSchemaType } from "./schemas"
+import { z } from "zod"
 
-const defaultValues = {
+export type EmployeesResponse = z.infer<typeof signUpSchema>
+
+const defaultValues: EmployeesResponse = {
   email: "",
-  password: ""
+  password: "",
+  name: "",
+  confirmPassword: ""
 }
 
-export const SignIn = () => {
+export const SignUp = () => {
   const { t } = useTranslations()
-  const [login, { isLoading }] = useLoginMutation()
-  const { loginUser } = useAuth()
+  // const [login, { isLoading }] = useLoginMutation()
+  // const { loginUser } = useAuth()
 
   const {
     control,
@@ -28,27 +32,36 @@ export const SignIn = () => {
     setError
   } = useForm({
     defaultValues,
-    resolver: zodResolver(signInSchema)
+    resolver: zodResolver(signUpSchema)
   })
 
-  const onSubmit: SubmitHandler<SignInSchemaType> = async (body) => {
-    try {
-      const result = await login(body).unwrap()
+  console.log(errors)
 
-      if (result?.token) loginUser(result)
-      else throw new Error()
-    } catch (error) {
-      setError("root.serverError", {
-        type: "401",
-        message: "Invalid credentials"
-      })
-    }
+  const onSubmit: SubmitHandler<any> = async (body) => {
+    // try {
+    //   const result = await login(body).unwrap()
+    //   if (result?.token) loginUser(result)
+    //   else throw new Error()
+    // } catch (error) {
+    //   setError("root.serverError", {
+    //     type: "401",
+    //     message: "Invalid credentials"
+    //   })
+    // }
   }
 
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={imageLogo} resizeMode={"contain"} />
       <View style={styles.form}>
+        <TextInput
+          label="Full name"
+          control={control}
+          name="name"
+          inputProps={{
+            placeholder: t("Enter your name")
+          }}
+        />
         <TextInput
           label="Email"
           control={control}
@@ -59,28 +72,36 @@ export const SignIn = () => {
           }}
         />
         <TextInput
-          label="Password"
+          label="New password"
           control={control}
           name="password"
           type="password"
           inputProps={{
-            placeholder: t("Enter your password")
+            placeholder: t("New password")
+          }}
+        />
+
+        <TextInput
+          label="Confirm password"
+          control={control}
+          name="confirmPassword"
+          type="password"
+          inputProps={{
+            placeholder: t("Confirm your password")
           }}
         />
         <FormError error={errors.root?.serverError as FieldError} />
-        <Text style={styles.forgotText} type="link">
-          {t("Forgot password?")}
-        </Text>
+
         <Button
-          title={t("Sign In")}
+          title={t("Sign up")}
           onPress={handleSubmit(onSubmit)}
-          disabled={isLoading}
+          // disabled={isLoading}
         />
         <Text style={styles.accountText}>
-          {t("Don’t have an account?")}
-          <Link href={"/auth/sign-up"}>
+          {t("Don’t have an account?")}{" "}
+          <Link href={"/auth/sign-in"}>
             <Text style={styles.signUpText} type="link">
-              {t("Sign Up")}
+              {t("Sign in")}
             </Text>
           </Link>
         </Text>
