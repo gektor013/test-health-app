@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 
 import { colors } from "@/constants"
 
+import { router } from "expo-router"
 import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
@@ -14,7 +15,7 @@ export const Header = () => {
           Hi, <Text style={styles.text}>Kevin Lablabce</Text>
         </Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => router.push("/notifications")}>
         <SVGIcon name="bell" />
       </TouchableOpacity>
     </View>
