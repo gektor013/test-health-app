@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
-import React from "react"
 import { Link } from "expo-router"
+import React from "react"
+import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
-import { Therapist } from "@/shared/components"
+import { ThrerapistDetail } from "@/shared/components"
 
 export const AvailableToday = () => {
   return (
@@ -22,50 +22,7 @@ export const AvailableToday = () => {
           <View style={styles.line} />
         </View>
       </View>
-      <View style={styles.bottomContainer}>
-        <Therapist
-          rating="4.5"
-          name="Dr. John Doe"
-          teraphyType="Massage, Room 53"
-          img={"/media/66b9d85b61ed9_profile-11.jpg"}
-        />
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 4 }}
-        >
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-          <View style={styles.time}>
-            <Text>10:00</Text>
-          </View>
-        </ScrollView>
-      </View>
+      <ThrerapistDetail />
     </View>
   )
 }
@@ -89,7 +46,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green
   },
   bottomContainer: {
-    // alignItems: "center"
     gap: 8
   },
   time: {

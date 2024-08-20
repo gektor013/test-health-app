@@ -6,5 +6,8 @@ export const dateHelper = {
   },
   plusOneDayToCurrentDay: (): string => {
     return dayjs().add(1, "day").format("YYYY-MM-DD")
+  },
+  changeDay: (offset = 0, format = "YYYY-MM-DD") => {
+    return dayjs().add(offset, "day").format(format)
   }
 }

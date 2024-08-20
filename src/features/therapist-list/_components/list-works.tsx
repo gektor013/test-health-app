@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from "react-native"
 
 export const ListWorks = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
