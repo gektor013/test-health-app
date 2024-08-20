@@ -1,5 +1,3 @@
-import { router } from "expo-router"
-import { useState } from "react"
 import {
   runOnJS,
   SharedValue,
@@ -9,6 +7,8 @@ import {
   withTiming
 } from "react-native-reanimated"
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes"
+import { useState } from "react"
+import { router } from "expo-router"
 
 interface ReturnStepData {
   currentIndex: SharedValue<number>

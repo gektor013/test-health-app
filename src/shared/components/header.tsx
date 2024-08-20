@@ -1,9 +1,9 @@
 import { StyleSheet, View } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
 
-import { router } from "expo-router"
 import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {

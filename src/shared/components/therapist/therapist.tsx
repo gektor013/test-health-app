@@ -10,14 +10,18 @@ interface Props {
   teraphyType: string
   rating: string
   img?: string | null
+  isDetails?: boolean
 }
 
-export const Therapist = ({ name, rating, teraphyType, img }: Props) => {
+export const Therapist = ({ name, rating, teraphyType, img, isDetails }: Props) => {
   return (
     <View style={styles.threpistConstainer}>
-      <Image source={{ uri: `${API_URL}${img}` }} style={styles.therapistImg} />
-      <View style={styles.therapistInfoContainer}>
-        <Text style={styles.text}>{name}</Text>
+      <Image
+        source={{ uri: `${API_URL}${img}` }}
+        style={[isDetails ? styles.detailImg : styles.therapistImg]}
+      />
+      <View style={[styles.therapistInfoContainer, { gap: isDetails ? 8 : 0 }]}>
+        <Text style={[styles.text, { fontSize: isDetails ? 19 : 14 }]}>{name}</Text>
         <Text style={{ color: colors.green }}>{teraphyType}</Text>
         <Text>
           <StarIcon /> {rating}
@@ -35,6 +39,11 @@ const styles = StyleSheet.create({
   therapistImg: {
     width: 60,
     height: 60,
+    borderRadius: 8
+  },
+  detailImg: {
+    width: 100,
+    height: 100,
     borderRadius: 8
   },
   therapistInfoContainer: {

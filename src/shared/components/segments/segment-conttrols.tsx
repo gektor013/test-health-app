@@ -1,20 +1,14 @@
-import { colors } from "@/constants"
-import React from "react"
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-  useWindowDimensions
+  useWindowDimensions,
+  View
 } from "react-native"
-
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
+import React from "react"
 
-const Palette = {
-  baseGray05: "#E5E2DC",
-  baseGray80: "#30302E",
-  background: "#F1EEE8"
-}
+import { colors } from "@/constants"
 
 type SegmentedControlProps = {
   options: string[]

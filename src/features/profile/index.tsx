@@ -1,7 +1,7 @@
-import { router } from "expo-router"
-import React, { useRef, useState } from "react"
 import { Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
+import React, { useRef, useState } from "react"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { Button, SVGIcon, Switch, VectorExpoIcons } from "@/shared/components"

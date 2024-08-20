@@ -1,8 +1,10 @@
-import DoctorImg from "#/doctors/doctor-1.png"
+import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { commonHelpers } from "@/utils/helpers/common"
-import React from "react"
-import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
+
+import DoctorImg from "#/doctors/doctor-1.png"
 
 import { SVGIcon } from "../ui-kit"
 

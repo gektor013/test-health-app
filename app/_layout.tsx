@@ -82,7 +82,29 @@ export default function RootLayout() {
                       name="notifications"
                       options={{
                         headerShown: true,
-                        title: "Your profile",
+                        title: "Notification",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+
+                    <Stack.Screen
+                      name="therapist-list"
+                      options={{
+                        headerShown: true,
+                        title: "List therapists",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+
+                    <Stack.Screen
+                      name="therapist-details"
+                      options={{
+                        headerShown: true,
+                        title: "List therapists",
                         headerBackTitleVisible: false,
                         headerShadowVisible: false,
                         headerTitleStyle: { fontWeight: "400" }

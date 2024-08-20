@@ -1,14 +1,15 @@
-import { colors } from "@/constants"
-import { commonHelpers } from "@/utils/helpers/common"
-import React from "react"
 import { StyleSheet } from "react-native"
 import Animated, {
   Extrapolation,
-  SharedValue,
   interpolate,
   interpolateColor,
+  SharedValue,
   useAnimatedStyle
 } from "react-native-reanimated"
+import React from "react"
+
+import { colors } from "@/constants"
+import { commonHelpers } from "@/utils/helpers/common"
 
 type Props = {
   index: number

@@ -1,14 +1,14 @@
-import { Link } from "expo-router"
-
-import { Appointment, Text } from "@/shared/components"
-import { useTranslations } from "@/shared/hooks"
+import { FlatList, StyleSheet, View, ViewToken } from "react-native"
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue
 } from "react-native-reanimated"
+import { Link } from "expo-router"
 
-import { FlatList, StyleSheet, View, ViewToken } from "react-native"
+import { Appointment, Text } from "@/shared/components"
+import { useTranslations } from "@/shared/hooks"
+
 import { Pagination } from "./pagination"
 
 export interface OnboardingData {

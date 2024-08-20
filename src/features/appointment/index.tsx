@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native"
+import Animated from "react-native-reanimated"
 
 import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import Animated from "react-native-reanimated"
 import { CanceledAppointment } from "./_components/canceled-appointment"
 import { CompletedAppointment } from "./_components/completed-appointment"
 import { UpcommingAppointment } from "./_components/upcomming-appointment"

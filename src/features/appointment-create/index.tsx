@@ -3,7 +3,7 @@ import Animated from "react-native-reanimated"
 
 import { Button } from "@/shared/components"
 import { AppointmentCreateModals } from "@/shared/components/modals/appointment.modals"
-
+import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
 import { ChooseDate } from "./components/chose-date-time/date"
@@ -14,8 +14,6 @@ import { Steps } from "./components/steps"
 import { TherapistList } from "./components/therapist-list/therapist-list"
 import { VisitsTypes } from "./components/visit-types"
 import { useCreateAppointment } from "./hooks/useCreateAppointment"
-
-import { useSlideStep } from "@/shared/hooks"
 import { styles } from "./styles"
 
 const width = commonHelpers.getDimensionsParams().width
