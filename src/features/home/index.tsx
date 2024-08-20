@@ -19,7 +19,6 @@ export const Home = () => {
         <TherapistsSpecialist />
         <AvailableToday />
       </ScrollView>
-      {/* <Appointment /> */}
     </View>
   )
 }

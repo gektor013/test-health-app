@@ -79,6 +79,17 @@ export default function RootLayout() {
                     />
 
                     <Stack.Screen
+                      name="notifications"
+                      options={{
+                        headerShown: true,
+                        title: "Your profile",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+
+                    <Stack.Screen
                       name="faq"
                       options={{
                         headerShown: true,
