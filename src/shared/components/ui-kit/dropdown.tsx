@@ -1,6 +1,6 @@
+import React, { useEffect, useRef, useState } from "react"
 import { Animated, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
-import React, { useEffect, useRef, useState } from "react"
 
 import { colors } from "@/constants"
 
@@ -37,7 +37,6 @@ export const DropdownComponent = ({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"]
   })
-  console.log(label)
 
   return (
     <View style={styles.container}>

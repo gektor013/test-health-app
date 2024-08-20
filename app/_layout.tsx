@@ -89,6 +89,16 @@ export default function RootLayout() {
                       }}
                     />
                     <Stack.Screen
+                      name="details-appointment"
+                      options={{
+                        headerShown: true,
+                        title: "Details appointments",
+                        headerBackTitleVisible: false,
+                        headerShadowVisible: false,
+                        headerTitleStyle: { fontWeight: "400" }
+                      }}
+                    />
+                    <Stack.Screen
                       name="auth/sign-in"
                       options={{
                         headerBackTitleVisible: false,

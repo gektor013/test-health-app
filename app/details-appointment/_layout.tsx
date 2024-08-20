@@ -3,9 +3,9 @@ import { Stack } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, View } from "react-native"
 
-export default function FaqLayout() {
+export default function DetailsAppointmetLayout() {
   return (
-    <ScreenContainer style={{ marginTop: -16 }}>
+    <ScreenContainer style={{ margin: -16 }}>
       <StatusBar style="dark" />
       <View style={styles.container}>
         <Stack

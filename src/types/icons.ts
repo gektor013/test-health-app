@@ -31,3 +31,4 @@ export type SVGIconNames =
   | "play_transparent"
   | "empty_avatar"
   | "log_out"
+  | "phone"
