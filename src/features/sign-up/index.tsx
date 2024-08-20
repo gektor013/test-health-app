@@ -4,16 +4,14 @@ import { Image, StyleSheet, View } from "react-native"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
-import imageLogo from "#/images/logo-black-text.png"
+import ImageLogo from "#/images/logo-black-text.png"
 
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
+import { SignUp as SignUpType } from "@/types/sign-up"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link } from "expo-router"
-import { z } from "zod"
+import { Link, router } from "expo-router"
 
-export type EmployeesResponse = z.infer<typeof signUpSchema>
-
-const defaultValues: EmployeesResponse = {
+const defaultValues: SignUpType = {
   email: "",
   password: "",
   name: "",
@@ -22,37 +20,23 @@ const defaultValues: EmployeesResponse = {
 
 export const SignUp = () => {
   const { t } = useTranslations()
-  // const [login, { isLoading }] = useLoginMutation()
-  // const { loginUser } = useAuth()
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
-    setError
+    formState: { errors }
   } = useForm({
     defaultValues,
     resolver: zodResolver(signUpSchema)
   })
 
-  console.log(errors)
-
-  const onSubmit: SubmitHandler<any> = async (body) => {
-    // try {
-    //   const result = await login(body).unwrap()
-    //   if (result?.token) loginUser(result)
-    //   else throw new Error()
-    // } catch (error) {
-    //   setError("root.serverError", {
-    //     type: "401",
-    //     message: "Invalid credentials"
-    //   })
-    // }
+  const onSubmit: SubmitHandler<SignUpType> = async (body) => {
+    router.push({ pathname: "/auth/complete-profile", params: body })
   }
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={imageLogo} resizeMode={"contain"} />
+      <Image style={styles.logo} source={ImageLogo} resizeMode={"contain"} />
       <View style={styles.form}>
         <TextInput
           label="Full name"
