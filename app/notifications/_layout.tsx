@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native"
 
 export default function NotificationsLayout() {
   return (
-    <ScreenContainer style={{ margin: -16 }}>
+    <ScreenContainer>
       <StatusBar style="dark" />
       <View style={styles.container}>
         <Stack

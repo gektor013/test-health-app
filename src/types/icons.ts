@@ -32,3 +32,5 @@ export type SVGIconNames =
   | "empty_avatar"
   | "log_out"
   | "phone"
+  | "calendar_minus"
+  | "calendar_plus"

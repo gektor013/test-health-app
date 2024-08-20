@@ -45,7 +45,7 @@ export const DetailsAppointment = () => {
       </React.Fragment>
 
       <AppointmentDetailModals
-        isVisible={true}
+        isVisible={false}
         onClose={() => {}}
         onViewAppointment={() => {}}
       />

@@ -1,7 +1,7 @@
+import { Notifications } from "@/features/notifications"
 import React from "react"
-import { Text } from "react-native"
 
 const NotificationsScreen = () => {
-  return <Text>Notifications</Text>
+  return <Notifications />
 }
 export default NotificationsScreen
