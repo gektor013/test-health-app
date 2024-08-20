@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, View } from "react-native"
 import React from "react"
+import { ScrollView, StyleSheet, View } from "react-native"
 
 import { Accordion } from "@/shared/components"
 import data from "@/utils/default-datas/faq"

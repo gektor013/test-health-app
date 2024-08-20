@@ -1,149 +1,121 @@
 import { colors } from "@/constants"
-import { SVGIcon, Therapist } from "@/shared/components"
-import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { Button } from "@/shared/components"
+import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
+import { AppointmentDetailModals } from "@/shared/components/modals/detail-appointment.modals"
+import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
+import React, { useRef } from "react"
+import { StyleSheet, Text, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
+import { AppointmentDetail } from "./_components/appointment-detail"
+import { AppointmentStatus } from "./_components/appointment-status"
+import { AppointmentTerapist } from "./_components/appointment-terapist"
+import { PatientDetails } from "./_components/patient-details"
+import { UploadedDocuments } from "./_components/uploaded-documents"
 
 export const DetailsAppointment = () => {
+  const ref = useRef<BottomSheet>(null)
+
   return (
-    <ScrollView contentContainerStyle={{ gap: 20 }}>
-      <View
-        style={{
-          backgroundColor: colors.green,
-          paddingVertical: 8,
-          paddingHorizontal: 16
-        }}
-      >
-        <Text style={{ color: colors.white }}>Status: Confirmed</Text>
-      </View>
-      <View style={{ paddingHorizontal: 16, gap: 16 }}>
-        <ScrollView>
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: colors.light_gray,
-              padding: 16,
-              gap: 16,
-              borderRadius: 10
-            }}
-          >
-            <Text>Appointment therapist</Text>
-            <Therapist
-              rating="4.5"
-              name="Dr. John Doe"
-              teraphyType="Massage, Room 53"
-              img={"/media/66b9d85b61ed9_profile-11.jpg"}
+    <ScrollView contentContainerStyle={styles.container} automaticallyAdjustContentInsets>
+      <React.Fragment>
+        <AppointmentStatus />
+        <View style={styles.infoContainer}>
+          <AppointmentTerapist />
+          <AppointmentDetail />
+          <PatientDetails />
+          <UploadedDocuments />
+          <View style={styles.btnContainer}>
+            <Button
+              onPress={() => {
+                if (ref.current) ref.current.snapToPosition("40%")
+              }}
+              title="Cancel"
+              variant="outline"
+              containerStyles={styles.btn}
+            />
+            <Button
+              onPress={() => {
+                if (ref.current) ref.current.snapToPosition("40%")
+              }}
+              title="Reschedule"
+              containerStyles={styles.btn}
             />
           </View>
+        </View>
+      </React.Fragment>
 
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: colors.light_gray,
-              padding: 16,
-              gap: 16,
-              borderRadius: 10
-            }}
-          >
-            <Text>Appointment details</Text>
+      <AppointmentDetailModals
+        isVisible={true}
+        onClose={() => {}}
+        onViewAppointment={() => {}}
+      />
 
-            <View style={{ flexDirection: "row", gap: 16 }}>
-              <View style={{ gap: 16 }}>
-                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                  <SVGIcon name="user" />
-                  <Text>Ronnie C. Torres</Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                  <SVGIcon name="calendar" color={colors.green} />
-                  <Text>02.09.2024</Text>
-                </View>
-              </View>
-
-              <View style={{ gap: 16 }}>
-                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                  <SVGIcon name="location" />
-                  <Text>Room 123</Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                  <SVGIcon name="clock" />
-                  <Text>9:00 AM</Text>
-                </View>
-              </View>
-            </View>
+      <CustomBottomSheet ref={ref}>
+        <View style={styles.bottomSheetContainer}>
+          <View style={styles.bottomSheetHeader}>
+            <Text style={styles.bottomSheetTitle}>Cancellation</Text>
+            <View style={styles.bottomSheetDivider} />
           </View>
-        </ScrollView>
 
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: colors.light_gray,
-            padding: 16,
-            gap: 16,
-            borderRadius: 10
-          }}
-        >
-          <Text>Patient details</Text>
-          <View style={{ gap: 16 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-              <SVGIcon name="user" />
-              <Text>Kevin Lablabce, Male, 26</Text>
-            </View>
+          <View style={{ alignItems: "center" }}>
+            <Text>Are you sure you want to cancel appointment?</Text>
+          </View>
 
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-              <SVGIcon name="phone" />
-              <Text>+1 (999) 111-0000</Text>
-            </View>
+          <View style={styles.bottomSheetButtonsContainer}>
+            <Button title="Reschedule appointment" />
+            <Button
+              variant="outline"
+              title="Cancel appointment"
+              onPress={() => ref.current?.close()}
+              containerStyles={styles.bottomSheetCancelBtnContainer}
+              titleStyle={styles.bottomSheetCancelBtnTitle}
+            />
           </View>
         </View>
-
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: colors.light_gray,
-            padding: 16,
-            gap: 16,
-            borderRadius: 10
-          }}
-        >
-          <Text>Uploaded documents</Text>
-          <View
-            style={{
-              paddingHorizontal: 15,
-              paddingVertical: 16,
-              backgroundColor: colors.light_gray,
-              borderRadius: 12,
-              gap: 10,
-              flexDirection: "row",
-              alignItems: "center"
-            }}
-          >
-            <SVGIcon name="pdf" size={27} />
-            <View style={{ justifyContent: "center" }}>
-              <Text style={{ fontWeight: "600" }}>document№1.pdf</Text>
-              <Text>123 MB</Text>
-            </View>
-          </View>
-        </View>
-
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: colors.light_gray,
-            padding: 16,
-            gap: 16,
-            borderRadius: 10
-          }}
-        >
-          <Text>Appointment therapist</Text>
-          <Therapist
-            rating="4.5"
-            name="Dr. John Doe"
-            teraphyType="Massage, Room 53"
-            img={"/media/66b9d85b61ed9_profile-11.jpg"}
-          />
-        </View>
-      </View>
+      </CustomBottomSheet>
     </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    gap: 20
+  },
+  infoContainer: {
+    paddingHorizontal: 16,
+    gap: 16
+  },
+  btnContainer: {
+    flexDirection: "row",
+    gap: 8
+  },
+  btn: {
+    flex: 1
+  },
+  bottomSheetContainer: {
+    gap: 24
+  },
+  bottomSheetHeader: {
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 16
+  },
+  bottomSheetTitle: {
+    fontSize: 17,
+    lineHeight: 21
+  },
+  bottomSheetDivider: {
+    borderWidth: 1,
+    borderColor: colors.light_gray,
+    width: "100%"
+  },
+  bottomSheetButtonsContainer: {
+    gap: 16
+  },
+  bottomSheetCancelBtnContainer: {
+    borderColor: colors.red
+  },
+  bottomSheetCancelBtnTitle: {
+    color: colors.red
+  }
+})
