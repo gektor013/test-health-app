@@ -9,8 +9,9 @@ const width = commonHelpers.getDimensionsParams().width
 export const CanceledAppointment = () => {
   return (
     <ScrollView
-      showsVerticalScrollIndicator={false}
       style={[{ width }]}
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{ gap: 16 }}
     >
       <Appointment

@@ -1,15 +1,14 @@
-import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 import { Image, StyleSheet, View } from "react-native"
-
-import { Button, FormError, Text, TextInput } from "@/shared/components"
-import { useTranslations } from "@/shared/hooks"
-
-import ImageLogo from "#/images/logo-black-text.png"
+import { Link, router } from "expo-router"
+import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
+import { Button, FormError, Text, TextInput } from "@/shared/components"
+import { useTranslations } from "@/shared/hooks"
 import { SignUp as SignUpType } from "@/types/sign-up"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link, router } from "expo-router"
+
+import ImageLogo from "#/images/logo-black-text.png"
 
 const defaultValues: SignUpType = {
   email: "",

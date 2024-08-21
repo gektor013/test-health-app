@@ -1,8 +1,9 @@
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import React, { useState } from "react"
+import dayjs from "dayjs"
+
 import { colors } from "@/constants"
 import { SVGIcon, VectorExpoIcons } from "@/shared/components"
-import dayjs from "dayjs"
-import React, { useState } from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
 
 export const DatePicker = () => {
   const [currentDate, setCurrentDate] = useState(dayjs())

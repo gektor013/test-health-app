@@ -16,6 +16,7 @@ export const Tags = ({ data, currentCategory, setCategory }: Props) => {
     <View style={styles.container}>
       <ScrollView
         horizontal
+        overScrollMode="never"
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 8 }}
       >

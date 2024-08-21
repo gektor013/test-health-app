@@ -8,8 +8,9 @@ const width = commonHelpers.getDimensionsParams().width
 export const CompletedAppointment = () => {
   return (
     <ScrollView
-      showsVerticalScrollIndicator={false}
       style={[{ width }]}
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{ gap: 16 }}
     >
       <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>

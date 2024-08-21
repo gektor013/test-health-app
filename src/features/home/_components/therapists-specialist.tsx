@@ -1,5 +1,5 @@
-import React from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
 
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { VisitType } from "@/shared/components"
@@ -12,6 +12,7 @@ export const TherapistsSpecialist = () => {
       <Text style={{ fontWeight: "600" }}>Therapists' specialties</Text>
       <ScrollView
         horizontal
+        overScrollMode="never"
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.gap8}
       >

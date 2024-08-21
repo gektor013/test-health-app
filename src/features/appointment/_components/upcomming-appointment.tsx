@@ -11,8 +11,9 @@ const width = commonHelpers.getDimensionsParams().width
 export const UpcommingAppointment = () => {
   return (
     <ScrollView
-      showsVerticalScrollIndicator={false}
       style={[{ width }]}
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
     >
       <View style={styles.container}>

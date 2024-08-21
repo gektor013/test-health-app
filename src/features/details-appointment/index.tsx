@@ -18,7 +18,11 @@ export const DetailsAppointment = () => {
   const ref = useRef<BottomSheet>(null)
 
   return (
-    <ScrollView contentContainerStyle={styles.container} automaticallyAdjustContentInsets>
+    <ScrollView
+      overScrollMode="never"
+      contentContainerStyle={styles.container}
+      automaticallyAdjustContentInsets
+    >
       <React.Fragment>
         <AppointmentStatus />
         <View style={styles.infoContainer}>

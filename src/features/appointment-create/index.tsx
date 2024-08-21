@@ -41,12 +41,20 @@ export const AppointmentCreate = () => {
           animatedStyle
         ]}
       >
-        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+        <ScrollView
+          overScrollMode="never"
+          showsVerticalScrollIndicator={false}
+          style={[styles.pt40, { width }]}
+        >
           <VisitsTypes data={datas.servicesData?.data} control={form.control} />
           <TherapistList data={datas.employeeData?.data} control={form.control} />
         </ScrollView>
 
-        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+        <ScrollView
+          overScrollMode="never"
+          showsVerticalScrollIndicator={false}
+          style={[styles.pt40, { width }]}
+        >
           <View style={{ flex: 1, gap: 32, marginBottom: 100 }}>
             <ChooseDate control={form.control} />
             <ChooseTime
@@ -59,7 +67,11 @@ export const AppointmentCreate = () => {
           </View>
         </ScrollView>
 
-        <ScrollView showsVerticalScrollIndicator={false} style={[styles.pt40, { width }]}>
+        <ScrollView
+          overScrollMode="never"
+          showsVerticalScrollIndicator={false}
+          style={[styles.pt40, { width }]}
+        >
           <Patientdetails
             control={form.control}
             formValues={form.getValues}

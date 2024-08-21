@@ -1,5 +1,6 @@
-import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 import { Image, StyleSheet, View } from "react-native"
+import { Link } from "expo-router"
+import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
@@ -8,7 +9,6 @@ import { zodResolver } from "@/utils/zod"
 
 import imageLogo from "#/images/logo-black-text.png"
 
-import { Link } from "expo-router"
 import { signInSchema, SignInSchemaType } from "./schemas"
 
 const defaultValues = {

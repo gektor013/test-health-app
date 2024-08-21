@@ -1,9 +1,11 @@
-import { colors } from "@/constants"
-import { ThrerapistDetail } from "@/shared/components"
-import { router } from "expo-router"
-import React from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 import { TouchableWithoutFeedback } from "react-native-gesture-handler"
+import React from "react"
+import { router } from "expo-router"
+
+import { colors } from "@/constants"
+import { ThrerapistDetail } from "@/shared/components"
+
 import { DatePicker } from "./_components/date-picker"
 import { ListWorks } from "./_components/list-works"
 
@@ -15,6 +17,7 @@ export const TherapistList = () => {
         <DatePicker />
       </View>
       <ScrollView
+        overScrollMode="never"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.therapistContainer}
       >

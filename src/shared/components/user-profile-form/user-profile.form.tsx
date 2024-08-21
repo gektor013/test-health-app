@@ -1,19 +1,15 @@
-import React, { useState } from "react"
-import { Controller } from "react-hook-form"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
+import React, { useState } from "react"
+import { Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
-import {
-  Button,
-  DropdownComponent,
-  SVGIcon,
-  TextInput,
-  VectorExpoIcons
-} from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
+
+import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
+import { Button, DropdownComponent, SVGIcon, TextInput } from "../ui-kit"
 
 interface Props {
   control: any
@@ -44,7 +40,11 @@ export const UserProfileForm = ({
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={{ gap: 16 }} scrollEnabled={scrollEnabled}>
+      <ScrollView
+        overScrollMode="never"
+        contentContainerStyle={{ gap: 16 }}
+        scrollEnabled={scrollEnabled}
+      >
         <TextInput
           label={t("Full name")}
           name="client.name"

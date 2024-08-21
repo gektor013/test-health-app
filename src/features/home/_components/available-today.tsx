@@ -1,6 +1,6 @@
-import { Link } from "expo-router"
-import React from "react"
 import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { Link } from "expo-router"
 
 import { colors } from "@/constants"
 import { ThrerapistDetail } from "@/shared/components"

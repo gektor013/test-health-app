@@ -1,9 +1,10 @@
+import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { useLocalSearchParams } from "expo-router"
+import { useForm } from "react-hook-form"
+
 import { Button, UserProfileForm } from "@/shared/components"
 import { SignUp } from "@/types/sign-up"
-import { useLocalSearchParams } from "expo-router"
-import React from "react"
-import { useForm } from "react-hook-form"
-import { StyleSheet, Text, View } from "react-native"
 
 export const CompleteProfile = () => {
   const signUpData = useLocalSearchParams<SignUp>()
