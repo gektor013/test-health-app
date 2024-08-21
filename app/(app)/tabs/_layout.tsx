@@ -1,4 +1,5 @@
 import { colors } from "@/constants"
+import { MyTabBar } from "@/myTabs"
 import { ScreenContainer, SVGIcon } from "@/shared/components"
 import { useAuth } from "@/shared/hooks"
 import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs"
@@ -24,21 +25,25 @@ export default function TabLayout() {
     <ScreenContainer style={styles.screenContainer}>
       <StatusBar style="dark" />
       <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: colors.green,
-          tabBarInactiveTintColor: colors.dark_gray,
+        tabBar={(props) => <MyTabBar {...props} />}
+        // screenOptions={{
 
-          headerShown: false,
-          tabBarStyle: {
-            backgroundColor: colors.light_gray,
-            marginHorizontal: -16,
-            borderRadius: 20,
+        //   tabBarActiveTintColor: colors.green,
+        //   tabBarInactiveTintColor: colors.dark_gray,
 
-            height: insets.bottom + 56,
-            borderTopWidth: 0.5,
-            position: "relative"
-          }
-        }}
+        //   headerShown: false,
+        //   tabBarStyle: {
+        //     backgroundColor: colors.light_gray,
+        //     marginHorizontal: -16,
+        //     borderRadius: 20,
+        //     // paddingTop: 20,
+        //     alignItems: "center",
+        //     justifyContent: "center",
+        //     height: 56,
+        //     borderTopWidth: 0.5,
+        //     position: "relative"
+        //   }
+        // }}
       >
         <Tabs.Screen
           name="index"

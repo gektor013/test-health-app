@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
@@ -36,7 +36,7 @@ export const Notifications = () => {
       </View>
 
       <View style={styles.notification}>
-        <SVGIcon name="calendar_plus" size={22} color={colors.green} />
+        <SVGIcon name="calendar_check" size={22} color={colors.green} />
 
         <View style={styles.notificationContent}>
           <View style={styles.notificationHeader}>
