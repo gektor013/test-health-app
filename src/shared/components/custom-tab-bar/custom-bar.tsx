@@ -1,26 +1,25 @@
-/* eslint-disable react-native/no-inline-styles */
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
 import React from "react"
-import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native"
-import { useAnimatedStyle, withSpring } from "react-native-reanimated"
+import { Pressable, StyleSheet, Text, useWindowDimensions, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import BottomTabIcon from "./BottomTabIcon"
-import { colors } from "./constants"
 
-export const MyTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
-  // I'm using the inset from react-native-safe-area-context as the bottom value.
-  // If you're not using react-native-safe-area-context, you can change it according to your needs.
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
+
+import { colors } from "@/constants"
+import { SVGIcon } from "../ui-kit/svg-icon"
+
+import BottomTabIcon from "./bottom-tab-icon"
+
+const CentralTabButton = ({ onPress }: { onPress: () => void }) => (
+  <Pressable style={styles.centralButton} onPress={onPress}>
+    <View style={styles.centralIconContainer}>
+      <SVGIcon name="calendar_plus" color="white" />
+    </View>
+  </Pressable>
+)
+
+export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets()
   const { width } = useWindowDimensions()
-  const MARGIN = 20
-  const TAB_BAR_WIDTH = width - 2 * MARGIN
-  const TAB_WIDTH = TAB_BAR_WIDTH / state.routes.length
-
-  const translateAnimation = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: withSpring(TAB_WIDTH * state.index) }]
-    }
-  })
 
   return (
     <View
@@ -35,8 +34,6 @@ export const MyTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) 
         const isFocused = state.index === index
 
         const onPress = () => {
-          console.log("onPress", route.name)
-
           const event = navigation.emit({
             type: "tabPress",
             target: route.key,
@@ -44,7 +41,6 @@ export const MyTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) 
           })
 
           if (!isFocused && !event.defaultPrevented) {
-            // The `merge: true` option makes sure that the params inside the tab screen are preserved
             navigation.navigate(route.name, { merge: true })
           }
         }
@@ -56,9 +52,13 @@ export const MyTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) 
           })
         }
 
+        if (route.name === "appointement-create") {
+          return <CentralTabButton key={route.name} onPress={onPress} />
+        }
+
         return (
           <Pressable
-            key={index}
+            key={route.name}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light_gray,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "space-around",
-    overflow: "hidden"
+    justifyContent: "space-around"
+    // overflow: "hidden"
   },
   slidingTab: {
     width: 40,
@@ -109,5 +109,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 4
+  },
+
+  centralButton: {
+    top: -23,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  centralIconContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: colors.green,
+    justifyContent: "center",
+    alignItems: "center"
   }
 })

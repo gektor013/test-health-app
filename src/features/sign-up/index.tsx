@@ -1,6 +1,6 @@
+import { Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
-import { Image, StyleSheet, View } from "react-native"
 
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
 import { Button, FormError, Text, TextInput } from "@/shared/components"

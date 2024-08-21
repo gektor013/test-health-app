@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import { Control, Controller } from "react-hook-form"
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
+import React, { useState } from "react"
+import { ImagePickerAsset } from "expo-image-picker"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
+import { Profile } from "@/types/profile"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
 
-import { Profile } from "@/types/profile"
-import { ImagePickerAsset } from "expo-image-picker"
 import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
 import { Button, DropdownComponent, SVGIcon, TextInput } from "../ui-kit"
 

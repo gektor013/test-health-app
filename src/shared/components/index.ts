@@ -1,6 +1,7 @@
 export * from "./accordion/accordion"
 export * from "./appointment/appointment"
 export * from "./check-box"
+export * from "./custom-tab-bar/custom-bar"
 export * from "./expo-icons/vectorExpoIcons"
 export * from "./header"
 export * from "./keyboard-avoiding-view"

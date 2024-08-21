@@ -1,7 +1,7 @@
-import { useLocalSearchParams } from "expo-router"
-import React, { useRef } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
+import React, { useRef } from "react"
+import { useLocalSearchParams } from "expo-router"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { profileSchema } from "@/schemas/profile/profile.schema"
@@ -11,6 +11,7 @@ import { Profile } from "@/types/profile"
 import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
+
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 const DEFAULT_VALUES: Profile = {
