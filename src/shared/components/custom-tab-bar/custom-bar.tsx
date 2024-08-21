@@ -1,5 +1,12 @@
 import React from "react"
-import { Pressable, StyleSheet, Text, useWindowDimensions, View } from "react-native"
+import {
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View
+} from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
@@ -20,12 +27,20 @@ const CentralTabButton = ({ onPress }: { onPress: () => void }) => (
 export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets()
   const { width } = useWindowDimensions()
+  const currentRoute = state.routes[state.index].name
+
+  console.log()
 
   return (
     <View
       style={[
         styles.tabBarContainer,
-        { width, bottom: insets.bottom, marginHorizontal: -16 }
+        {
+          width,
+          bottom: Platform.OS === "ios" ? 0 : insets.bottom,
+          marginHorizontal: -16,
+          display: currentRoute === "appointement-create" ? "none" : "flex"
+        }
       ]}
     >
       {state.routes.map((route, index) => {
