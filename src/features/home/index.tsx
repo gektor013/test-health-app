@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native"
+import { Platform, ScrollView, StyleSheet, View } from "react-native"
 
 import { Header, SearchInput } from "@/shared/components"
 
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
-    gap: 24
+    gap: 24,
+    paddingTop: Platform.OS === "android" ? 20 : 0
   }
 })

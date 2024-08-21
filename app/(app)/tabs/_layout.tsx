@@ -43,7 +43,6 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: "Home",
             tabBarIcon: ({ focused }) => (
               <SVGIcon name="home" color={focused ? colors.green : colors.dark_gray} />
             )
