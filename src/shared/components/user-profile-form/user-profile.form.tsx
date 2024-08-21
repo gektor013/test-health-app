@@ -1,18 +1,19 @@
+import React, { useState } from "react"
+import { Control, Controller } from "react-hook-form"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
-import React, { useState } from "react"
-import { Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
 
+import { Profile } from "@/types/profile"
 import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
 import { Button, DropdownComponent, SVGIcon, TextInput } from "../ui-kit"
 
 interface Props {
-  control: any
+  control: Control<Profile>
   isEmailNeed?: boolean
   scrollEnabled?: boolean
 }
@@ -45,33 +46,35 @@ export const UserProfileForm = ({
         contentContainerStyle={{ gap: 16 }}
         scrollEnabled={scrollEnabled}
       >
-        <TextInput
-          label={t("Full name")}
-          name="client.name"
-          control={control}
-          inputProps={{
-            placeholder: t("Name")
-          }}
-        />
-
         {isEmailNeed && (
-          <TextInput
-            label={t("Email")}
-            type="phone"
-            name="client.phone"
-            control={control}
-            inputProps={{
-              maxLength: 17,
-              placeholder: t("example@email.com"),
-              keyboardType: "email-address"
-            }}
-          />
+          <>
+            <TextInput
+              label={t("Full name")}
+              name="name"
+              control={control}
+              inputProps={{
+                placeholder: t("Name")
+              }}
+            />
+
+            <TextInput
+              label={t("Email")}
+              type="text"
+              name="email"
+              control={control}
+              inputProps={{
+                maxLength: 17,
+                placeholder: t("example@email.com"),
+                keyboardType: "email-address"
+              }}
+            />
+          </>
         )}
 
         <TextInput
           label={t("Phone number")}
           type="phone"
-          name="client.phone"
+          name="phone"
           control={control}
           inputProps={{
             maxLength: 17,
@@ -82,22 +85,22 @@ export const UserProfileForm = ({
 
         <Controller
           control={control}
-          name="client.sex"
+          name="sex"
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <DropdownComponent
               data={GENDER_DATA}
               label="Gender"
               plaseholder="Male"
-              isError={false}
+              isError={!!error}
               value={value}
-              onChange={() => {}}
+              onChange={onChange}
             />
           )}
         />
 
         <Controller
           control={control}
-          name="client.birthdate"
+          name="birthdate"
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <Text style={{ fontWeight: "600", marginBottom: -7 }}>
@@ -136,11 +139,11 @@ export const UserProfileForm = ({
                 modal
                 open={openDate}
                 mode="date"
-                date={(value as Date) || new Date()}
+                date={(value || new Date()) as Date}
                 maximumDate={new Date()}
                 onConfirm={(date) => {
                   setOpenDate(false)
-                  // onChange(date)
+                  onChange(date)
                 }}
                 onCancel={() => {
                   setOpenDate(false)
@@ -157,9 +160,8 @@ export const UserProfileForm = ({
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    paddingTop: 40,
     gap: 16,
+    paddingTop: 40,
     justifyContent: "space-between"
   },
   header: {

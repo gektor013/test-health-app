@@ -12,7 +12,7 @@ export const signUpSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"] // Указываем, что ошибка должна быть связана с полем confirmPassword
+    path: ["confirmPassword"]
   })
 
 // phone: z.string(),
