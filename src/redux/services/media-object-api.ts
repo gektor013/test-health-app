@@ -3,8 +3,8 @@ import * as FileSystem from "expo-file-system"
 import { API_URL } from "@/constants/enviroments"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
-import { setUploadStatus } from "../features"
 import { RootState } from ".."
+import { setUploadStatus } from "../features"
 
 import { appApi } from "./app-api"
 

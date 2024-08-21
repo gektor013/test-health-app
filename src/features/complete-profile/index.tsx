@@ -3,6 +3,7 @@ import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 
+import { usePostMediaObjectMutation } from "@/redux/services"
 import { profileSchema } from "@/schemas/profile/profile.schema"
 import { Button, UserProfileForm } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
@@ -24,6 +25,7 @@ export const CompleteProfile = () => {
   const ref = useRef<BottomSheet>(null)
   const { email, name } = useLocalSearchParams<SignUp>()
   const { getImageInGalery, image } = useCreateProfile()
+  const [postMediaObject] = usePostMediaObjectMutation()
 
   const {
     control,
@@ -35,8 +37,15 @@ export const CompleteProfile = () => {
   })
   console.log(errors, "Errors")
 
-  const handleCreateAccount: SubmitHandler<Profile> = (data) => {
+  const handleCreateAccount: SubmitHandler<Profile> = async (data) => {
     console.log(data, "DATA")
+    if (image) {
+      console.log(image, "Image")
+
+      const upload = await postMediaObject(image.uri)
+        .unwrap()
+        .catch((e) => console.log(e, "ERROR Upload"))
+    }
   }
 
   const handleOpeBottom = async () => {
