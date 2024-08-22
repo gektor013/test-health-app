@@ -1,21 +1,12 @@
 import { colors } from "@/constants"
-import { ScreenContainer, SVGIcon } from "@/shared/components"
+import { CustomTabBar, ScreenContainer, SVGIcon } from "@/shared/components"
 import { useAuth } from "@/shared/hooks"
-import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs"
 import { Redirect, router, Tabs } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import React from "react"
-import { Pressable, StyleSheet, View } from "react-native"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
-
-const CentralTabButton = (props: BottomTabBarButtonProps) => (
-  <Pressable style={styles.centralButton} onPress={props.onPress}>
-    <View style={styles.centralIconContainer}>{props.children}</View>
-  </Pressable>
-)
+import { StyleSheet } from "react-native"
 
 export default function TabLayout() {
-  const insets = useSafeAreaInsets()
   const { user } = useAuth()
 
   if (!user) return <Redirect href={"/auth/sign-in"} />
@@ -23,30 +14,11 @@ export default function TabLayout() {
   return (
     <ScreenContainer style={styles.screenContainer}>
       <StatusBar style="dark" />
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: colors.green,
-          tabBarInactiveTintColor: colors.dark_gray,
-
-          headerShown: false,
-          tabBarStyle: {
-            backgroundColor: colors.light_gray,
-            marginHorizontal: -16,
-            borderRadius: 20,
-
-            height: insets.bottom + 56,
-            borderTopWidth: 0.5,
-            position: "relative"
-          }
-        }}
-      >
+      <Tabs tabBar={(props) => <CustomTabBar {...props} />}>
         <Tabs.Screen
           name="index"
           options={{
-            title: "Home",
-            tabBarIcon: ({ focused }) => (
-              <SVGIcon name="home" color={focused ? colors.green : colors.dark_gray} />
-            )
+            headerShown: false
           }}
         />
         <Tabs.Screen
@@ -57,13 +29,7 @@ export default function TabLayout() {
             headerStatusBarHeight: 0,
             headerTitleStyle: {
               fontWeight: "400"
-            },
-            tabBarIcon: ({ focused }) => (
-              <SVGIcon
-                name="calendar"
-                color={focused ? colors.green : colors.dark_gray}
-              />
-            )
+            }
           }}
         />
         <Tabs.Screen
@@ -81,9 +47,7 @@ export default function TabLayout() {
               />
             ),
 
-            tabBarStyle: { display: "none" },
-            tabBarButton: (props) => <CentralTabButton {...props} />,
-            tabBarIcon: () => <SVGIcon name="calendar_new" color={colors.white} />
+            tabBarStyle: { display: "none" }
           }}
         />
         <Tabs.Screen
@@ -91,9 +55,6 @@ export default function TabLayout() {
           options={{
             headerShown: true,
             title: "Video",
-            tabBarIcon: ({ focused }) => (
-              <SVGIcon name="video" color={focused ? colors.green : colors.dark_gray} />
-            ),
             headerStatusBarHeight: 0,
             headerTitleStyle: {
               fontWeight: "400"
@@ -105,9 +66,6 @@ export default function TabLayout() {
           options={{
             headerShown: true,
             title: "Profile",
-            tabBarIcon: ({ focused }) => (
-              <SVGIcon name="profile" color={focused ? colors.green : colors.dark_gray} />
-            ),
             headerStatusBarHeight: 0,
             headerTitleStyle: {
               fontWeight: "400"

@@ -1,7 +1,8 @@
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import React from "react"
+
 import { colors } from "@/constants"
 import { Therapist } from "@/shared/components"
-import React from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
 
 export const TherapistDetails = () => {
   return (

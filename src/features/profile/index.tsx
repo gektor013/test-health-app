@@ -36,7 +36,11 @@ export const Profile = () => {
           <Text style={styles.name}>{t("Kevin Lablabce")}</Text>
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollContainer}>
+        <ScrollView
+          overScrollMode="never"
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollContainer}
+        >
           <View style={styles.buttonsContainer}>
             <Button
               onPress={() => {

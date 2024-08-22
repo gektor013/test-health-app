@@ -1,4 +1,5 @@
 import { Image, StyleSheet, View } from "react-native"
+import { Link } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
 
 import { useLoginMutation } from "@/redux/services/user-api"
@@ -77,10 +78,11 @@ export const SignIn = () => {
         />
         <Text style={styles.accountText}>
           {t("Don’t have an account?")}
-          <Text style={styles.signUpText} type="link">
-            {" "}
-            {t("Sign Up")}
-          </Text>
+          <Link href={"/auth/sign-up"}>
+            <Text style={styles.signUpText} type="link">
+              {t("Sign Up")}
+            </Text>
+          </Link>
         </Text>
       </View>
     </View>

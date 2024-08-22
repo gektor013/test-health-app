@@ -34,3 +34,4 @@ export type SVGIconNames =
   | "phone"
   | "calendar_minus"
   | "calendar_plus"
+  | "calendar_check"

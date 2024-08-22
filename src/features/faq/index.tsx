@@ -7,7 +7,7 @@ import data from "@/utils/default-datas/faq"
 export const Faq = () => {
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
         {data.map((value, index) => {
           return <Accordion value={value} key={index} />
         })}

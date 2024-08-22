@@ -1,12 +1,14 @@
-import { Button } from "@/shared/components"
-import React from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
+import React from "react"
+
+import { Button } from "@/shared/components"
 
 export const ListWorks = () => {
   return (
     <View>
       <ScrollView
         horizontal
+        overScrollMode="never"
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.container}
       >

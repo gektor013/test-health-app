@@ -1,18 +1,21 @@
+import { router } from "expo-router"
 import { StyleSheet, View } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 
+import { useAppSelector } from "@/redux"
 import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
+  const user = useAppSelector((s) => s.auth.user)
+
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
         <Avatar />
         <Text style={styles.greenText}>
-          Hi, <Text style={styles.text}>Kevin Lablabce</Text>
+          Hi, <Text style={styles.text}>{user?.name}</Text>
         </Text>
       </View>
       <TouchableOpacity onPress={() => router.push("/notifications")}>

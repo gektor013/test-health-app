@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View, ViewProps } from "react-native"
+import { Platform, SafeAreaView, StyleSheet, View, ViewProps } from "react-native"
 import { SafeAreaView as RNSSafeAreaView } from "react-native-safe-area-context"
 import { LinearGradient } from "expo-linear-gradient"
 
@@ -35,7 +35,8 @@ export const ScreenGradientContainer: React.FC<ViewProps> = ({ style, ...restPro
 
 const styles = StyleSheet.create({
   flex1: {
-    flex: 1
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? 20 : 0
   },
   container: {
     overflow: "visible",

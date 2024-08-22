@@ -140,6 +140,25 @@ export default function RootLayout() {
                         headerShadowVisible: false
                       }}
                     />
+                    <Stack.Screen
+                      name="auth/sign-up"
+                      options={{
+                        headerBackTitleVisible: false,
+                        headerTitle: "Sign up",
+                        headerTitleStyle: styles.headerTitle,
+                        headerShadowVisible: false
+                      }}
+                    />
+
+                    <Stack.Screen
+                      name="auth/complete-profile"
+                      options={{
+                        headerBackTitleVisible: false,
+                        headerTitle: "Complete Your Profile",
+                        headerTitleStyle: styles.headerTitle,
+                        headerShadowVisible: false
+                      }}
+                    />
                     <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
                     <Stack.Screen name="+not-found" />
                   </Stack>

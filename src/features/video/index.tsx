@@ -31,6 +31,7 @@ export const Videos = () => {
             setCategory={setCategory}
           />
           <ScrollView
+            overScrollMode="never"
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ gap: 16 }}
           >
