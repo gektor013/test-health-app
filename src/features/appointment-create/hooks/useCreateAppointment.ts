@@ -1,6 +1,6 @@
+import { Control, useForm, UseFormGetValues } from "react-hook-form"
 import { Alert } from "react-native"
 import { SharedValue } from "react-native-reanimated"
-import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
 import {
   useGetAllEmployeesQuery,
@@ -43,6 +43,7 @@ interface ReturneData {
     control: Control<AppointmentCreateSchemaData>
     getValues: UseFormGetValues<AppointmentCreateSchemaData>
   }
+  handleBackPress: () => void
   onHandleSubmit: () => void
 }
 
@@ -54,6 +55,7 @@ export const useCreateAppointment = ({
   const {
     control,
     watch,
+    reset,
     getValues,
     handleSubmit,
     formState: { errors }
@@ -92,7 +94,7 @@ export const useCreateAppointment = ({
   ] = useCreateVisitMutation()
 
   // FUNCTION TO SUBMIT FORM WITH VALIDATION
-  //CHECK ABOUT VALIDATION MANAGEMENT
+  // CHECK ABOUT VALIDATION MANAGEMENT
   const onHandleSubmit = handleSubmit(async (data: AppointmentCreateSchemaData) => {
     switch (slideIndex) {
       case 0:
@@ -125,6 +127,11 @@ export const useCreateAppointment = ({
     }
   })
 
+  const handleBackPress = () => {
+    reset(APPOINTMENT_CREATE_DEFAUL_DATA)
+    stepsMethods.onBackPress()
+  }
+
   return {
     visitData: {
       createVisitData,
@@ -142,7 +149,7 @@ export const useCreateAppointment = ({
       control,
       getValues
     },
-
+    handleBackPress,
     onHandleSubmit
   }
 }

@@ -1,10 +1,11 @@
+import { Control, Controller } from "react-hook-form"
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Calendar } from "react-native-calendars"
-import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { dateHelper } from "@/utils/helpers/date"
+import { memo } from "react"
 
 const width = Dimensions.get("window").width
 
@@ -12,7 +13,9 @@ interface Props {
   control: Control<AppointmentCreateSchemaData>
 }
 
-export const ChooseDate = ({ control }: Props) => {
+export const ChooseDate = memo(({ control }: Props) => {
+  console.log("render Date")
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose the date and time that suits you</Text>
@@ -78,7 +81,7 @@ export const ChooseDate = ({ control }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   container: {

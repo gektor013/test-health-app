@@ -21,15 +21,16 @@ const width = commonHelpers.getDimensionsParams().width
 export const AppointmentCreate = () => {
   const { currentIndex, animatedStyle, stepsMethods, slideIndex } = useSlideStep(width)
 
-  const { visitData, datas, onHandleSubmit, form } = useCreateAppointment({
-    slideIndex,
-    stepsMethods,
-    currentIndex
-  })
+  const { visitData, datas, onHandleSubmit, handleBackPress, form } =
+    useCreateAppointment({
+      slideIndex,
+      stepsMethods,
+      currentIndex
+    })
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={stepsMethods.onBackPress} />
+      <CustomHeader onBackPress={handleBackPress} />
       <Steps currentIndexStep={slideIndex} onSetStep={stepsMethods.handleSetSlideIndex} />
       <Animated.View
         style={[
@@ -41,6 +42,7 @@ export const AppointmentCreate = () => {
           animatedStyle
         ]}
       >
+        {/* FIRST STEPS */}
         <ScrollView
           overScrollMode="never"
           showsVerticalScrollIndicator={false}
@@ -50,6 +52,7 @@ export const AppointmentCreate = () => {
           <TherapistList data={datas.employeeData?.data} control={form.control} />
         </ScrollView>
 
+        {/* SECOND STEPS */}
         <ScrollView
           overScrollMode="never"
           showsVerticalScrollIndicator={false}
@@ -67,6 +70,7 @@ export const AppointmentCreate = () => {
           </View>
         </ScrollView>
 
+        {/* THIRD STEPS */}
         <ScrollView
           overScrollMode="never"
           showsVerticalScrollIndicator={false}

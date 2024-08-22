@@ -1,5 +1,5 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 import { Control, Controller } from "react-hook-form"
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
@@ -16,7 +16,6 @@ interface Props {
 
 export const ChooseTime = ({ data, control }: Props) => {
   const { t } = useTranslations()
-
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", gap: 5 }}>

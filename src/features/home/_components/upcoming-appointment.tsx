@@ -1,14 +1,15 @@
+import { Link } from "expo-router"
 import { FlatList, StyleSheet, View, ViewToken } from "react-native"
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue
 } from "react-native-reanimated"
-import { Link } from "expo-router"
 
 import { Appointment, Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
+import { colors } from "@/constants"
 import { Pagination } from "./pagination"
 
 export interface OnboardingData {
@@ -74,9 +75,12 @@ export const UpcomingAppointment = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{t("Upcoming appointment")}</Text>
-        <Link href="/(app)/tabs/appointment">
-          <Text type="link">{t("See all")}</Text>
-        </Link>
+        <View>
+          <Link href="/(app)/tabs/appointment">
+            <Text type="link">{t("See All")}</Text>
+          </Link>
+          <View style={styles.line} />
+        </View>
       </View>
 
       <View style={{ gap: 8 }}>
@@ -125,5 +129,10 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     alignItems: "center"
+  },
+  line: {
+    width: "100%",
+    height: 1,
+    backgroundColor: colors.green
   }
 })
