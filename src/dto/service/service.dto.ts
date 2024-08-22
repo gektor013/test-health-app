@@ -7,5 +7,6 @@ export const serviceSchemaDto = z.object({
   price: z.string(),
   isActive: z.boolean(),
   createdAt: z.string(),
-  updatedAt: z.string()
+  updatedAt: z.string(),
+  image: z.string()
 })

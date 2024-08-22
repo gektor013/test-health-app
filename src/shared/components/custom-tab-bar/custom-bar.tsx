@@ -29,8 +29,6 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
   const { width } = useWindowDimensions()
   const currentRoute = state.routes[state.index].name
 
-  console.log()
-
   return (
     <View
       style={[

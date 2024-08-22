@@ -4,13 +4,14 @@ import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { API_URL } from "@/constants/enviroments"
 import { SVGIcon } from "../ui-kit"
 
 const container_width = commonHelpers.getDimensionsParams().width - 48
 
 interface Props {
   title: string
-  icon: SVGIconNames
+  icon: SVGIconNames | string
   isActive?: boolean
   onPress?: (...event: any[]) => void
 }
@@ -21,7 +22,7 @@ export const VisitType = ({ icon, title, isActive, onPress }: Props) => {
       style={[styles.stepContainer, isActive && styles.activeStepContainer]}
     >
       <SVGIcon
-        name={icon}
+        uri={API_URL + icon}
         color={isActive ? colors.white : colors.green}
         width={40}
         height={40}
