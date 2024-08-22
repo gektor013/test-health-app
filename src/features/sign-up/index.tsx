@@ -37,10 +37,10 @@ export const SignUp = () => {
   const onSubmit: SubmitHandler<SignUpType> = async (body) => {
     await registrations({ ...body, isAgreed: true })
       .unwrap()
-      .then((res) => {
+      .then(() => {
         onLogin({ email: body.email, password: body.password })
       })
-      .catch((e) => {
+      .catch(() => {
         Alert.alert("Something went wrong")
       })
   }
@@ -50,7 +50,6 @@ export const SignUp = () => {
       .unwrap()
       .then((res) => {
         setToken(res.token)
-        console.log(res, "REs")
 
         router.push({
           pathname: "/auth/complete-profile",

@@ -42,7 +42,7 @@ export default function RootLayout() {
                       name="upload-document"
                       options={{
                         headerShown: true,
-                        title: "Upload Document",
+                        title: "Upload Documents",
                         headerBackTitleVisible: false,
                         headerShadowVisible: false
                       }}

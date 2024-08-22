@@ -9,5 +9,11 @@ export const dateHelper = {
   },
   changeDay: (offset = 0, format = "YYYY-MM-DD") => {
     return dayjs().add(offset, "day").format(format)
+  },
+  getLocaleDateTime: (date: Date) => {
+    const timezoneOffset = date.getTimezoneOffset() * 60000
+    const localDate = new Date(date.getTime() - timezoneOffset)
+
+    return localDate
   }
 }

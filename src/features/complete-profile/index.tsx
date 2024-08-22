@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router"
+import { router, useLocalSearchParams } from "expo-router"
 import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { Alert, StyleSheet, Text, View } from "react-native"
@@ -12,7 +12,9 @@ import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
 
+import { useAppSelector } from "@/redux"
 import { useEditUserDataMutation } from "@/redux/services/user-api"
+import { useActions } from "@/shared/hooks"
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 const DEFAULT_VALUES: Profile = {
@@ -24,9 +26,11 @@ const DEFAULT_VALUES: Profile = {
 }
 
 export const CompleteProfile = () => {
+  const { logIn } = useActions()
   const ref = useRef<BottomSheet>(null)
-  const { email, name, id } = useLocalSearchParams<SignUp & { id: string }>()
+  const token = useAppSelector((s) => s.auth.token)
   const { getImageInGalery, image } = useCreateProfile()
+  const { email, name, id } = useLocalSearchParams<SignUp & { id: string }>()
 
   const [postMediaObject] = usePostMediaObjectMutation()
   const [editUserData] = useEditUserDataMutation()
@@ -46,14 +50,21 @@ export const CompleteProfile = () => {
     if (image) {
       upload = await postMediaObject(image.uri)
         .unwrap()
+        .then((res) => {
+          const { contentUrl } = JSON.parse(res.body)
+
+          return contentUrl
+        })
         .catch((e) => console.log(e, "ERROR Upload"))
     }
 
-    await editUserData({ ...data, userId: id })
+    await editUserData({ ...data, image: upload, userId: id })
       .unwrap()
-      .then((res) => console.log(res))
-      .catch((e) => {
-        console.log(e)
+      .then((res) => {
+        logIn({ ...res, token: token as string })
+        router.replace("/")
+      })
+      .catch(() => {
         Alert.alert("Something went wrong")
       })
   }

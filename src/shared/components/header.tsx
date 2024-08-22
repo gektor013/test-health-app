@@ -9,12 +9,11 @@ import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
   const user = useAppSelector((s) => s.auth.user)
-  console.log(user)
 
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
-        <Avatar />
+        <Avatar uri={user?.image} />
         <Text style={styles.greenText}>
           Hi, <Text style={styles.text}>{user?.name}</Text>
         </Text>
