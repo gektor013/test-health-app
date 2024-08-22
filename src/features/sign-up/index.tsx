@@ -50,9 +50,11 @@ export const SignUp = () => {
       .unwrap()
       .then((res) => {
         setToken(res.token)
+        console.log(res, "REs")
+
         router.push({
           pathname: "/auth/complete-profile",
-          params: { email: res.email, name: res.name }
+          params: { email: res.email, name: res.name, id: res.userId }
         })
       })
       .catch(() => Alert.alert("Something went wrong"))

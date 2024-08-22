@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router"
 import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { StyleSheet, Text, View } from "react-native"
+import { Alert, StyleSheet, Text, View } from "react-native"
 
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { profileSchema } from "@/schemas/profile/profile.schema"
@@ -12,7 +12,7 @@ import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { useAppSelector } from "@/redux"
+import { useEditUserDataMutation } from "@/redux/services/user-api"
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 const DEFAULT_VALUES: Profile = {
@@ -25,11 +25,11 @@ const DEFAULT_VALUES: Profile = {
 
 export const CompleteProfile = () => {
   const ref = useRef<BottomSheet>(null)
-  const { email, name } = useLocalSearchParams<SignUp>()
+  const { email, name, id } = useLocalSearchParams<SignUp & { id: string }>()
   const { getImageInGalery, image } = useCreateProfile()
+
   const [postMediaObject] = usePostMediaObjectMutation()
-  const aaa = useAppSelector((s) => s.auth)
-  console.log(aaa)
+  const [editUserData] = useEditUserDataMutation()
 
   const {
     control,
@@ -41,13 +41,21 @@ export const CompleteProfile = () => {
   })
 
   const handleCreateAccount: SubmitHandler<Profile> = async (data) => {
-    if (image) {
-      console.log(image, "Image")
+    let upload
 
-      const upload = await postMediaObject(image.uri)
+    if (image) {
+      upload = await postMediaObject(image.uri)
         .unwrap()
         .catch((e) => console.log(e, "ERROR Upload"))
     }
+
+    await editUserData({ ...data, userId: id })
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((e) => {
+        console.log(e)
+        Alert.alert("Something went wrong")
+      })
   }
 
   const handleOpeBottom = async () => {
