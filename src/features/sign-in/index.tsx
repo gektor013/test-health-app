@@ -1,6 +1,6 @@
-import { Image, StyleSheet, View } from "react-native"
-import { Link } from "expo-router"
+import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
@@ -33,10 +33,14 @@ export const SignIn = () => {
 
   const onSubmit: SubmitHandler<SignInSchemaType> = async (body) => {
     try {
-      const result = await login(body).unwrap()
+      const result = await login(body)
+        .unwrap()
+        .catch(() => Alert.alert("Wrong credentials"))
 
-      if (result?.token) loginUser(result)
-      else throw new Error()
+      if (result?.token) {
+        loginUser(result)
+        router.navigate("/")
+      } else throw new Error()
     } catch (error) {
       setError("root.serverError", {
         type: "401",
@@ -68,16 +72,16 @@ export const SignIn = () => {
           }}
         />
         <FormError error={errors.root?.serverError as FieldError} />
-        <Text style={styles.forgotText} type="link">
+        {/* <Text style={styles.forgotText} type="link">
           {t("Forgot password?")}
-        </Text>
+        </Text> */}
         <Button
           title={t("Sign In")}
           onPress={handleSubmit(onSubmit)}
           disabled={isLoading}
         />
         <Text style={styles.accountText}>
-          {t("Don’t have an account?")}
+          {t("Don’t have an account?")}&nbsp;
           <Link href={"/auth/sign-up"}>
             <Text style={styles.signUpText} type="link">
               {t("Sign Up")}

@@ -1,3 +1,4 @@
+import React from "react"
 import {
   StyleSheet,
   Text,
@@ -6,7 +7,6 @@ import {
   View
 } from "react-native"
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
-import React from "react"
 
 import { colors } from "@/constants"
 

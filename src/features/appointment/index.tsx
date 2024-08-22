@@ -34,12 +34,13 @@ export const Appointment = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    gap: 24
+    paddingTop: 15
+    // gap: 24
   },
   animatedContainer: {
     flex: 1,
     flexDirection: "row",
     width: width * 3
+    // marginTop: 24
   }
 })

@@ -1,6 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
-import { router } from "expo-router"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
@@ -21,11 +20,6 @@ export const UpcommingAppointment = () => {
         <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Confirmed" }}>
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button
-              onPress={() => router.push("/details-appointment")}
-              title="Reschedule"
-              containerStyles={styles.button}
-            />
           </View>
         </Appointment>
       </View>
@@ -38,7 +32,6 @@ export const UpcommingAppointment = () => {
         >
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
           </View>
         </Appointment>
         <Appointment
@@ -47,7 +40,6 @@ export const UpcommingAppointment = () => {
         >
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
           </View>
         </Appointment>
         <Appointment
@@ -56,7 +48,6 @@ export const UpcommingAppointment = () => {
         >
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
           </View>
         </Appointment>
       </View>
@@ -66,7 +57,9 @@ export const UpcommingAppointment = () => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    gap: 24
+    gap: 24,
+    paddingBottom: 100,
+    paddingTop: 24
   },
   container: {
     gap: 16
@@ -81,6 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   button: {
-    flex: 1 / 2
+    flex: 1
   }
 })

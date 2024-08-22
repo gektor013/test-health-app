@@ -9,6 +9,7 @@ import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
   const user = useAppSelector((s) => s.auth.user)
+  console.log(user)
 
   return (
     <View style={styles.container}>

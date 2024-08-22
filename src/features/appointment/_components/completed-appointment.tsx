@@ -1,7 +1,7 @@
-import { ScrollView, StyleSheet, View } from "react-native"
 import React from "react"
+import { ScrollView } from "react-native"
 
-import { Appointment, Button } from "@/shared/components"
+import { Appointment } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"
 const width = commonHelpers.getDimensionsParams().width
 
@@ -11,37 +11,28 @@ export const CompletedAppointment = () => {
       style={[{ width }]}
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ gap: 16 }}
+      contentContainerStyle={{ gap: 16, paddingBottom: 100, paddingTop: 24 }}
     >
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
+      <Appointment
+        isHeaderButtonNeed={false}
+        headerTitle={{ title: "Completed" }}
+      ></Appointment>
+      <Appointment
+        isHeaderButtonNeed={false}
+        headerTitle={{ title: "Completed" }}
+      ></Appointment>
+      <Appointment
+        isHeaderButtonNeed={false}
+        headerTitle={{ title: "Completed" }}
+      ></Appointment>
+      <Appointment
+        isHeaderButtonNeed={false}
+        headerTitle={{ title: "Completed" }}
+      ></Appointment>
+      <Appointment
+        isHeaderButtonNeed={false}
+        headerTitle={{ title: "Completed" }}
+      ></Appointment>
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: "row",
-    gap: 8,
-    justifyContent: "space-between"
-  },
-  button: {
-    flex: 1 / 2
-  }
-})
