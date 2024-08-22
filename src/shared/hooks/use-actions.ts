@@ -1,12 +1,13 @@
 import { useMemo } from "react"
 
 import { useAppDispatch } from "@/redux"
-import { logIn, logOut } from "@/redux/features"
+import { logIn, logOut, setToken } from "@/redux/features"
 import { bindActionCreators } from "@reduxjs/toolkit"
 
 const rootActions = {
   logIn,
-  logOut
+  logOut,
+  setToken
 }
 
 export const useActions = () => {

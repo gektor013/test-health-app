@@ -20,7 +20,7 @@ const defaultValues: SignUpType = {
 
 export const SignUp = () => {
   const { t } = useTranslations()
-  const { logIn } = useActions()
+  const { setToken } = useActions()
 
   const [login, { isLoading: isLoginLoading }] = useLoginMutation()
   const [registrations, { isLoading: isRegistrationLoading }] = useRegistrationsMutation()
@@ -37,7 +37,9 @@ export const SignUp = () => {
   const onSubmit: SubmitHandler<SignUpType> = async (body) => {
     await registrations({ ...body, isAgreed: true })
       .unwrap()
-      .then(() => onLogin({ email: body.email, password: body.password }))
+      .then((res) => {
+        onLogin({ email: body.email, password: body.password })
+      })
       .catch((e) => {
         Alert.alert("Something went wrong")
       })
@@ -47,7 +49,7 @@ export const SignUp = () => {
     await login({ email, password })
       .unwrap()
       .then((res) => {
-        logIn(res)
+        setToken(res.token)
         router.push({
           pathname: "/auth/complete-profile",
           params: { email: res.email, name: res.name }

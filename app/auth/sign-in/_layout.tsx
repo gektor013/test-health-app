@@ -1,46 +1,37 @@
-import { Redirect, Stack } from "expo-router";
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { KeyboardAvoidingView, ScreenContainer } from "@/shared/components";
-import { StatusBar } from "expo-status-bar";
-import { useAuth } from "@/shared/hooks";
+import { KeyboardAvoidingView, ScreenContainer } from "@/shared/components"
+import { Stack } from "expo-router"
+import { StatusBar } from "expo-status-bar"
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 
 export default function SignInLayout() {
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
 
-  if (isAuthenticated) return <Redirect href={"/tabs"} />;
+  // if (isAuthenticated) return <Redirect href={"/tabs"} />;
 
   return (
     <ScreenContainer style={styles.screenContainer}>
       <StatusBar style="dark" />
       <KeyboardAvoidingView>
-        <TouchableWithoutFeedback
-          style={{ flex: 1 }}
-          onPress={Keyboard.dismiss}
-        >
+        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
           <View style={styles.container}>
             <Stack
               screenOptions={{
-                headerShown: false,
+                headerShown: false
               }}
             />
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </ScreenContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    paddingTop: 0,
+    paddingTop: 0
   },
   container: {
     flex: 1,
-    justifyContent: "center",
-  },
-});
+    justifyContent: "center"
+  }
+})

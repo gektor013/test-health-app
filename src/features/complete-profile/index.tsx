@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native"
-import React, { useRef } from "react"
 import { useLocalSearchParams } from "expo-router"
+import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { StyleSheet, Text, View } from "react-native"
 
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { profileSchema } from "@/schemas/profile/profile.schema"
@@ -12,6 +12,7 @@ import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
 
+import { useAppSelector } from "@/redux"
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 const DEFAULT_VALUES: Profile = {
@@ -27,6 +28,8 @@ export const CompleteProfile = () => {
   const { email, name } = useLocalSearchParams<SignUp>()
   const { getImageInGalery, image } = useCreateProfile()
   const [postMediaObject] = usePostMediaObjectMutation()
+  const aaa = useAppSelector((s) => s.auth)
+  console.log(aaa)
 
   const {
     control,
@@ -36,10 +39,8 @@ export const CompleteProfile = () => {
     defaultValues: { ...DEFAULT_VALUES, email, name },
     resolver: zodResolver(profileSchema)
   })
-  console.log(errors, "Errors")
 
   const handleCreateAccount: SubmitHandler<Profile> = async (data) => {
-    console.log(data, "DATA")
     if (image) {
       console.log(image, "Image")
 
