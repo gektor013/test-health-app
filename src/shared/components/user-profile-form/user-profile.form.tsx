@@ -1,8 +1,8 @@
+import { ImagePickerAsset } from "expo-image-picker"
+import React, { useState } from "react"
+import { Control, Controller } from "react-hook-form"
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
-import React, { useState } from "react"
-import { ImagePickerAsset } from "expo-image-picker"
-import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
@@ -10,6 +10,7 @@ import { Profile } from "@/types/profile"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
 
+import { API_URL } from "@/constants/enviroments"
 import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
 import { Button, DropdownComponent, SVGIcon, TextInput } from "../ui-kit"
 
@@ -17,7 +18,7 @@ interface Props {
   isEmailNeed?: boolean
   scrollEnabled?: boolean
   control: Control<Profile>
-  image: ImagePickerAsset | null
+  image: ImagePickerAsset | string | null
   onImagePress: () => void
 }
 
@@ -36,8 +37,15 @@ export const UserProfileForm = ({
       <View style={styles.header}>
         <Pressable onPress={onImagePress} style={styles.avatarContainer}>
           {image ? (
-            <Image source={image} style={styles.image} />
+            <>
+              {typeof image === "string" ? (
+                <Image source={{ uri: API_URL + image }} style={styles.image} />
+              ) : (
+                <Image source={image} style={styles.image} />
+              )}
+            </>
           ) : (
+            //
             <React.Fragment>
               <SVGIcon name="empty_avatar" size={100} />
               <VectorExpoIcons

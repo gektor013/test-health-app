@@ -1,4 +1,5 @@
 export * from "./use-actions"
 export * from "./use-auth"
+export * from "./use-get-camera-permissions"
 export * from "./use-slide-step"
 export * from "./use-translations"
