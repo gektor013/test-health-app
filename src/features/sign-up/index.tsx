@@ -1,14 +1,15 @@
-import { Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
-import { useTranslations } from "@/shared/hooks"
+import { useActions, useTranslations } from "@/shared/hooks"
 import { SignUp as SignUpType } from "@/types/sign-up"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import ImageLogo from "#/images/logo-black-text.png"
+import { useLoginMutation, useRegistrationsMutation } from "@/redux/services/user-api"
 
 const defaultValues: SignUpType = {
   name: "qqq",
@@ -19,6 +20,10 @@ const defaultValues: SignUpType = {
 
 export const SignUp = () => {
   const { t } = useTranslations()
+  const { logIn } = useActions()
+
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation()
+  const [registrations, { isLoading: isRegistrationLoading }] = useRegistrationsMutation()
 
   const {
     control,
@@ -30,7 +35,25 @@ export const SignUp = () => {
   })
 
   const onSubmit: SubmitHandler<SignUpType> = async (body) => {
-    router.push({ pathname: "/auth/complete-profile", params: body })
+    await registrations({ ...body, isAgreed: true })
+      .unwrap()
+      .then(() => onLogin({ email: body.email, password: body.password }))
+      .catch((e) => {
+        Alert.alert("Something went wrong")
+      })
+  }
+
+  const onLogin = async ({ email, password }: { email: string; password: string }) => {
+    await login({ email, password })
+      .unwrap()
+      .then((res) => {
+        logIn(res)
+        router.push({
+          pathname: "/auth/complete-profile",
+          params: { email: res.email, name: res.name }
+        })
+      })
+      .catch(() => Alert.alert("Something went wrong"))
   }
 
   return (
@@ -78,7 +101,7 @@ export const SignUp = () => {
         <Button
           title={t("Sign up")}
           onPress={handleSubmit(onSubmit)}
-          // disabled={isLoading}
+          disabled={isLoginLoading || isRegistrationLoading}
         />
         <Text style={styles.accountText}>
           {t("Don’t have an account?")}{" "}
