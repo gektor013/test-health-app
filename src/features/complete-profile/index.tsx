@@ -1,20 +1,20 @@
 import { router, useLocalSearchParams } from "expo-router"
 import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { Alert, StyleSheet, Text, View } from "react-native"
+import { Alert, Text, View } from "react-native"
 
+import { useAppSelector } from "@/redux"
 import { usePostMediaObjectMutation } from "@/redux/services"
+import { useEditUserDataMutation } from "@/redux/services/user-api"
 import { profileSchema } from "@/schemas/profile/profile.schema"
 import { Button, UserProfileForm } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
+import { useActions } from "@/shared/hooks"
 import { Profile } from "@/types/profile"
 import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { useAppSelector } from "@/redux"
-import { useEditUserDataMutation } from "@/redux/services/user-api"
-import { useActions } from "@/shared/hooks"
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 const DEFAULT_VALUES: Profile = {
@@ -35,11 +35,7 @@ export const CompleteProfile = () => {
   const [postMediaObject] = usePostMediaObjectMutation()
   const [editUserData] = useEditUserDataMutation()
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<Profile>({
+  const { control, handleSubmit } = useForm<Profile>({
     defaultValues: { ...DEFAULT_VALUES, email, name },
     resolver: zodResolver(profileSchema)
   })
@@ -62,7 +58,7 @@ export const CompleteProfile = () => {
       .unwrap()
       .then((res) => {
         logIn({ ...res, token: token as string })
-        router.replace("/")
+        router.push("/")
       })
       .catch(() => {
         Alert.alert("Something went wrong")
@@ -100,5 +96,3 @@ export const CompleteProfile = () => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({})

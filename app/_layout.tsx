@@ -159,7 +159,10 @@ export default function RootLayout() {
                         headerShadowVisible: false
                       }}
                     />
-                    <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
+                    <Stack.Screen
+                      name="(app)/tabs"
+                      options={{ headerShown: false, gestureEnabled: false }}
+                    />
                     <Stack.Screen name="+not-found" />
                   </Stack>
                 </Host>

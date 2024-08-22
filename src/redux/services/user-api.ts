@@ -1,11 +1,11 @@
 import { userVideoSchemaDto } from "@/dto/user-video/user-video.dto"
 import { SignInSchemaType } from "@/features/sign-in/schemas"
+import { Profile } from "@/types/profile"
+import { SignUp } from "@/types/sign-up"
 import { LoginResponse, User } from "@/types/user"
 import { UserVideoResponse } from "@/types/user-video/user-video.type"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { Profile } from "@/types/profile"
-import { SignUp } from "@/types/sign-up"
 import { appApi } from "./app-api"
 
 export const authApi = appApi.injectEndpoints({

@@ -1,5 +1,5 @@
-import React from "react"
 import { ScrollView } from "react-native"
+import React from "react"
 
 import { Appointment } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"

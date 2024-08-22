@@ -1,8 +1,8 @@
-import { ImagePickerAsset } from "expo-image-picker"
-import React, { useState } from "react"
-import { Control, Controller } from "react-hook-form"
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
+import React, { useState } from "react"
+import { ImagePickerAsset } from "expo-image-picker"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"

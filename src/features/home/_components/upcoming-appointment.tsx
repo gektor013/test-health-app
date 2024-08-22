@@ -1,15 +1,15 @@
-import { Link } from "expo-router"
 import { FlatList, StyleSheet, View, ViewToken } from "react-native"
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue
 } from "react-native-reanimated"
+import { Link } from "expo-router"
 
+import { colors } from "@/constants"
 import { Appointment, Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
-import { colors } from "@/constants"
 import { Pagination } from "./pagination"
 
 export interface OnboardingData {
@@ -60,8 +60,8 @@ export const UpcomingAppointment = () => {
   const flatListIndex = useSharedValue(0)
 
   const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-    if (viewableItems[0].index !== null) {
-      flatListIndex.value = viewableItems[0].index
+    if (viewableItems[0]?.index !== null) {
+      flatListIndex.value = viewableItems[0]?.index
     }
   }
 

@@ -1,7 +1,8 @@
+import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
-import { Alert, Image, StyleSheet, View } from "react-native"
 
+import { useLoginMutation, useRegistrationsMutation } from "@/redux/services/user-api"
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
 import { useActions, useTranslations } from "@/shared/hooks"
@@ -9,7 +10,6 @@ import { SignUp as SignUpType } from "@/types/sign-up"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import ImageLogo from "#/images/logo-black-text.png"
-import { useLoginMutation, useRegistrationsMutation } from "@/redux/services/user-api"
 
 const defaultValues: SignUpType = {
   name: "qqq",

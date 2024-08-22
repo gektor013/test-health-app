@@ -1,4 +1,3 @@
-import React from "react"
 import {
   Platform,
   Pressable,
@@ -8,10 +7,11 @@ import {
   View
 } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
+import React from "react"
 
 import { colors } from "@/constants"
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
+
 import { SVGIcon } from "../ui-kit/svg-icon"
 
 import BottomTabIcon from "./bottom-tab-icon"

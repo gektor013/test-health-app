@@ -1,5 +1,5 @@
-import React from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"

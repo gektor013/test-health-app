@@ -1,6 +1,6 @@
+import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
-import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
@@ -39,7 +39,7 @@ export const SignIn = () => {
 
       if (result?.token) {
         loginUser(result)
-        router.navigate("/")
+        router.push("/")
       } else throw new Error()
     } catch (error) {
       setError("root.serverError", {

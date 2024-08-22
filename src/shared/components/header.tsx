@@ -1,10 +1,10 @@
-import { router } from "expo-router"
 import { StyleSheet, View } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
-
 import { useAppSelector } from "@/redux"
+
 import { Avatar, SVGIcon, Text } from "./ui-kit"
 
 export const Header = () => {
