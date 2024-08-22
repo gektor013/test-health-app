@@ -49,7 +49,11 @@ export const AppointmentCreate = () => {
           style={[styles.pt40, { width }]}
         >
           <VisitsTypes data={datas.servicesData?.data} control={form.control} />
-          <TherapistList data={datas.employeeData?.data} control={form.control} />
+          <TherapistList
+            data={datas.employeeData?.data}
+            control={form.control}
+            isLoading={datas.isEmployeeLoading}
+          />
         </ScrollView>
 
         {/* SECOND STEPS */}

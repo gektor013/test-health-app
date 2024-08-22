@@ -1,15 +1,23 @@
 import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native"
 
+import { colors } from "@/constants"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { VisitType } from "@/shared/components"
 
 export const TherapistsSpecialist = () => {
-  const { data: servicesData } = useGetAllServicesQuery()
+  const { data: servicesData, isLoading } = useGetAllServicesQuery()
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontWeight: "600" }}>Therapists' specialties</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Therapists' specialties</Text>
+        <ActivityIndicator
+          size="small"
+          color={colors.green}
+          style={{ display: isLoading ? "flex" : "none" }}
+        />
+      </View>
       <ScrollView
         horizontal
         overScrollMode="never"
@@ -30,5 +38,13 @@ const styles = StyleSheet.create({
   },
   gap8: {
     gap: 8
+  },
+  titleContainer: {
+    gap: 5,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  title: {
+    fontWeight: "600"
   }
 })

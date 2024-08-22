@@ -38,6 +38,7 @@ interface ReturneData {
     employeeData: TransformedData<EmployeesResponse> | undefined
     scheduleData: ScheduleEmloyeeTime[] | undefined
     isScheduleLoading: boolean
+    isEmployeeLoading: boolean
   }
   form: {
     control: Control<AppointmentCreateSchemaData>
@@ -68,7 +69,7 @@ export const useCreateAppointment = ({
 
   // REQUESTS
   const { data: servicesData } = useGetAllServicesQuery()
-  const { data: employeeData } = useGetAllEmployeesQuery()
+  const { data: employeeData, isFetching: isEmployeeLoading } = useGetAllEmployeesQuery()
 
   const { data: scheduleData, isFetching: isScheduleLoading } =
     useGetEmployeeSchduleQuery(
@@ -143,7 +144,8 @@ export const useCreateAppointment = ({
       servicesData,
       employeeData,
       scheduleData,
-      isScheduleLoading
+      isScheduleLoading,
+      isEmployeeLoading
     },
     form: {
       control,
