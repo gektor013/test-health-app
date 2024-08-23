@@ -17,8 +17,3 @@ export const signUpSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"]
   })
-
-// phone: z.string(),
-// birthdate: z.string(),
-// sex: z.enum(["Male", "Female"]),
-// isAgreed: z.boolean()
