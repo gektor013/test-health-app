@@ -32,11 +32,12 @@ export const endpointsmployeeApi = appApi.injectEndpoints({
     }),
     getEmployeeSchdule: builder.query<
       ScheduleEmloyeeTime[],
-      { employee_id: number; date: string; service_duration: number | undefined }
+      { employee_id: number; date: string; service_duration: number }
     >({
       query: ({ date, employee_id }) => ({
         url: `/api/public/employees/${employee_id}/schedule/${date}`
       }),
+      keepUnusedDataFor: 0,
       transformResponse: (
         baseQueryReturnValue: ScheduleEmloyeeTime[],
         _,

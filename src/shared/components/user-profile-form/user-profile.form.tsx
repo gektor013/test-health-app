@@ -45,7 +45,6 @@ export const UserProfileForm = ({
               )}
             </>
           ) : (
-            //
             <React.Fragment>
               <SVGIcon name="empty_avatar" size={100} />
               <VectorExpoIcons

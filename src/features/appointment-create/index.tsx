@@ -91,13 +91,13 @@ export const AppointmentCreate = () => {
       <Button
         title="Next"
         onPress={onHandleSubmit}
-        disabled={visitData.isCreateVisitLoading}
         containerStyles={{
           position: "absolute",
           bottom: 8,
           width: "100%"
         }}
         variant="primary"
+        disabled={visitData.isCreateVisitLoading || visitData.isCreateVisitSuccess}
       />
 
       <AppointmentCreateModals

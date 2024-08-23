@@ -12,6 +12,7 @@ export const APPOINTMENT_CREATE_DEFAUL_DATA: AppointmentCreateSchemaData = {
     createdAt: "",
     updatedAt: ""
   },
+  status: "Pending",
   employee: {
     id: null,
     name: "",

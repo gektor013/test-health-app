@@ -1,5 +1,5 @@
-import { Image, StyleSheet, View } from "react-native"
 import React from "react"
+import { Image, StyleSheet, View } from "react-native"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
@@ -10,8 +10,6 @@ interface Props {
 }
 
 export const Avatar: React.FC<Props> = ({ size = 30, uri }) => {
-  console.log(uri, "uri")
-
   return (
     <React.Fragment>
       {uri ? (

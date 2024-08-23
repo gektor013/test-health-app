@@ -14,6 +14,7 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
           updatedAt: z.string()
         })
         .required(),
+      status: z.string().min(1),
       employee: z.object({
         id: z.number().nullable(),
         name: z.string().min(1),
