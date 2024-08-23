@@ -87,20 +87,20 @@ export const UserProfileForm = ({
                 keyboardType: "email-address"
               }}
             />
+
+            <TextInput
+              label={t("Phone number")}
+              type="phone"
+              name="phone"
+              control={control}
+              inputProps={{
+                maxLength: 17,
+                placeholder: t("+1 (999) 111-0000"),
+                keyboardType: "number-pad"
+              }}
+            />
           </>
         )}
-
-        <TextInput
-          label={t("Phone number")}
-          type="phone"
-          name="phone"
-          control={control}
-          inputProps={{
-            maxLength: 17,
-            placeholder: t("+1 (999) 111-0000"),
-            keyboardType: "number-pad"
-          }}
-        />
 
         <Controller
           control={control}

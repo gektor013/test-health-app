@@ -38,13 +38,15 @@ export const useCreateProfile = (): ReturnData => {
   const ref = useRef<BottomSheet>(null)
   const token = useAppSelector((s) => s.auth.token)
   const { getImageInGalery, image } = useGetCameraPermissions()
-  const { email, name, id } = useLocalSearchParams<SignUp & { id: string }>()
+  const { email, name, id, phone } = useLocalSearchParams<
+    SignUp & { id: string; phone: string }
+  >()
 
   const [postMediaObject] = usePostMediaObjectMutation()
   const [editUserData] = useEditUserDataMutation()
 
   const { control, handleSubmit } = useForm<Profile>({
-    defaultValues: { ...DEFAULT_VALUES, email, name },
+    defaultValues: { ...DEFAULT_VALUES, email, name, phone },
     resolver: zodResolver(profileSchema)
   })
 

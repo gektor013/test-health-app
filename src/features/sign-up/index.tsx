@@ -1,6 +1,6 @@
-import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation, useRegistrationsMutation } from "@/redux/services/user-api"
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
@@ -13,8 +13,9 @@ import ImageLogo from "#/images/logo-black-text.png"
 
 const defaultValues: SignUpType = {
   name: "qqq",
-  email: "qqq@g.com",
+  email: "qqq1@g.com",
   password: "123456",
+  phone: "",
   confirmPassword: "123456"
 }
 
@@ -53,7 +54,7 @@ export const SignUp = () => {
 
         router.push({
           pathname: "/auth/complete-profile",
-          params: { email: res.email, name: res.name, id: res.userId }
+          params: { email: res.email, name: res.name, id: res.userId, phone: res.phone }
         })
       })
       .catch(() => Alert.alert("Something went wrong"))
@@ -71,6 +72,19 @@ export const SignUp = () => {
             placeholder: t("Enter your name")
           }}
         />
+
+        <TextInput
+          label="Phone number"
+          control={control}
+          type="phone"
+          name="phone"
+          inputProps={{
+            maxLength: 17,
+            placeholder: t("+1 (999) 111-0000"),
+            keyboardType: "number-pad"
+          }}
+        />
+
         <TextInput
           label="Email"
           control={control}
