@@ -5,6 +5,7 @@ import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
+import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { CanceledAppointment } from "./_components/canceled-appointment"
 import { CompletedAppointment } from "./_components/completed-appointment"
 import { UpcommingAppointment } from "./_components/upcomming-appointment"
@@ -14,6 +15,10 @@ const width = commonHelpers.getDimensionsParams().width
 
 export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
+  const { data } = useGetPrivateVisitsQuery({ status: "Canceled" })
+  console.log(data)
+  // const { token } = useAppSelector((s) => s.auth)
+  // console.log(token)
 
   return (
     <View style={styles.container}>

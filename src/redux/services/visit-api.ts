@@ -3,10 +3,21 @@ import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.typ
 import { appApi } from "./app-api"
 
 export const visitApi = appApi.injectEndpoints({
+  overrideExisting: true,
   endpoints: (builder) => ({
     getVisits: builder.query<any, void>({
       query: () => ({
         url: `/api/protected/visits`
+      })
+    }),
+
+    getPrivateVisits: builder.query<
+      any,
+      { status: "Canceled" | "Pending" | "Completed" }
+    >({
+      query: (params) => ({
+        url: `/api/private/visits`,
+        params
       })
     }),
 
@@ -23,4 +34,5 @@ export const visitApi = appApi.injectEndpoints({
   })
 })
 
-export const { useGetVisitsQuery, useCreateVisitMutation } = visitApi
+export const { useGetVisitsQuery, useCreateVisitMutation, useGetPrivateVisitsQuery } =
+  visitApi
