@@ -5,6 +5,7 @@ import { Calendar } from "react-native-calendars"
 import { colors } from "@/constants"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { dateHelper } from "@/utils/helpers/date"
+import { memo } from "react"
 
 const width = Dimensions.get("window").width
 
@@ -12,7 +13,7 @@ interface Props {
   control: Control<AppointmentCreateSchemaData>
 }
 
-export const ChooseDate = ({ control }: Props) => {
+export const ChooseDate = memo(({ control }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose the date and time that suits you</Text>
@@ -78,7 +79,7 @@ export const ChooseDate = ({ control }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   container: {

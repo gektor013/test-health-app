@@ -1,11 +1,12 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 import { Control, Controller } from "react-hook-form"
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { CheckBox, Therapist } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { EmployeesResponse } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
+import { memo } from "react"
 
 interface Props {
   control: Control<AppointmentCreateSchemaData>
@@ -15,7 +16,7 @@ interface Props {
 
 const width = commonHelpers.getDimensionsParams().width - 32
 
-export const TherapistList = ({ data, control, isLoading }: Props) => {
+export const TherapistList = memo(({ data, control, isLoading }: Props) => {
   return (
     <View style={styles.therapistListMainContainer}>
       <View style={styles.titleContainer}>
@@ -60,7 +61,7 @@ export const TherapistList = ({ data, control, isLoading }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   therapistListMainContainer: {

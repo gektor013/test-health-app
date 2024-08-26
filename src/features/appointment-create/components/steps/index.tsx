@@ -1,5 +1,5 @@
+import React, { memo } from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
-import React from "react"
 
 import { colors } from "@/constants"
 
@@ -14,11 +14,12 @@ const SLIDERS_DATA = [
   { title: "Patient details and Confirmation", id: 2, step: 3 }
 ]
 
-export const Steps = ({ currentIndexStep, onSetStep }: Props) => {
+export const Steps = memo(({ currentIndexStep, onSetStep }: Props) => {
   const handleSetStep = (stepId: number) => {
     if (currentIndexStep < stepId) return
     onSetStep(stepId)
   }
+
   return (
     <View style={styles.stepContainer}>
       {SLIDERS_DATA.map((slide) => (
@@ -65,7 +66,7 @@ export const Steps = ({ currentIndexStep, onSetStep }: Props) => {
       ))}
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   stepContainer: {

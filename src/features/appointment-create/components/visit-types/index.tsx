@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View } from "react-native"
 import { Control, Controller } from "react-hook-form"
+import { StyleSheet, Text, View } from "react-native"
 
 import { VisitType } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { ServiceResponse } from "@/types/service/service.type"
+import { memo } from "react"
 
 interface Props {
   control: Control<AppointmentCreateSchemaData>
   data: ServiceResponse[] | undefined
 }
 
-export const VisitsTypes = ({ data, control }: Props) => {
+export const VisitsTypes = memo(({ data, control }: Props) => {
   return (
     <View style={styles.visitsContainer}>
       <Text style={styles.visitsContainerTitle}>Select the type of visit</Text>
@@ -35,7 +36,7 @@ export const VisitsTypes = ({ data, control }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   visitsContainer: {

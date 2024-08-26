@@ -2,10 +2,11 @@ import { Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
+import { memo } from "react"
 interface Props {
   onBackPress: () => void
 }
-export const CustomHeader = ({ onBackPress }: Props) => {
+export const CustomHeader = memo(({ onBackPress }: Props) => {
   return (
     <View style={styles.headerContainer}>
       <Pressable onPress={onBackPress} style={styles.iconPress}>
@@ -19,7 +20,7 @@ export const CustomHeader = ({ onBackPress }: Props) => {
       <Text style={styles.title}>Book a new appointment</Text>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   headerContainer: {
