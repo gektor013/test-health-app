@@ -1,5 +1,5 @@
 import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
@@ -10,9 +10,10 @@ const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
   data: AppointmentPrivateResponse[] | undefined
+  isLoading?: boolean
 }
 
-export const UpcommingAppointment = ({ data }: Props) => {
+export const UpcommingAppointment = ({ data, isLoading }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -29,7 +30,19 @@ export const UpcommingAppointment = ({ data }: Props) => {
         </Appointment>
       </View> */}
       <View style={styles.container}>
-        <Text style={styles.title}>Nearest visit</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Nearest visit</Text>
+          <ActivityIndicator
+            size="small"
+            color={colors.green}
+            style={[
+              styles.indicator,
+              {
+                display: isLoading ? "flex" : "none"
+              }
+            ]}
+          />
+        </View>
         {data?.map((appointment) => (
           <Appointment
             key={appointment.id}
@@ -56,10 +69,17 @@ const styles = StyleSheet.create({
   container: {
     gap: 16
   },
+  titleContainer: {
+    position: "relative",
+    width: "30%"
+  },
   title: {
     fontWeight: "600"
   },
-
+  indicator: {
+    position: "absolute",
+    right: 0
+  },
   buttonContainer: {
     flexDirection: "row",
     gap: 8,

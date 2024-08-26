@@ -15,34 +15,34 @@ import { UpcommingAppointment } from "./_components/upcomming-appointment"
 const options = ["Upcoming", "Completed", "Cancelled"]
 const width = commonHelpers.getDimensionsParams().width
 
-const CustomUseEffect = <T extends Function>(cb: T) => {
-  useFocusEffect(
-    useCallback(() => {
-      cb()
-
-      return () => {
-        console.log("UnMounting")
-
-        // Do something that should run on blur
-      }
-    }, [])
-  )
-}
-
 export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
-  const { data: appointmentPendingData } = useGetPrivateVisitsQuery({
+  const {
+    data: appointmentPendingData,
+    refetch: refetchPendingData,
+    isFetching: isPendingLoading
+  } = useGetPrivateVisitsQuery({
     status: "Pending",
     page: 1
   })
-  const { data: appointmentCompletedData } = useGetPrivateVisitsQuery({
-    status: "Completed",
-    page: 1
-  })
-  const { data: appointmentCanceledData } = useGetPrivateVisitsQuery({
-    status: "Canceled",
-    page: 1
-  })
+  const { data: appointmentCompletedData, refetch: refetchCompletedData } =
+    useGetPrivateVisitsQuery({
+      status: "Completed",
+      page: 1
+    })
+  const { data: appointmentCanceledData, refetch: refetchCanceledData } =
+    useGetPrivateVisitsQuery({
+      status: "Canceled",
+      page: 1
+    })
+
+  useFocusEffect(
+    useCallback(() => {
+      refetchPendingData()
+      refetchCompletedData()
+      refetchCanceledData()
+    }, [])
+  )
 
   return (
     <View style={styles.container}>
@@ -52,7 +52,10 @@ export const Appointment = () => {
         onOptionPress={stepsMethods.handleSetSlideIndex}
       />
       <Animated.View style={[styles.animatedContainer, animatedStyle]}>
-        <UpcommingAppointment data={appointmentPendingData} />
+        <UpcommingAppointment
+          data={appointmentPendingData}
+          isLoading={isPendingLoading}
+        />
         <CompletedAppointment data={appointmentCompletedData} />
         <CanceledAppointment data={appointmentCanceledData} />
       </Animated.View>

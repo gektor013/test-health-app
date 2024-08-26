@@ -23,6 +23,7 @@ export const visitApi = appApi.injectEndpoints({
         url: `/api/private/visits`,
         params
       }),
+      providesTags: ["Visits"],
       transformResponse: (
         baseQueryReturnValue: AppointmentPrivateResponse[]
       ): AppointmentPrivateResponse[] => {
@@ -32,6 +33,18 @@ export const visitApi = appApi.injectEndpoints({
 
         return {} as AppointmentPrivateResponse[]
       }
+    }),
+
+    cancelVisit: builder.mutation<
+      AppointmentCreateSchemaData,
+      { id: string; status: "Canceled" }
+    >({
+      query: (body) => ({
+        url: `/api/private/visits/${body.id}`,
+        method: "PATCH",
+        body
+      }),
+      invalidatesTags: ["Visits"]
     }),
 
     createVisit: builder.mutation<
