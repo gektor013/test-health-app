@@ -31,13 +31,18 @@ const CustomUseEffect = <T extends Function>(cb: T) => {
 
 export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
-  const { data: appointmentData, refetch } = useGetPrivateVisitsQuery({
+  const { data: appointmentPendingData } = useGetPrivateVisitsQuery({
     status: "Pending",
     page: 1
   })
-  console.log(appointmentData, "appointmentData")
-  // const { token } = useAppSelector((s) => s.auth)
-  // console.log(token)
+  const { data: appointmentCompletedData } = useGetPrivateVisitsQuery({
+    status: "Completed",
+    page: 1
+  })
+  const { data: appointmentCanceledData } = useGetPrivateVisitsQuery({
+    status: "Canceled",
+    page: 1
+  })
 
   return (
     <View style={styles.container}>
@@ -47,9 +52,9 @@ export const Appointment = () => {
         onOptionPress={stepsMethods.handleSetSlideIndex}
       />
       <Animated.View style={[styles.animatedContainer, animatedStyle]}>
-        <UpcommingAppointment />
-        <CompletedAppointment />
-        <CanceledAppointment />
+        <UpcommingAppointment data={appointmentPendingData} />
+        <CompletedAppointment data={appointmentCompletedData} />
+        <CanceledAppointment data={appointmentCanceledData} />
       </Animated.View>
     </View>
   )

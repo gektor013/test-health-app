@@ -1,13 +1,18 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
 
 const width = commonHelpers.getDimensionsParams().width
 
-export const UpcommingAppointment = () => {
+interface Props {
+  data: AppointmentPrivateResponse[] | undefined
+}
+
+export const UpcommingAppointment = ({ data }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -15,41 +20,28 @@ export const UpcommingAppointment = () => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
     >
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <Text style={styles.title}>Scheduled upcoming visit</Text>
         <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Confirmed" }}>
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
           </View>
         </Appointment>
-      </View>
-
+      </View> */}
       <View style={styles.container}>
         <Text style={styles.title}>Nearest visit</Text>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          </View>
-        </Appointment>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          </View>
-        </Appointment>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          </View>
-        </Appointment>
+        {data?.map((appointment) => (
+          <Appointment
+            key={appointment.id}
+            isHeaderButtonNeed={false}
+            appointmentData={appointment}
+            headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
+          >
+            <View style={styles.buttonContainer}>
+              <Button title="Cancel" variant="outline" containerStyles={styles.button} />
+            </View>
+          </Appointment>
+        ))}
       </View>
     </ScrollView>
   )

@@ -131,8 +131,6 @@ export const useCreateAppointment = ({
           finishedAt: `${data.startedAt}T${data.choosenTime.endTime}`
         }
 
-        console.log(editData, "editData")
-
         return await createVisit({
           ...editData
         })

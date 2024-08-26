@@ -1,11 +1,16 @@
-import { ScrollView } from "react-native"
 import React from "react"
+import { ScrollView } from "react-native"
 
 import { Appointment } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
 const width = commonHelpers.getDimensionsParams().width
 
-export const CompletedAppointment = () => {
+interface Props {
+  data: AppointmentPrivateResponse[] | undefined
+}
+
+export const CompletedAppointment = ({ data }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -13,26 +18,14 @@ export const CompletedAppointment = () => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ gap: 16, paddingBottom: 100, paddingTop: 24 }}
     >
-      <Appointment
-        isHeaderButtonNeed={false}
-        headerTitle={{ title: "Completed" }}
-      ></Appointment>
-      <Appointment
-        isHeaderButtonNeed={false}
-        headerTitle={{ title: "Completed" }}
-      ></Appointment>
-      <Appointment
-        isHeaderButtonNeed={false}
-        headerTitle={{ title: "Completed" }}
-      ></Appointment>
-      <Appointment
-        isHeaderButtonNeed={false}
-        headerTitle={{ title: "Completed" }}
-      ></Appointment>
-      <Appointment
-        isHeaderButtonNeed={false}
-        headerTitle={{ title: "Completed" }}
-      ></Appointment>
+      {data?.map((appointment) => (
+        <Appointment
+          key={appointment.id}
+          appointmentData={appointment}
+          isHeaderButtonNeed={false}
+          headerTitle={{ title: "Completed" }}
+        />
+      ))}
     </ScrollView>
   )
 }

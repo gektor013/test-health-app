@@ -1,16 +1,19 @@
-import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
 import React from "react"
+import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
 
 import { colors } from "@/constants"
 import { commonHelpers } from "@/utils/helpers/common"
 
 import DoctorImg from "#/doctors/doctor-1.png"
 
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
+  appointmentData: AppointmentPrivateResponse
   isHeaderButtonNeed?: boolean
   children?: React.ReactNode
   headerTitle?: {
@@ -20,29 +23,32 @@ interface Props {
 }
 
 export const Appointment = ({
-  isHeaderButtonNeed = true,
   children,
-  headerTitle
+  headerTitle,
+  appointmentData,
+  isHeaderButtonNeed = true
 }: Props) => {
   return (
     <View style={[styles.container]}>
       <View style={styles.mainContainer}>
         <View style={styles.doctorContainer}>
           <Image source={DoctorImg} style={styles.doctorImage} />
-          <View style={styles.doctorInfo}>
-            <Text style={styles.doctorName}>Ronnie C. Torres</Text>
-            <Text>Massage, Room 53 </Text>
+          <View style={styles.doctorInfoContainer}>
+            <View style={styles.doctorInfoTitleContainer}>
+              <Text style={styles.doctorName}>{appointmentData?.employee.name}</Text>
+              {isHeaderButtonNeed ? (
+                <Pressable style={styles.arrowContainer}>
+                  <SVGIcon name="arrow_right" color={colors.white} size={14} />
+                </Pressable>
+              ) : (
+                <Text style={[{ color: colors.green }, headerTitle?.style]}>
+                  {headerTitle?.title}
+                </Text>
+              )}
+            </View>
+            <Text style={{ maxWidth: "85%" }}>{appointmentData?.service.name}</Text>
           </View>
         </View>
-        {isHeaderButtonNeed ? (
-          <Pressable style={styles.arrowContainer}>
-            <SVGIcon name="arrow_right" color={colors.white} size={14} />
-          </Pressable>
-        ) : (
-          <Text style={[{ color: colors.green }, headerTitle?.style]}>
-            {headerTitle?.title}
-          </Text>
-        )}
       </View>
 
       <View style={styles.devider} />
@@ -50,17 +56,17 @@ export const Appointment = ({
       <View style={styles.infoContainer}>
         <View style={styles.infoRow}>
           <SVGIcon name="calendar" color={colors.green} size={14} />
-          <Text>02.09.2024</Text>
+          <Text>{dateHelper.formatedData(appointmentData?.startedAt, "DD.MM.YYYY")}</Text>
         </View>
 
         <View style={styles.infoRow}>
           <SVGIcon name="clock" color={colors.green} size={14} />
-          <Text>9:00 AM</Text>
+          <Text>{dateHelper.formatedData(appointmentData?.startedAt, "HH:mm")}</Text>
         </View>
 
         <View style={styles.infoRow}>
           <SVGIcon name="location" color={colors.green} size={14} />
-          <Text>Room 123</Text>
+          <Text>Room {appointmentData?.cabinet.name}</Text>
         </View>
       </View>
 
@@ -93,8 +99,14 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 6
   },
-  doctorInfo: {
-    gap: 8
+  doctorInfoContainer: {
+    flex: 1,
+    gap: 8,
+    position: "relative"
+  },
+  doctorInfoTitleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   doctorName: {
     fontSize: 17,
@@ -110,7 +122,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.green,
-    borderRadius: 10
+    borderRadius: 10,
+    position: "absolute",
+    right: 0
   },
   devider: {
     height: 1,
