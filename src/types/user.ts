@@ -5,6 +5,8 @@ export interface User {
   phone: string
   isAdmin: boolean
   image: string
+  birthdate?: string | Date
+  sex: string
 }
 
 export interface LoginResponse extends User {

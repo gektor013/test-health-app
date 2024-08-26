@@ -1,5 +1,9 @@
-import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
+import {
+  AppointmentCreateSchemaData,
+  AppointmentPrivateResponse
+} from "@/types/appointment/appointment.types"
 
+import { appointmentSchemaDto } from "@/dto/appointment/appointment.dto"
 import { appApi } from "./app-api"
 
 export const visitApi = appApi.injectEndpoints({
@@ -12,13 +16,22 @@ export const visitApi = appApi.injectEndpoints({
     }),
 
     getPrivateVisits: builder.query<
-      any,
-      { status: "Canceled" | "Pending" | "Completed" }
+      AppointmentPrivateResponse[],
+      { status: "Canceled" | "Pending" | "Completed"; page: number }
     >({
       query: (params) => ({
         url: `/api/private/visits`,
         params
-      })
+      }),
+      transformResponse: (
+        baseQueryReturnValue: AppointmentPrivateResponse[]
+      ): AppointmentPrivateResponse[] => {
+        if (appointmentSchemaDto.array().parse(baseQueryReturnValue)) {
+          return baseQueryReturnValue
+        }
+
+        return {} as AppointmentPrivateResponse[]
+      }
     }),
 
     createVisit: builder.mutation<

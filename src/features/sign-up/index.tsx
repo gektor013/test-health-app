@@ -12,11 +12,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import ImageLogo from "#/images/logo-black-text.png"
 
 const defaultValues: SignUpType = {
-  name: "qqq",
-  email: "qqq1@g.com",
-  password: "123456",
+  name: "",
+  email: "",
+  password: "",
   phone: "",
-  confirmPassword: "123456"
+  confirmPassword: ""
 }
 
 export const SignUp = () => {

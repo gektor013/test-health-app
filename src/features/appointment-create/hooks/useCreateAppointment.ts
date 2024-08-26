@@ -1,7 +1,8 @@
+import { Control, useForm, UseFormGetValues } from "react-hook-form"
 import { Alert } from "react-native"
 import { SharedValue } from "react-native-reanimated"
-import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
+import { useAppSelector } from "@/redux"
 import {
   useGetAllEmployeesQuery,
   useGetEmployeeSchduleQuery
@@ -53,6 +54,8 @@ export const useCreateAppointment = ({
   stepsMethods,
   currentIndex
 }: Props): ReturneData => {
+  const userData = useAppSelector((s) => s.auth.user)
+
   const {
     control,
     watch,
@@ -62,7 +65,13 @@ export const useCreateAppointment = ({
     formState: { errors }
   } = useForm<AppointmentCreateSchemaData>({
     mode: "onChange",
-    defaultValues: APPOINTMENT_CREATE_DEFAUL_DATA,
+    defaultValues: {
+      ...APPOINTMENT_CREATE_DEFAUL_DATA,
+      client: {
+        ...userData,
+        birthdate: userData?.birthdate && new Date(userData?.birthdate)
+      }
+    },
     resolver: zodResolver(appointmentSchemaFunction(slideIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
@@ -122,7 +131,11 @@ export const useCreateAppointment = ({
           finishedAt: `${data.startedAt}T${data.choosenTime.endTime}`
         }
 
-        return await createVisit(editData)
+        console.log(editData, "editData")
+
+        return await createVisit({
+          ...editData
+        })
           .unwrap()
           .catch((err) => Alert.alert("Error", err.data.message))
     }

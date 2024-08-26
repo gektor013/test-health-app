@@ -6,6 +6,8 @@ import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
 import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
+import { useFocusEffect } from "expo-router"
+import { useCallback } from "react"
 import { CanceledAppointment } from "./_components/canceled-appointment"
 import { CompletedAppointment } from "./_components/completed-appointment"
 import { UpcommingAppointment } from "./_components/upcomming-appointment"
@@ -13,10 +15,27 @@ import { UpcommingAppointment } from "./_components/upcomming-appointment"
 const options = ["Upcoming", "Completed", "Cancelled"]
 const width = commonHelpers.getDimensionsParams().width
 
+const CustomUseEffect = <T extends Function>(cb: T) => {
+  useFocusEffect(
+    useCallback(() => {
+      cb()
+
+      return () => {
+        console.log("UnMounting")
+
+        // Do something that should run on blur
+      }
+    }, [])
+  )
+}
+
 export const Appointment = () => {
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
-  const { data } = useGetPrivateVisitsQuery({ status: "Canceled" })
-  console.log(data)
+  const { data: appointmentData, refetch } = useGetPrivateVisitsQuery({
+    status: "Pending",
+    page: 1
+  })
+  console.log(appointmentData, "appointmentData")
   // const { token } = useAppSelector((s) => s.auth)
   // console.log(token)
 
