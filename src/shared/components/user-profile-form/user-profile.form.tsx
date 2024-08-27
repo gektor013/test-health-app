@@ -20,7 +20,10 @@ interface Props {
   control: Control<Profile>
   image: ImagePickerAsset | string | null
   onImagePress: () => void
-  handlePress?: () => void
+  handlePress?: {
+    cb: () => void
+    disabled: boolean
+  }
 }
 
 export const UserProfileForm = ({
@@ -174,7 +177,13 @@ export const UserProfileForm = ({
           )}
         />
       </ScrollView>
-      {isEmailNeed && <Button onPress={handlePress} title={t("Update profile")} />}
+      {isEmailNeed && (
+        <Button
+          disabled={handlePress?.disabled}
+          onPress={handlePress?.cb}
+          title={t("Update profile")}
+        />
+      )}
     </View>
   )
 }

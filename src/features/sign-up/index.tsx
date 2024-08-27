@@ -50,7 +50,7 @@ export const SignUp = () => {
     await login({ email, password })
       .unwrap()
       .then((res) => {
-        setToken(res.token)
+        setToken(res?.token)
 
         router.push({
           pathname: "/auth/complete-profile",

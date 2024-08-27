@@ -1,4 +1,4 @@
-import { LoginResponse } from "@/types/user"
+import { LoginResponse, User } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface AuthState {
@@ -27,10 +27,13 @@ export const authSlice = createSlice({
     },
     setToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload
+    },
+    updateUserData: (state, { payload }: PayloadAction<User>) => {
+      state.user = { ...payload, token: state.token! }
     }
   }
 })
 
-export const { logIn, logOut, setToken } = authSlice.actions
+export const { logIn, logOut, setToken, updateUserData } = authSlice.actions
 
 export default authSlice.reducer
