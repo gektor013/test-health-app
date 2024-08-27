@@ -1,6 +1,6 @@
 import { Platform, ScrollView, StyleSheet, View } from "react-native"
 
-import { Header, SearchInput } from "@/shared/components"
+import { Header } from "@/shared/components"
 
 import { AvailableToday } from "./_components/available-today"
 import { TherapistsSpecialist } from "./_components/therapists-specialist"
@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <SearchInput />
+      {/* <SearchInput /> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: 24 }}

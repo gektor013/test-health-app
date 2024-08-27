@@ -1,8 +1,13 @@
 import dayjs from "dayjs"
+import duration from "dayjs/plugin/duration"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(duration)
+
+dayjs.extend(utc)
 
 export const dateHelper = {
   formatedData: (date: Date | string, format: string) => {
-    return dayjs(date).format(format)
+    return dayjs(date).utc().format(format)
   },
   plusOneDayToCurrentDay: (): string => {
     return dayjs().add(1, "day").format("YYYY-MM-DD")
@@ -15,5 +20,12 @@ export const dateHelper = {
     const localDate = new Date(date.getTime() - timezoneOffset)
 
     return localDate
+  },
+
+  calculateAge: (birthDate: string): number => {
+    const birth = dayjs(birthDate).utc()
+    const now = dayjs().utc()
+    const age = dayjs.duration(now.diff(birth)).years()
+    return age
   }
 }

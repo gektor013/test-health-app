@@ -8,7 +8,7 @@ import StarIcon from "#/icons/star.svg"
 interface Props {
   name: string
   teraphyType: string
-  rating: string
+  rating?: string
   img?: string | null
   isDetails?: boolean
 }
@@ -23,7 +23,7 @@ export const Therapist = ({ name, rating, teraphyType, img, isDetails }: Props) 
       <View style={[styles.therapistInfoContainer, { gap: isDetails ? 8 : 0 }]}>
         <Text style={[styles.text, { fontSize: isDetails ? 19 : 14 }]}>{name}</Text>
         <Text style={{ color: colors.green }}>{teraphyType}</Text>
-        <Text>
+        <Text style={{ display: rating ? "flex" : "none" }}>
           <StarIcon /> {rating}
         </Text>
       </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   therapistInfoContainer: {
-    justifyContent: "center"
+    justifyContent: "flex-start"
   },
   text: {
     fontWeight: "600",

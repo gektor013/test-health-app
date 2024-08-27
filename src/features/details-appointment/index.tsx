@@ -1,6 +1,6 @@
+import React, { useRef } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import React, { useRef } from "react"
 
 import { colors } from "@/constants"
 import { Button } from "@/shared/components"
@@ -8,6 +8,8 @@ import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { AppointmentDetailModals } from "@/shared/components/modals/detail-appointment.modals"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 
+import { useGetVisitByIdQuery } from "@/redux/services/visit-api"
+import { useLocalSearchParams } from "expo-router"
 import { AppointmentDetail } from "./_components/appointment-detail"
 import { AppointmentStatus } from "./_components/appointment-status"
 import { AppointmentTerapist } from "./_components/appointment-terapist"
@@ -16,6 +18,9 @@ import { UploadedDocuments } from "./_components/uploaded-documents"
 
 export const DetailsAppointment = () => {
   const ref = useRef<BottomSheet>(null)
+  const { id } = useLocalSearchParams()
+
+  const { data: visitData } = useGetVisitByIdQuery(id as string)
 
   return (
     <ScrollView
@@ -24,11 +29,23 @@ export const DetailsAppointment = () => {
       automaticallyAdjustContentInsets
     >
       <React.Fragment>
-        <AppointmentStatus />
+        <AppointmentStatus status={visitData?.status} />
         <View style={styles.infoContainer}>
-          <AppointmentTerapist />
-          <AppointmentDetail />
-          <PatientDetails />
+          <AppointmentTerapist
+            therapistData={visitData?.employee}
+            serviceData={{
+              room: visitData?.cabinet.name,
+              type: visitData?.service.name
+            }}
+          />
+          <AppointmentDetail
+            data={{
+              employeeName: visitData?.employee.name,
+              startVisit: visitData?.startedAt,
+              room: visitData?.cabinet.name
+            }}
+          />
+          <PatientDetails data={visitData?.client} />
           <UploadedDocuments />
           <View style={styles.btnContainer}>
             <Button

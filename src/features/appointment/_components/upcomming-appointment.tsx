@@ -1,10 +1,19 @@
 import React from "react"
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native"
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native"
 
 import { colors } from "@/constants"
+import { usePrefetch } from "@/redux/services/visit-api"
 import { Appointment, Button } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+import { router } from "expo-router"
 
 const width = commonHelpers.getDimensionsParams().width
 
@@ -14,6 +23,17 @@ interface Props {
 }
 
 export const UpcommingAppointment = ({ data, isLoading }: Props) => {
+  const prefetchVisit = usePrefetch("getVisitById")
+
+  const handleGoToDetails = (id: number) => {
+    prefetchVisit(id.toString())
+
+    router.push({
+      pathname: "/details-appointment/[id]",
+      params: { id }
+    })
+  }
+
   return (
     <ScrollView
       style={[{ width }]}
@@ -44,16 +64,24 @@ export const UpcommingAppointment = ({ data, isLoading }: Props) => {
           />
         </View>
         {data?.map((appointment) => (
-          <Appointment
+          <Pressable
+            onPress={() => handleGoToDetails(appointment.id)}
             key={appointment.id}
-            isHeaderButtonNeed={false}
-            appointmentData={appointment}
-            headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
           >
-            <View style={styles.buttonContainer}>
-              <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            </View>
-          </Appointment>
+            <Appointment
+              isHeaderButtonNeed={false}
+              appointmentData={appointment}
+              headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
+            >
+              <View style={styles.buttonContainer}>
+                <Button
+                  title="Cancel"
+                  variant="outline"
+                  containerStyles={styles.button}
+                />
+              </View>
+            </Appointment>
+          </Pressable>
         ))}
       </View>
     </ScrollView>

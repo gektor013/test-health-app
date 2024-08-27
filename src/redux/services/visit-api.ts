@@ -32,8 +32,6 @@ export const visitApi = appApi.injectEndpoints({
         _,
         params
       ): AppointmentPrivateResponse[] => {
-        console.log(params)
-
         if (appointmentSchemaDto.array().parse(baseQueryReturnValue)) {
           if (params.limit) {
             return baseQueryReturnValue.slice(0, 3)
@@ -44,6 +42,12 @@ export const visitApi = appApi.injectEndpoints({
 
         return {} as AppointmentPrivateResponse[]
       }
+    }),
+
+    getVisitById: builder.query<AppointmentPrivateResponse, string>({
+      query: (id) => ({
+        url: `/api/private/visits/${id}`
+      })
     }),
 
     cancelVisit: builder.mutation<
@@ -71,5 +75,10 @@ export const visitApi = appApi.injectEndpoints({
   })
 })
 
-export const { useGetVisitsQuery, useCreateVisitMutation, useGetPrivateVisitsQuery } =
-  visitApi
+export const {
+  useGetVisitsQuery,
+  useCreateVisitMutation,
+  useGetPrivateVisitsQuery,
+  useGetVisitByIdQuery,
+  usePrefetch
+} = visitApi

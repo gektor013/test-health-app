@@ -32,7 +32,6 @@ export const UpcomingAppointment = () => {
     page: 1,
     limit: 3
   })
-  console.log(appointmentPendingData, "appointmentPendingData")
 
   const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems[0]?.index !== null) {
