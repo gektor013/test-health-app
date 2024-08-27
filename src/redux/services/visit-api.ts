@@ -70,7 +70,8 @@ export const visitApi = appApi.injectEndpoints({
         url: `/api/private/visits`,
         method: "POST",
         body
-      })
+      }),
+      invalidatesTags: ["Visits"]
     })
   })
 })
