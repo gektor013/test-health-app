@@ -1,9 +1,9 @@
+import { appointmentSchemaDto } from "@/dto/appointment/appointment.dto"
 import {
   AppointmentCreateSchemaData,
   AppointmentPrivateResponse
 } from "@/types/appointment/appointment.types"
 
-import { appointmentSchemaDto } from "@/dto/appointment/appointment.dto"
 import { appApi } from "./app-api"
 
 export const visitApi = appApi.injectEndpoints({

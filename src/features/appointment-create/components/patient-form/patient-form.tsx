@@ -1,8 +1,8 @@
-import { router } from "expo-router"
-import { useState } from "react"
-import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
+import { useState } from "react"
+import { router } from "expo-router"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { Button, DropdownComponent, TextInput } from "@/shared/components"

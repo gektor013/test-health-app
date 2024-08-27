@@ -1,9 +1,10 @@
-import React from "react"
 import { Pressable, ScrollView } from "react-native"
+import React from "react"
 
 import { Appointment } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+
 import { NoData } from "./no-data"
 const width = commonHelpers.getDimensionsParams().width
 

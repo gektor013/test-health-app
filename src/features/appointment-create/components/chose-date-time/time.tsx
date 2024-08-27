@@ -1,5 +1,5 @@
-import { Control, Controller } from "react-hook-form"
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"

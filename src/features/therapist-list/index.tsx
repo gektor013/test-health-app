@@ -1,13 +1,13 @@
+import dayjs from "dayjs"
 import { router } from "expo-router"
 import React, { useState } from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 import { TouchableWithoutFeedback } from "react-native-gesture-handler"
 
 import { colors } from "@/constants"
+import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
 import { ThrerapistDetail } from "@/shared/components"
 
-import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
-import dayjs from "dayjs"
 import { DatePicker } from "./_components/date-picker"
 
 export const TherapistList = () => {
@@ -40,7 +40,7 @@ export const TherapistList = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.therapistContainer}
       >
-        {freeEmployees?.map((employee, idx) => (
+        {freeEmployees?.map((employee) => (
           <React.Fragment key={employee.employeeId}>
             <View style={{ marginTop: 0 }} />
             <TouchableWithoutFeedback

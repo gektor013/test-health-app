@@ -1,6 +1,7 @@
-import { commonHelpers } from "@/utils/helpers/common"
-import React from "react"
 import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+
+import { commonHelpers } from "@/utils/helpers/common"
 const width = commonHelpers.getDimensionsParams().width
 
 export const NoData = ({ type }: { type: string }) => {

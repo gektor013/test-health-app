@@ -1,4 +1,6 @@
+import { Alert, View } from "react-native"
 import React, { useRef } from "react"
+import { router } from "expo-router"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { useAppSelector } from "@/redux"
@@ -11,8 +13,6 @@ import { useActions, useGetCameraPermissions } from "@/shared/hooks"
 import { Profile } from "@/types/profile"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { router } from "expo-router"
-import { Alert, View } from "react-native"
 
 export const UserProfile = () => {
   const ref = useRef<BottomSheet>(null)

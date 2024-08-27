@@ -1,13 +1,13 @@
 import { StyleSheet, View } from "react-native"
 import Animated from "react-native-reanimated"
+import { useCallback } from "react"
+import { router, useFocusEffect } from "expo-router"
 
+import { useGetPrivateVisitsQuery, usePrefetch } from "@/redux/services/visit-api"
 import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { useGetPrivateVisitsQuery, usePrefetch } from "@/redux/services/visit-api"
-import { router, useFocusEffect } from "expo-router"
-import { useCallback } from "react"
 import { CanceledAppointment } from "./_components/canceled-appointment"
 import { CompletedAppointment } from "./_components/completed-appointment"
 import { UpcommingAppointment } from "./_components/upcomming-appointment"

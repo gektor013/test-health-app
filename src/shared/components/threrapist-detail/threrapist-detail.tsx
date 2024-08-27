@@ -1,9 +1,9 @@
-import React from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
+import React from "react"
 
 import { colors } from "@/constants"
-
 import { FreeEmployeeResponse } from "@/types/employees/employees.type"
+
 import { Therapist } from "../therapist/therapist"
 
 interface Props {

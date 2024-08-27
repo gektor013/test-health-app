@@ -1,8 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
+import { memo } from "react"
 
 import { colors } from "@/constants"
 import { VectorExpoIcons } from "@/shared/components"
-import { memo } from "react"
 interface Props {
   onBackPress: () => void
 }

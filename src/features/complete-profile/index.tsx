@@ -1,8 +1,9 @@
-import React from "react"
 import { Text, View } from "react-native"
+import React from "react"
 
 import { Button, UserProfileForm } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
+
 import { useCreateProfile } from "./hooks/useCreateProfile"
 
 export const CompleteProfile = () => {

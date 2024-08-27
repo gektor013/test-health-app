@@ -1,6 +1,7 @@
-import { Control, useForm, UseFormGetValues } from "react-hook-form"
 import { Alert } from "react-native"
 import { SharedValue } from "react-native-reanimated"
+import { useCallback } from "react"
+import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
 import { useAppSelector } from "@/redux"
 import {
@@ -16,7 +17,6 @@ import { ServiceResponse } from "@/types/service/service.type"
 import { TransformedData } from "@/types/transformData"
 import { APPOINTMENT_CREATE_DEFAUL_DATA } from "@/utils/default-datas/appointment.dd"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback } from "react"
 
 interface Props {
   slideIndex: number

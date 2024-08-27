@@ -1,10 +1,10 @@
-import React from "react"
 import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
 import { Therapist } from "@/shared/components"
 import { FreeEmployeeResponse } from "@/types/employees/employees.type"
-import { useLocalSearchParams } from "expo-router"
 
 export const TherapistDetails = () => {
   const { data } = useLocalSearchParams<{ data: any }>()

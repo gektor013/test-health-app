@@ -1,12 +1,12 @@
-import { Control, Controller } from "react-hook-form"
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
+import { memo } from "react"
+import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { CheckBox, Therapist } from "@/shared/components"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { EmployeesResponse } from "@/types/employees/employees.type"
 import { commonHelpers } from "@/utils/helpers/common"
-import { memo } from "react"
 
 interface Props {
   control: Control<AppointmentCreateSchemaData>

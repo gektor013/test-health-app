@@ -1,16 +1,16 @@
-import { Link } from "expo-router"
 import { FlatList, StyleSheet, View, ViewToken } from "react-native"
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue
 } from "react-native-reanimated"
+import { Link } from "expo-router"
 
 import { colors } from "@/constants"
+import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { Appointment, Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
-import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { Pagination } from "./pagination"
 
 export interface OnboardingData {

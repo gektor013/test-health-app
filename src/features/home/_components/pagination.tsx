@@ -1,6 +1,6 @@
-import React from "react"
 import { StyleSheet, View } from "react-native"
 import { SharedValue } from "react-native-reanimated"
+import React from "react"
 
 import { PaginationDot } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"

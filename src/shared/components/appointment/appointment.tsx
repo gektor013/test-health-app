@@ -1,14 +1,14 @@
-import React from "react"
 import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+import { dateHelper } from "@/utils/helpers/date"
 
 import DoctorImg from "#/doctors/doctor-1.png"
 
-import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
-import { dateHelper } from "@/utils/helpers/date"
-import { router } from "expo-router"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width

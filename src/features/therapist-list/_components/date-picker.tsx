@@ -1,6 +1,6 @@
-import dayjs from "dayjs"
-import React from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import dayjs from "dayjs"
 
 import { colors } from "@/constants"
 import { SVGIcon, VectorExpoIcons } from "@/shared/components"

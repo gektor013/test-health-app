@@ -1,4 +1,3 @@
-import React from "react"
 import {
   ActivityIndicator,
   Pressable,
@@ -7,11 +6,13 @@ import {
   Text,
   View
 } from "react-native"
+import React from "react"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+
 import { NoData } from "./no-data"
 
 const width = commonHelpers.getDimensionsParams().width

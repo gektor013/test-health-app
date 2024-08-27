@@ -1,5 +1,5 @@
-import React from "react"
 import { Image, StyleSheet, View } from "react-native"
+import React from "react"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"

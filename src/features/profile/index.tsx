@@ -1,16 +1,16 @@
-import { router } from "expo-router"
-import React, { useRef, useState } from "react"
 import { Image, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
+import React, { useRef, useState } from "react"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
+import { useAppSelector } from "@/redux"
 import { Button, SVGIcon, Switch } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 
-import { API_URL } from "@/constants/enviroments"
-import { useAppSelector } from "@/redux"
 import { styles } from "./_style"
 
 export const Profile = () => {
