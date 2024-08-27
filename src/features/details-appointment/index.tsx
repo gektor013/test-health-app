@@ -54,7 +54,15 @@ export const DetailsAppointment = () => {
               }}
               title="Cancel"
               variant="outline"
-              containerStyles={styles.btn}
+              containerStyles={[
+                styles.btn,
+                {
+                  display:
+                    visitData?.status === "Canceled" || visitData?.status === "Completed"
+                      ? "none"
+                      : "flex"
+                }
+              ]}
             />
           </View>
         </View>

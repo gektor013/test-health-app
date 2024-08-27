@@ -15,6 +15,7 @@ export const colors = {
   dark_gray: "#7A807B",
   disabled: "#BAC4BD",
   red: "#FF0000",
+  secondary_red: "#CE3B3B",
   yellow: "#DCAF10"
 }
 

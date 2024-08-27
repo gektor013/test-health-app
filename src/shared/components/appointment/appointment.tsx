@@ -41,7 +41,14 @@ export const Appointment = ({
                   <SVGIcon name="arrow_right" color={colors.white} size={14} />
                 </Pressable>
               ) : (
-                <Text style={[{ color: colors.green }, headerTitle?.style]}>
+                <Text
+                  style={[
+                    {
+                      color: headerTitle?.title === "Canceled" ? colors.red : colors.green
+                    },
+                    headerTitle?.style
+                  ]}
+                >
                   {headerTitle?.title}
                 </Text>
               )}
