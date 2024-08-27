@@ -12,6 +12,7 @@ interface Props {
   plaseholder?: string
   isError?: boolean
   value: string | null
+  disabled?: boolean
   onChange: (...event: any[]) => void
 }
 export const DropdownComponent = ({
@@ -20,6 +21,7 @@ export const DropdownComponent = ({
   plaseholder,
   isError,
   value,
+  disabled,
   onChange
 }: Props) => {
   const [isFocus, setIsFocus] = useState(false)
@@ -55,6 +57,7 @@ export const DropdownComponent = ({
             borderWidth: isError ? 1 : value || isFocus ? 1 : 0.5
           }
         ]}
+        disable={disabled}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}

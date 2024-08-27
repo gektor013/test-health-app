@@ -1,13 +1,12 @@
 import { KeyboardAvoidingView, ScreenContainer } from "@/shared/components"
-import { useAuth } from "@/shared/hooks"
-import { Redirect, Stack } from "expo-router"
+import { Stack } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 
 export default function CompleteProfileLayout() {
-  const { isAuthenticated } = useAuth()
+  // const { isAuthenticated } = useAuth()
 
-  if (isAuthenticated) return <Redirect href={"/tabs"} />
+  // if (isAuthenticated) return <Redirect href={"/tabs"} />
 
   return (
     <ScreenContainer style={styles.screenContainer}>

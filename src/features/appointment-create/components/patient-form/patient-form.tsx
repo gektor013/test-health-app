@@ -36,6 +36,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
           name="client.name"
           control={control}
           inputProps={{
+            editable: false,
             placeholder: t("Name")
           }}
         />
@@ -47,6 +48,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
           control={control}
           inputProps={{
             maxLength: 17,
+            editable: false,
             placeholder: t("+0 (000) 000-00-00"),
             keyboardType: "number-pad"
           }}
@@ -59,6 +61,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
             <DropdownComponent
               data={GENDER_DATA}
               label="Gender"
+              disabled={true}
               plaseholder="Male"
               isError={!!error}
               value={value}
@@ -78,6 +81,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
 
               <Button
                 onPress={() => setOpen(true)}
+                disabled
                 title={
                   value
                     ? dateHelper.formatedData(value ?? "", "DD.MM.YYYY")
@@ -111,8 +115,10 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
                 date={(value as Date) || new Date()}
                 maximumDate={new Date()}
                 onConfirm={(date) => {
+                  const localDate = dateHelper.getLocaleDateTime(date)
+
                   setOpen(false)
-                  onChange(date)
+                  onChange(localDate)
                 }}
                 onCancel={() => {
                   setOpen(false)

@@ -1,10 +1,12 @@
-import { Text, View } from "react-native"
+import { Image, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import React, { useRef, useState } from "react"
 import { router } from "expo-router"
 
 import { colors } from "@/constants"
-import { Button, SVGIcon, Switch, VectorExpoIcons } from "@/shared/components"
+import { API_URL } from "@/constants/enviroments"
+import { useAppSelector } from "@/redux"
+import { Button, SVGIcon, Switch } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
@@ -16,6 +18,7 @@ export const Profile = () => {
   const { logOut } = useActions()
 
   const ref = useRef<BottomSheet>(null)
+  const userData = useAppSelector((s) => s.auth.user)
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
@@ -24,16 +27,13 @@ export const Profile = () => {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.avatarContainer}>
-            <SVGIcon name="empty_avatar" size={60} />
-            <VectorExpoIcons
-              type="Feather"
-              name="edit"
-              size={15}
-              color={colors.green}
-              style={styles.editIcon}
-            />
+            {userData?.image ? (
+              <Image source={{ uri: API_URL + userData?.image }} style={styles.avatar} />
+            ) : (
+              <SVGIcon name="empty_avatar" size={60} />
+            )}
+            <Text style={styles.name}>{userData?.name}</Text>
           </View>
-          <Text style={styles.name}>{t("Kevin Lablabce")}</Text>
         </View>
 
         <ScrollView

@@ -5,6 +5,7 @@ import { ImagePickerAsset } from "expo-image-picker"
 import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
 import { useTranslations } from "@/shared/hooks"
 import { Profile } from "@/types/profile"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
@@ -17,8 +18,12 @@ interface Props {
   isEmailNeed?: boolean
   scrollEnabled?: boolean
   control: Control<Profile>
-  image: ImagePickerAsset | null
+  image: ImagePickerAsset | string | null
   onImagePress: () => void
+  handlePress?: {
+    cb: () => void
+    disabled: boolean
+  }
 }
 
 export const UserProfileForm = ({
@@ -26,7 +31,8 @@ export const UserProfileForm = ({
   control,
   isEmailNeed = true,
   scrollEnabled,
-  onImagePress
+  onImagePress,
+  handlePress
 }: Props) => {
   const { t } = useTranslations()
   const [openDate, setOpenDate] = useState(false)
@@ -36,7 +42,13 @@ export const UserProfileForm = ({
       <View style={styles.header}>
         <Pressable onPress={onImagePress} style={styles.avatarContainer}>
           {image ? (
-            <Image source={image} style={styles.image} />
+            <>
+              {typeof image === "string" ? (
+                <Image source={{ uri: API_URL + image }} style={styles.image} />
+              ) : (
+                <Image source={image} style={styles.image} />
+              )}
+            </>
           ) : (
             <React.Fragment>
               <SVGIcon name="empty_avatar" size={100} />
@@ -79,20 +91,20 @@ export const UserProfileForm = ({
                 keyboardType: "email-address"
               }}
             />
+
+            <TextInput
+              label={t("Phone number")}
+              type="phone"
+              name="phone"
+              control={control}
+              inputProps={{
+                maxLength: 17,
+                placeholder: t("+1 (999) 111-0000"),
+                keyboardType: "number-pad"
+              }}
+            />
           </>
         )}
-
-        <TextInput
-          label={t("Phone number")}
-          type="phone"
-          name="phone"
-          control={control}
-          inputProps={{
-            maxLength: 17,
-            placeholder: t("+1 (999) 111-0000"),
-            keyboardType: "number-pad"
-          }}
-        />
 
         <Controller
           control={control}
@@ -148,13 +160,14 @@ export const UserProfileForm = ({
 
               <DatePicker
                 modal
-                open={openDate}
                 mode="date"
+                open={openDate}
                 date={(value || new Date()) as Date}
                 maximumDate={new Date()}
                 onConfirm={(date) => {
+                  const localDate = dateHelper.getLocaleDateTime(date)
                   setOpenDate(false)
-                  onChange(date)
+                  onChange(localDate)
                 }}
                 onCancel={() => {
                   setOpenDate(false)
@@ -164,7 +177,13 @@ export const UserProfileForm = ({
           )}
         />
       </ScrollView>
-      {isEmailNeed && <Button title={t("Update profile")} />}
+      {isEmailNeed && (
+        <Button
+          disabled={handlePress?.disabled}
+          onPress={handlePress?.cb}
+          title={t("Update profile")}
+        />
+      )}
     </View>
   )
 }

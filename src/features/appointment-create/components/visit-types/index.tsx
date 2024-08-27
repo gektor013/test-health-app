@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native"
+import { memo } from "react"
 import { Control, Controller } from "react-hook-form"
 
 import { VisitType } from "@/shared/components"
@@ -10,7 +11,7 @@ interface Props {
   data: ServiceResponse[] | undefined
 }
 
-export const VisitsTypes = ({ data, control }: Props) => {
+export const VisitsTypes = memo(({ data, control }: Props) => {
   return (
     <View style={styles.visitsContainer}>
       <Text style={styles.visitsContainerTitle}>Select the type of visit</Text>
@@ -26,7 +27,7 @@ export const VisitsTypes = ({ data, control }: Props) => {
                 key={item.id}
                 title={item.name}
                 onPress={() => onChange(item)}
-                icon={"manual_terapy"}
+                icon={item.image}
                 isActive={item.id === value?.id}
               />
             )}
@@ -35,7 +36,7 @@ export const VisitsTypes = ({ data, control }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   visitsContainer: {

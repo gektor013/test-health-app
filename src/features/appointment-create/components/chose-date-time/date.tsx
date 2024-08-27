@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Calendar } from "react-native-calendars"
+import { memo } from "react"
 import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
@@ -12,7 +13,7 @@ interface Props {
   control: Control<AppointmentCreateSchemaData>
 }
 
-export const ChooseDate = ({ control }: Props) => {
+export const ChooseDate = memo(({ control }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose the date and time that suits you</Text>
@@ -78,7 +79,7 @@ export const ChooseDate = ({ control }: Props) => {
       </View>
     </View>
   )
-}
+})
 
 const styles = StyleSheet.create({
   container: {

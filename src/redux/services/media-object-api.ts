@@ -58,8 +58,48 @@ export const mediaObjectsApi = appApi.injectEndpoints({
           }
         }
       }
+    }),
+
+    uploadImage: builder.mutation<FileSystem.FileSystemUploadResult, string>({
+      queryFn: async (param, api) => {
+        const state = api.getState() as RootState
+
+        try {
+          const response = await FileSystem.uploadAsync(
+            API_URL + "/api/private/media_objects/client/image",
+            param,
+
+            {
+              fieldName: "file",
+              httpMethod: "POST",
+              uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${state.auth.token}`
+              }
+            }
+          )
+
+          if (response?.status === 201) {
+            return { data: response }
+          } else {
+            return {
+              error: {
+                status: response?.status,
+                data: response?.body
+              } as FetchBaseQueryError
+            }
+          }
+        } catch (error) {
+          return { error: error, uri: param } as {
+            error: FetchBaseQueryError
+            uri: string
+          }
+        }
+      }
     })
   })
 })
 
-export const { usePostMediaObjectMutation } = mediaObjectsApi
+export const { usePostMediaObjectMutation, useUploadImageMutation } = mediaObjectsApi

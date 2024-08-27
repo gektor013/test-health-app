@@ -1,7 +1,9 @@
 import { Alert } from "react-native"
 import { SharedValue } from "react-native-reanimated"
+import { useCallback } from "react"
 import { Control, useForm, UseFormGetValues } from "react-hook-form"
 
+import { useAppSelector } from "@/redux"
 import {
   useGetAllEmployeesQuery,
   useGetEmployeeSchduleQuery
@@ -38,11 +40,13 @@ interface ReturneData {
     employeeData: TransformedData<EmployeesResponse> | undefined
     scheduleData: ScheduleEmloyeeTime[] | undefined
     isScheduleLoading: boolean
+    isEmployeeLoading: boolean
   }
   form: {
     control: Control<AppointmentCreateSchemaData>
     getValues: UseFormGetValues<AppointmentCreateSchemaData>
   }
+  handleBackPress: () => void
   onHandleSubmit: () => void
 }
 
@@ -51,22 +55,31 @@ export const useCreateAppointment = ({
   stepsMethods,
   currentIndex
 }: Props): ReturneData => {
+  const userData = useAppSelector((s) => s.auth.user)
+
   const {
     control,
     watch,
+    reset,
     getValues,
     handleSubmit,
     formState: { errors }
   } = useForm<AppointmentCreateSchemaData>({
     mode: "onChange",
-    defaultValues: APPOINTMENT_CREATE_DEFAUL_DATA,
+    defaultValues: {
+      ...APPOINTMENT_CREATE_DEFAUL_DATA,
+      client: {
+        ...userData,
+        birthdate: userData?.birthdate && new Date(userData?.birthdate)
+      }
+    },
     resolver: zodResolver(appointmentSchemaFunction(slideIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
 
   // REQUESTS
   const { data: servicesData } = useGetAllServicesQuery()
-  const { data: employeeData } = useGetAllEmployeesQuery()
+  const { data: employeeData, isFetching: isEmployeeLoading } = useGetAllEmployeesQuery()
 
   const { data: scheduleData, isFetching: isScheduleLoading } =
     useGetEmployeeSchduleQuery(
@@ -92,7 +105,7 @@ export const useCreateAppointment = ({
   ] = useCreateVisitMutation()
 
   // FUNCTION TO SUBMIT FORM WITH VALIDATION
-  //CHECK ABOUT VALIDATION MANAGEMENT
+  // CHECK ABOUT VALIDATION MANAGEMENT
   const onHandleSubmit = handleSubmit(async (data: AppointmentCreateSchemaData) => {
     switch (slideIndex) {
       case 0:
@@ -119,11 +132,18 @@ export const useCreateAppointment = ({
           finishedAt: `${data.startedAt}T${data.choosenTime.endTime}`
         }
 
-        return await createVisit(editData)
+        return await createVisit({
+          ...editData
+        })
           .unwrap()
           .catch((err) => Alert.alert("Error", err.data.message))
     }
   })
+
+  const handleBackPress = useCallback(() => {
+    reset(APPOINTMENT_CREATE_DEFAUL_DATA)
+    stepsMethods.onBackPress()
+  }, [])
 
   return {
     visitData: {
@@ -136,13 +156,14 @@ export const useCreateAppointment = ({
       servicesData,
       employeeData,
       scheduleData,
-      isScheduleLoading
+      isScheduleLoading,
+      isEmployeeLoading
     },
     form: {
       control,
       getValues
     },
-
+    handleBackPress,
     onHandleSubmit
   }
 }

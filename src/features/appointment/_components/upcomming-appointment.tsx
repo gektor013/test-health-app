@@ -1,14 +1,35 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native"
 import React from "react"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+
+import { NoData } from "./no-data"
 
 const width = commonHelpers.getDimensionsParams().width
 
-export const UpcommingAppointment = () => {
+interface Props {
+  isLoading?: boolean
+  data: AppointmentPrivateResponse[] | undefined
+  onCancelAppointment: (id: number) => void
+  onPressAppointment: (id: number) => void
+}
+
+export const UpcommingAppointment = ({
+  data,
+  isLoading,
+  onPressAppointment,
+  onCancelAppointment
+}: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -16,49 +37,56 @@ export const UpcommingAppointment = () => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
     >
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <Text style={styles.title}>Scheduled upcoming visit</Text>
         <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Confirmed" }}>
           <View style={styles.buttonContainer}>
             <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button
-              onPress={() => router.push("/details-appointment")}
-              title="Reschedule"
-              containerStyles={styles.button}
-            />
           </View>
         </Appointment>
-      </View>
-
+      </View> */}
       <View style={styles.container}>
-        <Text style={styles.title}>Nearest visit</Text>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
-          </View>
-        </Appointment>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
-          </View>
-        </Appointment>
-        <Appointment
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
-        >
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-            <Button title="Reschedule" containerStyles={styles.button} />
-          </View>
-        </Appointment>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Nearest visit</Text>
+          <ActivityIndicator
+            size="small"
+            color={colors.green}
+            style={[
+              styles.indicator,
+              {
+                display: isLoading ? "flex" : "none"
+              }
+            ]}
+          />
+        </View>
+        {data?.length ? (
+          data?.map((appointment) => (
+            <Pressable
+              onPress={() => onPressAppointment(appointment.id)}
+              key={appointment.id}
+            >
+              <Appointment
+                isHeaderButtonNeed={false}
+                appointmentData={appointment}
+                headerTitle={{
+                  title: appointment.status,
+                  style: { color: colors.yellow }
+                }}
+              >
+                <View style={styles.buttonContainer}>
+                  <Button
+                    title="Cancel"
+                    variant="outline"
+                    containerStyles={styles.button}
+                    onPress={() => onCancelAppointment(appointment.id)}
+                  />
+                </View>
+              </Appointment>
+            </Pressable>
+          ))
+        ) : (
+          <NoData type="scheduled" />
+        )}
       </View>
     </ScrollView>
   )
@@ -66,21 +94,30 @@ export const UpcommingAppointment = () => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    gap: 24
+    gap: 24,
+    paddingBottom: 100,
+    paddingTop: 24
   },
   container: {
     gap: 16
   },
+  titleContainer: {
+    position: "relative",
+    width: "30%"
+  },
   title: {
     fontWeight: "600"
   },
-
+  indicator: {
+    position: "absolute",
+    right: 0
+  },
   buttonContainer: {
     flexDirection: "row",
     gap: 8,
     justifyContent: "space-between"
   },
   button: {
-    flex: 1 / 2
+    flex: 1
   }
 })

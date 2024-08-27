@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Alert, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import React, { useRef } from "react"
+import { router, useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
+import { useCancelVisitMutation, useGetVisitByIdQuery } from "@/redux/services/visit-api"
 import { Button } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { AppointmentDetailModals } from "@/shared/components/modals/detail-appointment.modals"
@@ -16,6 +18,17 @@ import { UploadedDocuments } from "./_components/uploaded-documents"
 
 export const DetailsAppointment = () => {
   const ref = useRef<BottomSheet>(null)
+  const { id } = useLocalSearchParams()
+
+  const { data: visitData } = useGetVisitByIdQuery(id as string)
+  const [cancelVisit, { isSuccess: isSuccessCancel }] = useCancelVisitMutation()
+
+  const handleCancelAppointment = async () => {
+    ref.current?.close()
+    await cancelVisit({ id: id as string, status: "Canceled" }).catch(() =>
+      Alert.alert("Error")
+    )
+  }
 
   return (
     <ScrollView
@@ -24,36 +37,48 @@ export const DetailsAppointment = () => {
       automaticallyAdjustContentInsets
     >
       <React.Fragment>
-        <AppointmentStatus />
+        <AppointmentStatus status={visitData?.status} />
         <View style={styles.infoContainer}>
-          <AppointmentTerapist />
-          <AppointmentDetail />
-          <PatientDetails />
+          <AppointmentTerapist
+            therapistData={visitData?.employee}
+            serviceData={{
+              room: visitData?.cabinet.name,
+              type: visitData?.service.name
+            }}
+          />
+          <AppointmentDetail
+            data={{
+              employeeName: visitData?.employee.name,
+              startVisit: visitData?.startedAt,
+              room: visitData?.cabinet.name
+            }}
+          />
+          <PatientDetails data={visitData?.client} />
           <UploadedDocuments />
           <View style={styles.btnContainer}>
             <Button
               onPress={() => {
-                if (ref.current) ref.current.snapToPosition("40%")
+                if (ref.current) ref.current.snapToPosition("30%")
               }}
               title="Cancel"
               variant="outline"
-              containerStyles={styles.btn}
-            />
-            <Button
-              onPress={() => {
-                if (ref.current) ref.current.snapToPosition("40%")
-              }}
-              title="Reschedule"
-              containerStyles={styles.btn}
+              containerStyles={[
+                styles.btn,
+                {
+                  display:
+                    visitData?.status === "Canceled" || visitData?.status === "Completed"
+                      ? "none"
+                      : "flex"
+                }
+              ]}
             />
           </View>
         </View>
       </React.Fragment>
 
       <AppointmentDetailModals
-        isVisible={false}
-        onClose={() => {}}
-        onViewAppointment={() => {}}
+        isVisible={isSuccessCancel}
+        onViewAppointment={() => router.back()}
       />
 
       <CustomBottomSheet ref={ref}>
@@ -68,11 +93,10 @@ export const DetailsAppointment = () => {
           </View>
 
           <View style={styles.bottomSheetButtonsContainer}>
-            <Button title="Reschedule appointment" />
             <Button
               variant="outline"
               title="Cancel appointment"
-              onPress={() => ref.current?.close()}
+              onPress={handleCancelAppointment}
               containerStyles={styles.bottomSheetCancelBtnContainer}
               titleStyle={styles.bottomSheetCancelBtnTitle}
             />

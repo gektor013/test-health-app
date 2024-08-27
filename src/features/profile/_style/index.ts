@@ -16,6 +16,12 @@ export const styles = StyleSheet.create({
   avatarContainer: {
     position: "relative"
   },
+  avatar: {
+    width: 60,
+    height: 60,
+    alignSelf: "center",
+    borderRadius: 30
+  },
   editIcon: {
     position: "absolute",
     right: 1,
@@ -23,7 +29,8 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontSize: 19,
-    lineHeight: 23
+    lineHeight: 23,
+    textAlign: "center"
   },
   scrollContainer: {
     flex: 1

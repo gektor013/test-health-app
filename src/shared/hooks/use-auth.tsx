@@ -1,5 +1,4 @@
-import { useRouter } from "expo-router"
-import { ExpoRouter } from "expo-router/types/expo-router"
+import { Href, useRouter } from "expo-router"
 
 import { useAppSelector } from "@/redux"
 import { LoginResponse } from "@/types/user"
@@ -7,7 +6,7 @@ import { LoginResponse } from "@/types/user"
 import { useActions } from "./use-actions"
 
 interface ExtraParams {
-  redirect?: ExpoRouter.Href
+  redirect?: Href
   callback?: () => void
 }
 

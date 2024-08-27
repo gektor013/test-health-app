@@ -87,7 +87,7 @@ export const TextInput = <T extends FieldValues>({
                   style={[
                     styles.input,
                     inputProps?.style,
-                    { borderColor: getBorderColor(isDirty, !!error) }
+                    { borderColor: getBorderColor(isDirty || value, !!error) }
                   ]}
                   placeholderTextColor={colors.dark_gray}
                   onBlur={onBlur}
@@ -99,7 +99,7 @@ export const TextInput = <T extends FieldValues>({
                   secureTextEntry={type === "password" && !isPasswordVisible}
                   style={[
                     styles.input,
-                    { borderColor: getBorderColor(isDirty, !!error) },
+                    { borderColor: getBorderColor(isDirty || value, !!error) },
                     inputProps?.style
                   ]}
                   placeholderTextColor={colors.dark_gray}

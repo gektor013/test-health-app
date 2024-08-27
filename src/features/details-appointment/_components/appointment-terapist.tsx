@@ -3,16 +3,24 @@ import React from "react"
 
 import { colors } from "@/constants"
 import { Therapist } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 
-export const AppointmentTerapist = () => {
+interface Props {
+  therapistData?: AppointmentPrivateResponse["employee"]
+  serviceData: {
+    room?: string
+    type?: string
+  }
+}
+
+export const AppointmentTerapist = ({ therapistData, serviceData }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appointment therapist</Text>
       <Therapist
-        rating="4.5"
-        name="Dr. John Doe"
-        teraphyType="Massage, Room 53"
-        img={"/media/66b9d85b61ed9_profile-11.jpg"}
+        name={therapistData?.name ?? ""}
+        teraphyType={`${serviceData?.type}, Room ${serviceData?.room}`}
+        img={therapistData?.image}
       />
     </View>
   )

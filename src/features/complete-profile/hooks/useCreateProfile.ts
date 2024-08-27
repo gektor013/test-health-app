@@ -1,79 +1,91 @@
-import { Alert, Linking } from "react-native"
-import React from "react"
-import * as ImagePicker from "expo-image-picker"
+import { Alert } from "react-native"
+import { useRef } from "react"
+import { ImagePickerAsset } from "expo-image-picker"
+import { router, useLocalSearchParams } from "expo-router"
+import { Control, SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook-form"
+
+import { useAppSelector } from "@/redux"
+import { useUploadImageMutation } from "@/redux/services"
+import { useEditUserDataMutation } from "@/redux/services/user-api"
+import { profileSchema } from "@/schemas/profile/profile.schema"
+import { useActions, useGetCameraPermissions } from "@/shared/hooks"
+import { Profile } from "@/types/profile"
+import { SignUp } from "@/types/sign-up"
+import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 interface ReturnData {
-  image: ImagePicker.ImagePickerAsset | null
+  ref: React.RefObject<BottomSheetMethods>
+  image: ImagePickerAsset | null
+  control: Control<Profile>
+  handleOpeBottom: () => Promise<void>
+  handleSubmit: UseFormHandleSubmit<Profile>
+  handleCreateAccount: SubmitHandler<Profile>
   getImageInGalery: (status: "camera" | "gallery") => Promise<void>
 }
 
+const DEFAULT_VALUES: Profile = {
+  birthdate: "",
+  email: "",
+  sex: "",
+  name: "",
+  phone: ""
+}
+
 export const useCreateProfile = (): ReturnData => {
-  const [image, setImage] = React.useState<ImagePicker.ImagePickerAsset | null>(null)
+  const { logIn } = useActions()
+  const ref = useRef<BottomSheet>(null)
+  const token = useAppSelector((s) => s.auth.token)
+  const { getImageInGalery, image } = useGetCameraPermissions()
+  const { email, name, id, phone } = useLocalSearchParams<
+    SignUp & { id: string; phone: string }
+  >()
+  const [postMediaObject] = useUploadImageMutation()
 
-  // GET PERISSIONS FOR CAMERA AND GALLERY
-  const getPermissions = async (type: "camera" | "gallery"): Promise<boolean> => {
-    if (type === "gallery") {
-      const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync()
+  const [editUserData] = useEditUserDataMutation()
 
-      if (!galleryStatus.granted) {
-        Alert.alert(
-          "Permission required",
-          "The app requires access to the camera and gallery to upload images."
-        )
+  const { control, handleSubmit } = useForm<Profile>({
+    defaultValues: { ...DEFAULT_VALUES, email, name, phone },
+    resolver: zodResolver(profileSchema)
+  })
 
-        return false
-      }
+  const handleCreateAccount: SubmitHandler<Profile> = async (data) => {
+    let upload
 
-      return true
-    } else {
-      const cameraStatus = await ImagePicker.requestCameraPermissionsAsync()
+    if (image) {
+      upload = await postMediaObject(image.uri)
+        .unwrap()
+        .then((res) => {
+          const { contentUrl } = JSON.parse(res.body)
 
-      if (!cameraStatus.granted) {
-        Alert.alert(
-          "Permission required",
-          "The app needs camera access to upload images."
-        )
-        return false
-      }
-
-      return true
+          return contentUrl
+        })
+        .catch((e) => console.log(e, "ERROR Upload"))
     }
+
+    await editUserData({ ...data, image: upload, userId: id })
+      .unwrap()
+      .then((res) => {
+        logIn({ ...res, token: token as string })
+        router.push("/")
+      })
+      .catch(() => {
+        Alert.alert("Something went wrong")
+      })
   }
 
-  const getImageInGalery = async (status: "camera" | "gallery") => {
-    try {
-      const galleryStatus = await getPermissions(status)
-      let result
-      if (!galleryStatus) {
-        return Linking.openSettings()
-      }
-
-      if (status === "gallery") {
-        result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          quality: 0.8,
-          selectionLimit: 1
-        })
-      } else {
-        result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          quality: 0.8
-        })
-      }
-
-      if (result && !result?.canceled) {
-        const image = result?.assets[0]
-        setImage(image)
-      }
-    } catch (error) {
-      Alert.alert("Error", "An error occurred while selecting the image.")
-    }
+  const handleOpeBottom = async () => {
+    ref.current?.snapToPosition("25%")
   }
 
   return {
+    ref,
     image,
-    getImageInGalery
+    control,
+    handleSubmit,
+    handleOpeBottom,
+    getImageInGalery,
+    handleCreateAccount
   }
 }

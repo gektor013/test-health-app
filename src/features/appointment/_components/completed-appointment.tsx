@@ -1,47 +1,42 @@
-import { ScrollView, StyleSheet, View } from "react-native"
+import { Pressable, ScrollView } from "react-native"
 import React from "react"
 
-import { Appointment, Button } from "@/shared/components"
+import { Appointment } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+
+import { NoData } from "./no-data"
 const width = commonHelpers.getDimensionsParams().width
 
-export const CompletedAppointment = () => {
+interface Props {
+  data: AppointmentPrivateResponse[] | undefined
+  onPressAppointment: (id: number) => void
+}
+
+export const CompletedAppointment = ({ data, onPressAppointment }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ gap: 16 }}
+      contentContainerStyle={{ gap: 16, paddingBottom: 100, paddingTop: 24 }}
     >
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
-      <Appointment isHeaderButtonNeed={false} headerTitle={{ title: "Completed" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" variant="outline" containerStyles={styles.button} />
-          <Button title="Reschedule" containerStyles={styles.button} />
-        </View>
-      </Appointment>
+      {data?.length ? (
+        data?.map((appointment) => (
+          <Pressable
+            key={appointment.id}
+            onPress={() => onPressAppointment(appointment.id)}
+          >
+            <Appointment
+              appointmentData={appointment}
+              isHeaderButtonNeed={false}
+              headerTitle={{ title: appointment.status }}
+            />
+          </Pressable>
+        ))
+      ) : (
+        <NoData type="completed" />
+      )}
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: "row",
-    gap: 8,
-    justifyContent: "space-between"
-  },
-  button: {
-    flex: 1 / 2
-  }
-})

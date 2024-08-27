@@ -1,6 +1,8 @@
 import { userVideoSchemaDto } from "@/dto/user-video/user-video.dto"
 import { SignInSchemaType } from "@/features/sign-in/schemas"
-import { LoginResponse } from "@/types/user"
+import { Profile } from "@/types/profile"
+import { SignUp } from "@/types/sign-up"
+import { LoginResponse, User } from "@/types/user"
 import { UserVideoResponse } from "@/types/user-video/user-video.type"
 import { commonHelpers } from "@/utils/helpers/common"
 
@@ -12,6 +14,13 @@ export const authApi = appApi.injectEndpoints({
     login: builder.mutation<LoginResponse, SignInSchemaType>({
       query: (body) => ({
         url: `/api/login`,
+        method: "POST",
+        body
+      })
+    }),
+    registrations: builder.mutation<LoginResponse, SignUp & { isAgreed: boolean }>({
+      query: (body) => ({
+        url: `/api/public/registration`,
         method: "POST",
         body
       })
@@ -42,8 +51,21 @@ export const authApi = appApi.injectEndpoints({
 
         return {} as UserVideoResponse[]
       }
+    }),
+
+    editUserData: builder.mutation<User, Profile & { userId: string; image?: string }>({
+      query: (body) => ({
+        url: `/api/private/users/${body.userId}`,
+        method: "PATCH",
+        body: JSON.stringify(body)
+      })
     })
   })
 })
 
-export const { useLoginMutation, useGetUserVideoQuery } = authApi
+export const {
+  useLoginMutation,
+  useGetUserVideoQuery,
+  useRegistrationsMutation,
+  useEditUserDataMutation
+} = authApi

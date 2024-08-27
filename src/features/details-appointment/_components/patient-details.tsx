@@ -3,8 +3,14 @@ import React from "react"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
+import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
+import { dateHelper } from "@/utils/helpers/date"
 
-export const PatientDetails = () => {
+interface Props {
+  data?: AppointmentPrivateResponse["client"]
+}
+
+export const PatientDetails = ({ data }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Patient details</Text>
@@ -12,11 +18,14 @@ export const PatientDetails = () => {
         <View style={styles.infoItem}>
           <View style={styles.infoItemRow}>
             <SVGIcon name="user" />
-            <Text>Kevin Lablabce, Male, 26</Text>
+            <Text>
+              {data?.name}, {data?.sex},{" "}
+              {dateHelper.calculateAge(data?.birthdate as string)}
+            </Text>
           </View>
           <View style={styles.infoItemRow}>
             <SVGIcon name="phone" />
-            <Text>+1 (999) 111-0000</Text>
+            <Text>{data?.phone}</Text>
           </View>
         </View>
       </View>

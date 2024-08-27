@@ -5,6 +5,9 @@ export const signUpSchema = z
     email: z.string().email(),
     name: z.string().min(3, { message: "Name is too short" }),
     password: z.string().min(6),
+    phone: z
+      .string({ message: "Phone is required" })
+      .min(12, { message: "Phone is too short" }),
     confirmPassword: z
       .string()
       .min(6)
@@ -14,8 +17,3 @@ export const signUpSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"]
   })
-
-// phone: z.string(),
-// birthdate: z.string(),
-// sex: z.enum(["Male", "Female"]),
-// isAgreed: z.boolean()

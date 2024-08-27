@@ -14,6 +14,7 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
           updatedAt: z.string()
         })
         .required(),
+      status: z.string().min(1),
       employee: z.object({
         id: z.number().nullable(),
         name: z.string().min(1),
@@ -26,6 +27,7 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
         name: z.string().optional()
       }),
       client: z.object({
+        id: z.number().optional(),
         name: z.string().transform((val, ctx) => {
           if (currentIndex === 2 && !val) {
             ctx.addIssue({

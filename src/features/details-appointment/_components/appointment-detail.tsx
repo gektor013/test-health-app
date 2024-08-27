@@ -3,8 +3,17 @@ import React from "react"
 
 import { colors } from "@/constants"
 import { SVGIcon } from "@/shared/components"
+import { dateHelper } from "@/utils/helpers/date"
 
-export const AppointmentDetail = () => {
+interface Props {
+  data: {
+    employeeName?: string
+    startVisit?: string | Date
+    room?: string
+  }
+}
+
+export const AppointmentDetail = ({ data }: Props) => {
   return (
     <View style={styles.container}>
       <Text>Appointment details</Text>
@@ -13,22 +22,27 @@ export const AppointmentDetail = () => {
         <View style={styles.info}>
           <View style={styles.infoRow}>
             <SVGIcon name="user" />
-            <Text>Ronnie C. Torres</Text>
+            <Text>{data?.employeeName}</Text>
           </View>
           <View style={styles.infoRow}>
             <SVGIcon name="calendar" color={colors.green} />
-            <Text>02.09.2024</Text>
+            <Text>
+              {data?.startVisit &&
+                dateHelper.formatedData(data?.startVisit, "DD.MM.YYYY")}
+            </Text>
           </View>
         </View>
 
         <View style={styles.info}>
           <View style={styles.infoRow}>
             <SVGIcon name="location" />
-            <Text>Room 123</Text>
+            <Text>Room {data.room}</Text>
           </View>
           <View style={styles.infoRow}>
             <SVGIcon name="clock" />
-            <Text>9:00 AM</Text>
+            <Text>
+              {data?.startVisit && dateHelper.formatedData(data?.startVisit, "HH:mm")}
+            </Text>
           </View>
         </View>
       </View>

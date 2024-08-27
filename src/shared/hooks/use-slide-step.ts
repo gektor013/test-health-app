@@ -7,7 +7,7 @@ import {
   withTiming
 } from "react-native-reanimated"
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { router } from "expo-router"
 
 interface ReturnStepData {
@@ -25,10 +25,10 @@ export const useSlideStep = (width: number): ReturnStepData => {
 
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const handleSetSlideIndex = (index: number) => {
+  const handleSetSlideIndex = useCallback((index: number) => {
     currentIndex.value = index
     setSlideIndex(index)
-  }
+  }, [])
 
   const onBackPress = () => {
     currentIndex.value = 0

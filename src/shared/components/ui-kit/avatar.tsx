@@ -1,16 +1,28 @@
-import { StyleSheet, View } from "react-native"
+import { Image, StyleSheet, View } from "react-native"
 import React from "react"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
 
 interface Props {
-  name?: string
+  uri?: string
   size?: number
 }
 
-export const Avatar: React.FC<Props> = ({ size = 30 }) => {
+export const Avatar: React.FC<Props> = ({ size = 30, uri }) => {
   return (
-    <View style={[styles.container, { width: size, height: size, borderRadius: size }]} />
+    <React.Fragment>
+      {uri ? (
+        <Image
+          source={{ uri: API_URL + uri }}
+          style={{ width: size, height: size, borderRadius: size }}
+        />
+      ) : (
+        <View
+          style={[styles.container, { width: size, height: size, borderRadius: size }]}
+        />
+      )}
+    </React.Fragment>
   )
 }
 

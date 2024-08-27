@@ -42,7 +42,7 @@ export default function RootLayout() {
                       name="upload-document"
                       options={{
                         headerShown: true,
-                        title: "Upload Document",
+                        title: "Upload Documents",
                         headerBackTitleVisible: false,
                         headerShadowVisible: false
                       }}
@@ -159,7 +159,10 @@ export default function RootLayout() {
                         headerShadowVisible: false
                       }}
                     />
-                    <Stack.Screen name="(app)/tabs" options={{ headerShown: false }} />
+                    <Stack.Screen
+                      name="(app)/tabs"
+                      options={{ headerShown: false, gestureEnabled: false }}
+                    />
                     <Stack.Screen name="+not-found" />
                   </Stack>
                 </Host>

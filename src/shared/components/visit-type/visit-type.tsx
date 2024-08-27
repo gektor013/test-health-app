@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text } from "react-native"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
 import { SVGIconNames } from "@/types/icons"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { API_URL } from "@/constants/enviroments"
 import { SVGIcon } from "../ui-kit"
 
 const container_width = commonHelpers.getDimensionsParams().width - 48

@@ -25,7 +25,7 @@ export default function TabLayout() {
           name="appointment"
           options={{
             headerShown: true,
-            title: "Appointment",
+            title: "Appointments",
             headerStatusBarHeight: 0,
             headerTitleStyle: {
               fontWeight: "400"
