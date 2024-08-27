@@ -20,7 +20,7 @@ export const AppointmentTerapist = ({ therapistData, serviceData }: Props) => {
       <Therapist
         name={therapistData?.name ?? ""}
         teraphyType={`${serviceData?.type}, Room ${serviceData?.room}`}
-        img={"/media/66b9d85b61ed9_profile-11.jpg"}
+        img={therapistData?.image}
       />
     </View>
   )

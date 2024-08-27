@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Alert, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import React, { useRef } from "react"
-import { useLocalSearchParams } from "expo-router"
+import { router, useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
-import { useGetVisitByIdQuery } from "@/redux/services/visit-api"
+import { useCancelVisitMutation, useGetVisitByIdQuery } from "@/redux/services/visit-api"
 import { Button } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { AppointmentDetailModals } from "@/shared/components/modals/detail-appointment.modals"
@@ -21,6 +21,14 @@ export const DetailsAppointment = () => {
   const { id } = useLocalSearchParams()
 
   const { data: visitData } = useGetVisitByIdQuery(id as string)
+  const [cancelVisit, { isSuccess: isSuccessCancel }] = useCancelVisitMutation()
+
+  const handleCancelAppointment = async () => {
+    ref.current?.close()
+    await cancelVisit({ id: id as string, status: "Canceled" }).catch(() =>
+      Alert.alert("Error")
+    )
+  }
 
   return (
     <ScrollView
@@ -69,9 +77,8 @@ export const DetailsAppointment = () => {
       </React.Fragment>
 
       <AppointmentDetailModals
-        isVisible={false}
-        onClose={() => {}}
-        onViewAppointment={() => {}}
+        isVisible={isSuccessCancel}
+        onViewAppointment={() => router.back()}
       />
 
       <CustomBottomSheet ref={ref}>
@@ -89,7 +96,7 @@ export const DetailsAppointment = () => {
             <Button
               variant="outline"
               title="Cancel appointment"
-              onPress={() => ref.current?.close()}
+              onPress={handleCancelAppointment}
               containerStyles={styles.bottomSheetCancelBtnContainer}
               titleStyle={styles.bottomSheetCancelBtnTitle}
             />

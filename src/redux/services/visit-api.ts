@@ -52,7 +52,7 @@ export const visitApi = appApi.injectEndpoints({
 
     cancelVisit: builder.mutation<
       AppointmentCreateSchemaData,
-      { id: string; status: "Canceled" }
+      { id: number | string; status: "Canceled" }
     >({
       query: (body) => ({
         url: `/api/private/visits/${body.id}`,
@@ -81,5 +81,6 @@ export const {
   useCreateVisitMutation,
   useGetPrivateVisitsQuery,
   useGetVisitByIdQuery,
+  useCancelVisitMutation,
   usePrefetch
 } = visitApi

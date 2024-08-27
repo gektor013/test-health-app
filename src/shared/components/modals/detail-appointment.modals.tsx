@@ -5,7 +5,7 @@ import { Button, SVGIcon } from "@/shared/components"
 
 interface Props {
   isVisible: boolean
-  onClose: () => void
+  onClose?: () => void
   onViewAppointment: () => void
 }
 

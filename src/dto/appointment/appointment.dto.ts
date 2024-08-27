@@ -20,6 +20,7 @@ export const appointmentSchemaDto = z.object({
     id: z.number(),
     name: z.string(),
     phone: z.string().nullable(),
+    image: z.string().nullable(),
     sex: z.enum(["Male", "Female"]).nullable()
   }),
   finishedAt: z.date().or(z.string()),

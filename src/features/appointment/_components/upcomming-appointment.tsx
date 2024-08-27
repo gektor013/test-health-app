@@ -19,11 +19,17 @@ const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
   isLoading?: boolean
-  onPressAppointment: (id: number) => void
   data: AppointmentPrivateResponse[] | undefined
+  onCancelAppointment: (id: number) => void
+  onPressAppointment: (id: number) => void
 }
 
-export const UpcommingAppointment = ({ data, isLoading, onPressAppointment }: Props) => {
+export const UpcommingAppointment = ({
+  data,
+  isLoading,
+  onPressAppointment,
+  onCancelAppointment
+}: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -72,6 +78,7 @@ export const UpcommingAppointment = ({ data, isLoading, onPressAppointment }: Pr
                     title="Cancel"
                     variant="outline"
                     containerStyles={styles.button}
+                    onPress={() => onCancelAppointment(appointment.id)}
                   />
                 </View>
               </Appointment>
