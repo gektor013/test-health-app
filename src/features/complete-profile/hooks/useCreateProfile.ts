@@ -4,7 +4,7 @@ import { Control, SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook
 import { Alert } from "react-native"
 
 import { useAppSelector } from "@/redux"
-import { usePostMediaObjectMutation } from "@/redux/services"
+import { useUploadImageMutation } from "@/redux/services"
 import { useEditUserDataMutation } from "@/redux/services/user-api"
 import { profileSchema } from "@/schemas/profile/profile.schema"
 import { useActions, useGetCameraPermissions } from "@/shared/hooks"
@@ -41,8 +41,8 @@ export const useCreateProfile = (): ReturnData => {
   const { email, name, id, phone } = useLocalSearchParams<
     SignUp & { id: string; phone: string }
   >()
+  const [postMediaObject] = useUploadImageMutation()
 
-  const [postMediaObject] = usePostMediaObjectMutation()
   const [editUserData] = useEditUserDataMutation()
 
   const { control, handleSubmit } = useForm<Profile>({

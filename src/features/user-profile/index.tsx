@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { useAppSelector } from "@/redux"
+import { useUploadImageMutation } from "@/redux/services"
 import { useEditUserDataMutation } from "@/redux/services/user-api"
 import { profileSchema } from "@/schemas/profile/profile.schema"
 import { Button, UserProfileForm } from "@/shared/components"
@@ -19,6 +20,7 @@ export const UserProfile = () => {
   const userData = useAppSelector((s) => s.auth.user)
   const { getImageInGalery, image } = useGetCameraPermissions()
   const [editUserData, { isLoading: isEditLoading }] = useEditUserDataMutation()
+  const [uploadImage, { isLoading: isUploadLoading }] = useUploadImageMutation()
 
   const { control, handleSubmit } = useForm<Profile>({
     defaultValues: {
@@ -34,23 +36,44 @@ export const UserProfile = () => {
 
   const handleEditProfile: SubmitHandler<Profile> = async (data: Profile) => {
     if (!userData?.id) return
-    await editUserData({ ...data, userId: userData?.id.toString() })
+    let uploadImage
+
+    if (image) {
+      uploadImage = await handleUploadImage()
+    }
+
+    await editUserData({
+      ...data,
+      userId: userData?.id.toString(),
+      image: uploadImage ? uploadImage : userData?.image
+    })
       .unwrap()
       .then((res) => updateUserData(res))
       .then(router.back)
       .catch(() => Alert.alert("Something went wrong"))
   }
 
+  const handleUploadImage = async () => {
+    return await uploadImage(image?.uri as string)
+      .unwrap()
+      .then((res) => {
+        const { contentUrl } = JSON.parse(res.body)
+
+        return contentUrl
+      })
+      .catch(() => Alert.alert("Error upload image"))
+  }
+
   return (
     <>
       <UserProfileForm
         onImagePress={handleOpeBottom}
-        image={userData?.image as string}
+        image={image ? image : (userData?.image as string)}
         control={control}
         scrollEnabled={false}
         handlePress={{
-          disabled: isEditLoading,
-          cb: handleSubmit(handleEditProfile)
+          cb: handleSubmit(handleEditProfile),
+          disabled: isEditLoading || isUploadLoading
         }}
       />
       <CustomBottomSheet ref={ref}>
