@@ -1,15 +1,16 @@
+import { Link } from "expo-router"
 import { FlatList, StyleSheet, View, ViewToken } from "react-native"
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue
 } from "react-native-reanimated"
-import { Link } from "expo-router"
 
 import { colors } from "@/constants"
 import { Appointment, Text } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 
+import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { Pagination } from "./pagination"
 
 export interface OnboardingData {
@@ -19,45 +20,19 @@ export interface OnboardingData {
   backgroundColor: string
 }
 
-const data: OnboardingData[] = [
-  {
-    id: 1,
-    text: "Lorem Ipsum dolor sit amet",
-    textColor: "#109a78",
-    backgroundColor: "#cde6d5"
-  },
-  {
-    id: 2,
-    text: "Lorem Ipsum dolor sit amet",
-    textColor: "#1e2169",
-    backgroundColor: "#cfe4e4"
-  },
-  {
-    id: 3,
-    text: "Lorem Ipsum dolor sit amet",
-    textColor: "#F15937",
-    backgroundColor: "#faeb8a"
-  },
-  {
-    id: 4,
-    text: "Lorem Ipsum dolor sit amet",
-    textColor: "#F15937",
-    backgroundColor: "#faeb8a"
-  },
-  {
-    id: 5,
-    text: "Lorem Ipsum dolor sit amet",
-    textColor: "#F15937",
-    backgroundColor: "#faeb8a"
-  }
-]
-
 export const UpcomingAppointment = () => {
   const { t } = useTranslations()
 
   const flatListRef = useAnimatedRef<FlatList<OnboardingData>>()
   const x = useSharedValue(0)
   const flatListIndex = useSharedValue(0)
+
+  const { data: appointmentPendingData } = useGetPrivateVisitsQuery({
+    status: "Pending",
+    page: 1,
+    limit: 3
+  })
+  console.log(appointmentPendingData, "appointmentPendingData")
 
   const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems[0]?.index !== null) {
@@ -87,9 +62,9 @@ export const UpcomingAppointment = () => {
         <Animated.FlatList
           ref={flatListRef}
           onScroll={onScroll}
-          data={data}
-          renderItem={() => {
-            return <Appointment />
+          data={appointmentPendingData}
+          renderItem={({ item }) => {
+            return <Appointment appointmentData={item} />
           }}
           keyExtractor={(item) => item.id.toString()}
           scrollEventThrottle={16}
@@ -104,7 +79,7 @@ export const UpcomingAppointment = () => {
           }}
         />
         <View style={styles.bottomContainer}>
-          <Pagination data={data} x={x} />
+          <Pagination data={appointmentPendingData} x={x} />
         </View>
       </View>
     </View>

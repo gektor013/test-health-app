@@ -17,17 +17,28 @@ export const visitApi = appApi.injectEndpoints({
 
     getPrivateVisits: builder.query<
       AppointmentPrivateResponse[],
-      { status: "Canceled" | "Pending" | "Completed"; page: number }
+      { status: "Canceled" | "Pending" | "Completed"; page: number; limit?: number }
     >({
       query: (params) => ({
         url: `/api/private/visits`,
-        params
+        params: {
+          status: params.status,
+          page: params.page
+        }
       }),
       providesTags: ["Visits"],
       transformResponse: (
-        baseQueryReturnValue: AppointmentPrivateResponse[]
+        baseQueryReturnValue: AppointmentPrivateResponse[],
+        _,
+        params
       ): AppointmentPrivateResponse[] => {
+        console.log(params)
+
         if (appointmentSchemaDto.array().parse(baseQueryReturnValue)) {
+          if (params.limit) {
+            return baseQueryReturnValue.slice(0, 3)
+          }
+
           return baseQueryReturnValue
         }
 
