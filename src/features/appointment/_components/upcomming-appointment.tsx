@@ -9,31 +9,19 @@ import {
 } from "react-native"
 
 import { colors } from "@/constants"
-import { usePrefetch } from "@/redux/services/visit-api"
 import { Appointment, Button } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
-import { router } from "expo-router"
 
 const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
-  data: AppointmentPrivateResponse[] | undefined
   isLoading?: boolean
+  onPressAppointment: (id: number) => void
+  data: AppointmentPrivateResponse[] | undefined
 }
 
-export const UpcommingAppointment = ({ data, isLoading }: Props) => {
-  const prefetchVisit = usePrefetch("getVisitById")
-
-  const handleGoToDetails = (id: number) => {
-    prefetchVisit(id.toString())
-
-    router.push({
-      pathname: "/details-appointment/[id]",
-      params: { id }
-    })
-  }
-
+export const UpcommingAppointment = ({ data, isLoading, onPressAppointment }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -65,13 +53,13 @@ export const UpcommingAppointment = ({ data, isLoading }: Props) => {
         </View>
         {data?.map((appointment) => (
           <Pressable
-            onPress={() => handleGoToDetails(appointment.id)}
+            onPress={() => onPressAppointment(appointment.id)}
             key={appointment.id}
           >
             <Appointment
               isHeaderButtonNeed={false}
               appointmentData={appointment}
-              headerTitle={{ title: "In Waiting", style: { color: colors.yellow } }}
+              headerTitle={{ title: appointment.status, style: { color: colors.yellow } }}
             >
               <View style={styles.buttonContainer}>
                 <Button

@@ -1,5 +1,5 @@
 import React from "react"
-import { ScrollView } from "react-native"
+import { Pressable, ScrollView } from "react-native"
 
 import { Appointment } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
@@ -8,9 +8,10 @@ const width = commonHelpers.getDimensionsParams().width
 
 interface Props {
   data: AppointmentPrivateResponse[] | undefined
+  onPressAppointment: (id: number) => void
 }
 
-export const CanceledAppointment = ({ data }: Props) => {
+export const CanceledAppointment = ({ data, onPressAppointment }: Props) => {
   return (
     <ScrollView
       style={[{ width }]}
@@ -19,12 +20,16 @@ export const CanceledAppointment = ({ data }: Props) => {
       contentContainerStyle={{ gap: 16, paddingBottom: 100, paddingTop: 24 }}
     >
       {data?.map((appointment) => (
-        <Appointment
+        <Pressable
           key={appointment.id}
-          appointmentData={appointment}
-          isHeaderButtonNeed={false}
-          headerTitle={{ title: "Cancelled" }}
-        />
+          onPress={() => onPressAppointment(appointment.id)}
+        >
+          <Appointment
+            appointmentData={appointment}
+            isHeaderButtonNeed={false}
+            headerTitle={{ title: appointment.status }}
+          />
+        </Pressable>
       ))}
     </ScrollView>
   )

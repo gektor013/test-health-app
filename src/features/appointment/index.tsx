@@ -5,8 +5,8 @@ import { SegmentedControl } from "@/shared/components"
 import { useSlideStep } from "@/shared/hooks"
 import { commonHelpers } from "@/utils/helpers/common"
 
-import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
-import { useFocusEffect } from "expo-router"
+import { useGetPrivateVisitsQuery, usePrefetch } from "@/redux/services/visit-api"
+import { router, useFocusEffect } from "expo-router"
 import { useCallback } from "react"
 import { CanceledAppointment } from "./_components/canceled-appointment"
 import { CompletedAppointment } from "./_components/completed-appointment"
@@ -16,6 +16,7 @@ const options = ["Upcoming", "Completed", "Cancelled"]
 const width = commonHelpers.getDimensionsParams().width
 
 export const Appointment = () => {
+  const prefetchVisit = usePrefetch("getVisitById")
   const { slideIndex, animatedStyle, stepsMethods } = useSlideStep(width)
   const {
     data: appointmentPendingData,
@@ -36,6 +37,11 @@ export const Appointment = () => {
       page: 1
     })
 
+  const handleGoToDetails = (id: number) => {
+    prefetchVisit(id.toString())
+    router.push(`/details-appointment/${id}`)
+  }
+
   useFocusEffect(
     useCallback(() => {
       refetchPendingData()
@@ -53,11 +59,18 @@ export const Appointment = () => {
       />
       <Animated.View style={[styles.animatedContainer, animatedStyle]}>
         <UpcommingAppointment
-          data={appointmentPendingData}
           isLoading={isPendingLoading}
+          data={appointmentPendingData}
+          onPressAppointment={handleGoToDetails}
         />
-        <CompletedAppointment data={appointmentCompletedData} />
-        <CanceledAppointment data={appointmentCanceledData} />
+        <CompletedAppointment
+          data={appointmentCompletedData}
+          onPressAppointment={handleGoToDetails}
+        />
+        <CanceledAppointment
+          data={appointmentCanceledData}
+          onPressAppointment={handleGoToDetails}
+        />
       </Animated.View>
     </View>
   )

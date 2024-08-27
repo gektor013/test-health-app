@@ -50,17 +50,10 @@ export const DetailsAppointment = () => {
           <View style={styles.btnContainer}>
             <Button
               onPress={() => {
-                if (ref.current) ref.current.snapToPosition("40%")
+                if (ref.current) ref.current.snapToPosition("30%")
               }}
               title="Cancel"
               variant="outline"
-              containerStyles={styles.btn}
-            />
-            <Button
-              onPress={() => {
-                if (ref.current) ref.current.snapToPosition("40%")
-              }}
-              title="Reschedule"
               containerStyles={styles.btn}
             />
           </View>
@@ -85,7 +78,6 @@ export const DetailsAppointment = () => {
           </View>
 
           <View style={styles.bottomSheetButtonsContainer}>
-            <Button title="Reschedule appointment" />
             <Button
               variant="outline"
               title="Cancel appointment"
