@@ -6,10 +6,10 @@ export interface User {
   isAdmin: boolean
   image: string
   birthdate?: string | Date
-  sex: string
+  sex: "Male" | "Female"
 }
 
 export interface LoginResponse extends User {
   token: string
-  userId: number
+  id?: number
 }

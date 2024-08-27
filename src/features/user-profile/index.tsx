@@ -1,7 +1,8 @@
 import React, { useRef } from "react"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 import { useAppSelector } from "@/redux"
+import { useEditUserDataMutation } from "@/redux/services/user-api"
 import { profileSchema } from "@/schemas/profile/profile.schema"
 import { Button, UserProfileForm } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
@@ -9,23 +10,19 @@ import { useGetCameraPermissions } from "@/shared/hooks"
 import { Profile } from "@/types/profile"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { View } from "react-native"
-
-const DEFAULT_VALUES: Profile = {
-  birthdate: "",
-  email: "",
-  sex: "",
-  name: "",
-  phone: ""
-}
+import { Alert, View } from "react-native"
 
 export const UserProfile = () => {
   const ref = useRef<BottomSheet>(null)
-  const user = useAppSelector((s) => s.auth.user)
+  const userData = useAppSelector((s) => s.auth.user)
   const { getImageInGalery, image } = useGetCameraPermissions()
+  const [editUserData] = useEditUserDataMutation()
 
   const { control, handleSubmit } = useForm<Profile>({
-    defaultValues: { ...DEFAULT_VALUES },
+    defaultValues: {
+      ...userData,
+      birthdate: userData?.birthdate && new Date(userData?.birthdate)
+    },
     resolver: zodResolver(profileSchema)
   })
 
@@ -33,13 +30,22 @@ export const UserProfile = () => {
     ref.current?.snapToPosition("25%")
   }
 
+  const handleEditProfile: SubmitHandler<Profile> = async (data: Profile) => {
+    if (!userData?.id) return
+    await editUserData({ ...data, userId: userData?.id.toString() })
+      .unwrap()
+      .then(console.log)
+      .catch(() => Alert.alert("Something went wrong"))
+  }
+
   return (
     <>
       <UserProfileForm
         onImagePress={handleOpeBottom}
-        image={user?.image as string}
+        image={userData?.image as string}
         control={control}
         scrollEnabled={false}
+        handlePress={handleSubmit(handleEditProfile)}
       />
       <CustomBottomSheet ref={ref}>
         <View style={{ gap: 16 }}>

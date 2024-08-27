@@ -1,9 +1,9 @@
-import { LoginResponse, User } from "@/types/user"
+import { LoginResponse } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface AuthState {
   isAuthenticated: boolean
-  user: LoginResponse | User | null
+  user: LoginResponse | null
   token?: string
 }
 

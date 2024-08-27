@@ -20,6 +20,7 @@ interface Props {
   control: Control<Profile>
   image: ImagePickerAsset | string | null
   onImagePress: () => void
+  handlePress?: () => void
 }
 
 export const UserProfileForm = ({
@@ -27,7 +28,8 @@ export const UserProfileForm = ({
   control,
   isEmailNeed = true,
   scrollEnabled,
-  onImagePress
+  onImagePress,
+  handlePress
 }: Props) => {
   const { t } = useTranslations()
   const [openDate, setOpenDate] = useState(false)
@@ -172,7 +174,7 @@ export const UserProfileForm = ({
           )}
         />
       </ScrollView>
-      {isEmailNeed && <Button title={t("Update profile")} />}
+      {isEmailNeed && <Button onPress={handlePress} title={t("Update profile")} />}
     </View>
   )
 }
