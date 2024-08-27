@@ -8,6 +8,7 @@ import DoctorImg from "#/doctors/doctor-1.png"
 
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { dateHelper } from "@/utils/helpers/date"
+import { router } from "expo-router"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width
@@ -37,7 +38,12 @@ export const Appointment = ({
             <View style={styles.doctorInfoTitleContainer}>
               <Text style={styles.doctorName}>{appointmentData?.employee.name}</Text>
               {isHeaderButtonNeed ? (
-                <Pressable style={styles.arrowContainer}>
+                <Pressable
+                  onPress={() =>
+                    router.push(`/details-appointment/${appointmentData?.id}`)
+                  }
+                  style={styles.arrowContainer}
+                >
                   <SVGIcon name="arrow_right" color={colors.white} size={14} />
                 </Pressable>
               ) : (

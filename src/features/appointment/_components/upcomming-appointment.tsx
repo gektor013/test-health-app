@@ -12,6 +12,7 @@ import { colors } from "@/constants"
 import { Appointment, Button } from "@/shared/components"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
+import { NoData } from "./no-data"
 
 const width = commonHelpers.getDimensionsParams().width
 
@@ -51,26 +52,33 @@ export const UpcommingAppointment = ({ data, isLoading, onPressAppointment }: Pr
             ]}
           />
         </View>
-        {data?.map((appointment) => (
-          <Pressable
-            onPress={() => onPressAppointment(appointment.id)}
-            key={appointment.id}
-          >
-            <Appointment
-              isHeaderButtonNeed={false}
-              appointmentData={appointment}
-              headerTitle={{ title: appointment.status, style: { color: colors.yellow } }}
+        {data?.length ? (
+          data?.map((appointment) => (
+            <Pressable
+              onPress={() => onPressAppointment(appointment.id)}
+              key={appointment.id}
             >
-              <View style={styles.buttonContainer}>
-                <Button
-                  title="Cancel"
-                  variant="outline"
-                  containerStyles={styles.button}
-                />
-              </View>
-            </Appointment>
-          </Pressable>
-        ))}
+              <Appointment
+                isHeaderButtonNeed={false}
+                appointmentData={appointment}
+                headerTitle={{
+                  title: appointment.status,
+                  style: { color: colors.yellow }
+                }}
+              >
+                <View style={styles.buttonContainer}>
+                  <Button
+                    title="Cancel"
+                    variant="outline"
+                    containerStyles={styles.button}
+                  />
+                </View>
+              </Appointment>
+            </Pressable>
+          ))
+        ) : (
+          <NoData type="scheduled" />
+        )}
       </View>
     </ScrollView>
   )
