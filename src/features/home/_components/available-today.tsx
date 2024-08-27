@@ -1,11 +1,20 @@
-import { StyleSheet, Text, View } from "react-native"
-import React from "react"
 import { Link } from "expo-router"
+import React from "react"
+import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
+import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
 import { ThrerapistDetail } from "@/shared/components"
 
 export const AvailableToday = () => {
+  const { data: freeEmployees } = useGetFreeEmployeesQuery({
+    day: "2024-08-29",
+    page: 1,
+    limit: 1
+  })
+
+  console.log(freeEmployees)
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +31,7 @@ export const AvailableToday = () => {
           <View style={styles.line} />
         </View>
       </View>
-      <ThrerapistDetail />
+      <ThrerapistDetail data={freeEmployees?.[0]} />
     </View>
   )
 }

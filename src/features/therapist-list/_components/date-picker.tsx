@@ -1,20 +1,16 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
-import React, { useState } from "react"
 import dayjs from "dayjs"
+import React from "react"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { SVGIcon, VectorExpoIcons } from "@/shared/components"
 
-export const DatePicker = () => {
-  const [currentDate, setCurrentDate] = useState(dayjs())
+interface Props {
+  currentDate: dayjs.Dayjs
+  changeDay: (offset: number) => void
+}
 
-  const changeDay = (offset: number) => {
-    const newDate = currentDate.add(offset, "day")
-    if (newDate.isBefore(dayjs(), "day")) {
-      return
-    }
-    setCurrentDate(newDate)
-  }
+export const DatePicker = ({ changeDay, currentDate }: Props) => {
   const isPrevDisabled = currentDate.isSame(dayjs(), "day")
 
   return (

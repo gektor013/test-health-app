@@ -1,46 +1,61 @@
+import { router } from "expo-router"
+import React, { useState } from "react"
 import { ScrollView, StyleSheet, View } from "react-native"
 import { TouchableWithoutFeedback } from "react-native-gesture-handler"
-import React from "react"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { ThrerapistDetail } from "@/shared/components"
 
+import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
+import dayjs from "dayjs"
 import { DatePicker } from "./_components/date-picker"
-import { ListWorks } from "./_components/list-works"
 
 export const TherapistList = () => {
+  const [currentDate, setCurrentDate] = useState(dayjs())
+
+  const { data: freeEmployees } = useGetFreeEmployeesQuery(
+    {
+      day: currentDate.format("YYYY-MM-DD"),
+      page: 1,
+      limit: 5
+    },
+    { skip: !currentDate, refetchOnMountOrArgChange: true }
+  )
+
+  const changeDay = (offset: number) => {
+    const newDate = currentDate.add(offset, "day")
+    if (newDate.isBefore(dayjs(), "day")) {
+      return
+    }
+    setCurrentDate(newDate)
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ gap: 20 }}>
-        <ListWorks />
-        <DatePicker />
+        <DatePicker changeDay={changeDay} currentDate={currentDate} />
       </View>
       <ScrollView
         overScrollMode="never"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.therapistContainer}
       >
-        <View style={{ marginTop: 0 }} />
-        <TouchableWithoutFeedback onPress={() => router.push("/therapist-details")}>
-          <ThrerapistDetail />
-        </TouchableWithoutFeedback>
-        <View style={styles.devider} />
-        <TouchableWithoutFeedback onPress={() => router.push("/therapist-details")}>
-          <ThrerapistDetail />
-        </TouchableWithoutFeedback>
-        <View style={styles.devider} />
-        <TouchableWithoutFeedback onPress={() => router.push("/therapist-details")}>
-          <ThrerapistDetail />
-        </TouchableWithoutFeedback>
-        <View style={styles.devider} />
-        <ThrerapistDetail />
-        <View style={styles.devider} />
-        <ThrerapistDetail />
-        <View style={styles.devider} />
-        <ThrerapistDetail />
-        <View style={styles.devider} />
-        <ThrerapistDetail />
+        {freeEmployees?.map((employee, idx) => (
+          <React.Fragment key={employee.employeeId}>
+            <View style={{ marginTop: 0 }} />
+            <TouchableWithoutFeedback
+              onPress={() =>
+                router.push({
+                  pathname: "/therapist-details",
+                  params: { data: JSON.stringify(employee) }
+                })
+              }
+            >
+              <ThrerapistDetail data={employee} />
+            </TouchableWithoutFeedback>
+            <View style={styles.devider} />
+          </React.Fragment>
+        ))}
       </ScrollView>
     </View>
   )

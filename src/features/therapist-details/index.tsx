@@ -1,17 +1,28 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Therapist } from "@/shared/components"
+import { FreeEmployeeResponse } from "@/types/employees/employees.type"
+import { useLocalSearchParams } from "expo-router"
 
 export const TherapistDetails = () => {
+  const { data } = useLocalSearchParams<{ data: any }>()
+  const {
+    employeeName,
+    employeeSpeciality,
+    employeeExperience,
+    employeePhone,
+    freeIntervals,
+    employeeImage
+  } = JSON.parse(data) as FreeEmployeeResponse
+
   return (
     <View style={styles.container}>
       <Therapist
-        rating="4.5"
-        name="Dr. John Doe"
-        teraphyType="Massage, Room 53"
-        img={"/media/66b9d85b61ed9_profile-11.jpg"}
+        name={employeeName}
+        teraphyType={employeeSpeciality}
+        img={employeeImage}
         isDetails
       />
 
@@ -19,16 +30,19 @@ export const TherapistDetails = () => {
         <Text style={styles.title}>About</Text>
 
         <View style={styles.infoItems}>
-          <Text style={styles.infoItem}>• mag.cin – kineziterapija</Text>
-          <Text style={styles.infoItem}>• DNS Exercise trener</Text>
-          <Text style={styles.infoItem}>• Wellness terapeut</Text>
+          <Text style={styles.infoItem}>• {employeeExperience}</Text>
+          <Text style={styles.infoItem}>• {employeePhone}</Text>
+          <Text style={styles.infoItem}>• {employeeSpeciality}</Text>
+          <Text style={styles.infoItem}>
+            • {freeIntervals.map((i) => `${i.startTime}-${i.endTime}`)}
+          </Text>
         </View>
-        <Text style={styles.text}>Ro en je 29.04.1994. u Dubrovniku. Ve i dio svog</Text>
+        {/* <Text style={styles.text}>Ro en je 29.04.1994. u Dubrovniku. Ve i dio svog</Text> */}
 
-        <Pressable style={styles.pressable}>
+        {/* <Pressable style={styles.pressable}>
           <Text style={styles.pressableText}>More</Text>
           <View style={styles.pressableLine} />
-        </Pressable>
+        </Pressable> */}
       </View>
     </View>
   )

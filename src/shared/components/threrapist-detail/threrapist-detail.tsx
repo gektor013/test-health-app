@@ -1,18 +1,22 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 
+import { FreeEmployeeResponse } from "@/types/employees/employees.type"
 import { Therapist } from "../therapist/therapist"
 
-export const ThrerapistDetail = () => {
+interface Props {
+  data?: FreeEmployeeResponse
+}
+
+export const ThrerapistDetail = ({ data }: Props) => {
   return (
     <View style={styles.bottomContainer}>
       <Therapist
-        rating="4.5"
-        name="Dr. John Doe"
-        teraphyType="Massage, Room 53"
-        img={"/media/66b9d85b61ed9_profile-11.jpg"}
+        name={data?.employeeName ?? ""}
+        teraphyType={data?.employeeSpeciality ?? ""}
+        img={data?.employeeImage}
       />
       <ScrollView
         horizontal
@@ -20,36 +24,13 @@ export const ThrerapistDetail = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 4 }}
       >
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
-        <View style={styles.time}>
-          <Text>10:00</Text>
-        </View>
+        {data?.freeIntervals?.map((time) => (
+          <View key={time.startTime} style={styles.time}>
+            <Text>
+              {time.startTime}-{time.endTime}
+            </Text>
+          </View>
+        ))}
       </ScrollView>
     </View>
   )

@@ -1,5 +1,5 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"

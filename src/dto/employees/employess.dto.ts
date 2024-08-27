@@ -32,3 +32,22 @@ export const employeeSchemaDto = z.object({
   rating: z.string(),
   image: z.string().nullable()
 })
+
+export const freeEmployeeSchemaDto = z.object({
+  employeeId: z.number(),
+  employeeName: z.string(),
+  employeePhone: z.string().nullable(),
+  employeeImage: z.string().nullable(),
+  employeeExperience: z.string().nullable(),
+  employeeEducation: z.string().nullable(),
+  employeeSpeciality: z
+    .enum(["Therapist", "Physiotherapist", "Trainer", ""])
+    .or(z.string()),
+  employeeDuration: z.number(),
+  freeIntervals: z.array(
+    z.object({
+      startTime: z.string(),
+      endTime: z.string()
+    })
+  )
+})
