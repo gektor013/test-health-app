@@ -10,6 +10,7 @@ import { useAppSelector } from "@/redux"
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { Button, SVGIcon } from "@/shared/components"
 
+import { useActions } from "@/shared/hooks"
 import { useLocalSearchParams } from "expo-router"
 import CustomProgressBar from "./propgress-bar"
 
@@ -29,13 +30,18 @@ interface Documents {
 }
 
 export const UploadDocument = () => {
+  const { setUploadCountFiles } = useActions()
   const [uploadDocuments, setUploadDocuments] = useState<Documents[] | null>([])
   const [files, setFiles] = useState<DocumentPickerResponse[]>([])
   const [uploadServerFiles, setUploadServerFiles] = useState<Record<string, string>[]>([])
-  const { file: uploadFile } = useAppSelector((state) => state.media)
 
-  const { data } = useLocalSearchParams<{ data: any }>()
-  const documents = data ? (JSON.parse(data) as Documents[]) : []
+  const { file: uploadFile, uploadCountFiles } = useAppSelector((state) => state.media)
+
+  const { data, isUploadDocument } = useLocalSearchParams<{
+    data: any
+    isUploadDocument: "1" | "0" // 0 - false, 1 - true its need for appointment-create
+  }>()
+  const documents = data ? (JSON.parse(data) as Documents[]) : [] // PARSE DOCUMENTS WHEN WE WENT FROM PROFILE PAGE
 
   const [postMediaObject] = usePostMediaObjectMutation()
 
@@ -77,21 +83,29 @@ export const UploadDocument = () => {
   }
 
   useEffect(() => {
+    // UPLOAD DOCUMENT PAGE, WE SHOW UPLOADS DOCUMENTS
     if (documents.length > 0) {
       setUploadDocuments(documents)
     }
   }, [documents.length])
 
+  useEffect(() => {
+    // ITS NEED FOR APPOINTMENT-CREATE COUNT UPLOAD
+    if (uploadServerFiles.length > 0 && Number(isUploadDocument)) {
+      setUploadCountFiles(uploadCountFiles + 1)
+    }
+  }, [uploadServerFiles.length])
+
   return (
     <ScrollView
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={[styles.root, {}]}
+      contentContainerStyle={styles.root}
     >
       {uploadDocuments?.map((document) => (
         <Pressable key={document.id} style={styles.container}>
           <View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={styles.fileContainer}>
               <View style={styles.content}>
                 <SVGIcon name="pdf" size={32} />
                 <View style={styles.text}>
@@ -108,7 +122,7 @@ export const UploadDocument = () => {
       {files?.map((file, i) => (
         <View key={`${file.uri} ${i}`} style={styles.container}>
           <View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={styles.fileContainer}>
               <View style={styles.content}>
                 <SVGIcon name="pdf" size={32} />
                 <View style={styles.text}>
@@ -170,6 +184,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12
+  },
+  fileContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   content: {
     flexDirection: "row",
