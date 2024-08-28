@@ -2,9 +2,9 @@ import { z } from "zod"
 
 export const userVideoSchemaDto = z.object({
   id: z.number(),
-  title: z.string(),
+  title: z.string().nullable(),
   url: z.string().url(),
-  category: z.string(),
+  category: z.string().nullable(),
   isIsActive: z.boolean(),
   hash: z.string().optional(),
   firstDescription: z.string().nullable(),

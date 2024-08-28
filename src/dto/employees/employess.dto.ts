@@ -43,7 +43,7 @@ export const freeEmployeeSchemaDto = z.object({
   employeeSpeciality: z
     .enum(["Therapist", "Physiotherapist", "Trainer", ""])
     .or(z.string()),
-  employeeDuration: z.number(),
+  employeeDuration: z.number().nullable(),
   freeIntervals: z.array(
     z.object({
       startTime: z.string(),

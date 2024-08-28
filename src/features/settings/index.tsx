@@ -1,6 +1,6 @@
-import { StyleSheet, View } from "react-native"
-import React from "react"
 import { router } from "expo-router"
+import React from "react"
+import { StyleSheet, View } from "react-native"
 
 import { colors } from "@/constants"
 import { Button } from "@/shared/components"
@@ -17,19 +17,6 @@ export const Settings = () => {
             router.navigate("/password-manager")
           }}
           title={t("Password manager")}
-          variant="outline"
-          containerStyles={styles.btnContainer}
-          iconRight={{
-            icon: "arrow_right",
-            color: colors.black,
-            size: 14
-          }}
-          titleStyle={styles.btnTitle}
-        />
-
-        <Button
-          onPress={() => {}}
-          title={t("Delete account")}
           variant="outline"
           containerStyles={styles.btnContainer}
           iconRight={{

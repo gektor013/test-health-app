@@ -7,7 +7,7 @@ export const appointmentSchemaDto = z.object({
   }),
   client: z.object({
     birthdate: z.date().or(z.string()).nullable(),
-    email: z.string().email(),
+    email: z.string(),
     id: z.number(),
     name: z.string(),
     phone: z.string(),
@@ -17,7 +17,7 @@ export const appointmentSchemaDto = z.object({
   createdAt: z.date().or(z.string()),
   employee: z.object({
     birthdate: z.date().or(z.string()).nullable(),
-    email: z.string().email(),
+    email: z.string(),
     id: z.number(),
     name: z.string(),
     phone: z.string().nullable(),

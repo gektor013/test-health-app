@@ -59,6 +59,16 @@ export const authApi = appApi.injectEndpoints({
         method: "PATCH",
         body: JSON.stringify(body)
       })
+    }),
+
+    updatePassword: builder.mutation<unknown, { id: number; password: string }>({
+      query: (body) => ({
+        url: `/api/private/users/${body.id}/update-password`,
+        method: "PATCH",
+        body: {
+          password: body.password
+        }
+      })
     })
   })
 })
@@ -67,5 +77,6 @@ export const {
   useLoginMutation,
   useGetUserVideoQuery,
   useRegistrationsMutation,
-  useEditUserDataMutation
+  useEditUserDataMutation,
+  useUpdatePasswordMutation
 } = authApi
