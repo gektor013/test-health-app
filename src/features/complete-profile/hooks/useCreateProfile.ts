@@ -1,8 +1,8 @@
-import { Alert } from "react-native"
-import { useRef } from "react"
 import { ImagePickerAsset } from "expo-image-picker"
 import { router, useLocalSearchParams } from "expo-router"
+import { useRef } from "react"
 import { Control, SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook-form"
+import { Alert } from "react-native"
 
 import { useAppSelector } from "@/redux"
 import { useUploadImageMutation } from "@/redux/services"
@@ -67,6 +67,8 @@ export const useCreateProfile = (): ReturnData => {
     await editUserData({ ...data, image: upload, userId: id })
       .unwrap()
       .then((res) => {
+        console.log(res, "EDIT USER DATA")
+
         logIn({ ...res, token: token as string })
         router.push("/")
       })

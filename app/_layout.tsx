@@ -1,5 +1,5 @@
 import { appTheme } from "@/constants"
-import store, { persistor } from "@/redux"
+import store, { persistor, useAppSelector } from "@/redux"
 import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
@@ -41,17 +41,26 @@ export default function RootLayout() {
 }
 
 const MainStack = () => {
-  const { isLoading: isLoadingEmployee } = useGetFreeEmployeesQuery({
-    day: dateHelper.formatedData(new Date(), "YYYY-MM-DD"),
-    page: 1,
-    limit: 1
+  const { isAuthenticated } = useAppSelector((s) => s.auth)
+  const { isLoading: isLoadingEmployee } = useGetFreeEmployeesQuery(
+    {
+      day: dateHelper.formatedData(new Date(), "YYYY-MM-DD"),
+      page: 1,
+      limit: 1
+    },
+    { skip: !isAuthenticated }
+  )
+  const { isLoading: isLoadingService } = useGetAllServicesQuery(null, {
+    skip: !isAuthenticated
   })
-  const { isLoading: isLoadingService } = useGetAllServicesQuery()
-  const { isLoading: isLoadingVisit } = useGetPrivateVisitsQuery({
-    status: "Pending",
-    page: 1,
-    limit: 3
-  })
+  const { isLoading: isLoadingVisit } = useGetPrivateVisitsQuery(
+    {
+      status: "Pending",
+      page: 1,
+      limit: 3
+    },
+    { skip: !isAuthenticated }
+  )
 
   useEffect(() => {
     if (isLoadingEmployee || isLoadingService || isLoadingVisit) return

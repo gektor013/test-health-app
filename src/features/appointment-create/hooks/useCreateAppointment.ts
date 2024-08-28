@@ -1,7 +1,7 @@
-import { Alert } from "react-native"
-import { SharedValue } from "react-native-reanimated"
 import { useCallback } from "react"
 import { Control, useForm, UseFormGetValues } from "react-hook-form"
+import { Alert } from "react-native"
+import { SharedValue } from "react-native-reanimated"
 
 import { useAppSelector } from "@/redux"
 import {
@@ -76,6 +76,8 @@ export const useCreateAppointment = ({
     resolver: zodResolver(appointmentSchemaFunction(slideIndex))
   })
   const WATCH_STARTED_AT = watch("startedAt")
+
+  console.log(errors, getValues(), "ERORR")
 
   // REQUESTS
   const { data: servicesData } = useGetAllServicesQuery()

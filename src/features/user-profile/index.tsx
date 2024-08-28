@@ -1,7 +1,7 @@
-import { Alert, View } from "react-native"
-import React, { useRef } from "react"
 import { router } from "expo-router"
+import React, { useRef } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { Alert, View } from "react-native"
 
 import { useAppSelector } from "@/redux"
 import { useUploadImageMutation } from "@/redux/services"
@@ -35,7 +35,9 @@ export const UserProfile = () => {
   }
 
   const handleEditProfile: SubmitHandler<Profile> = async (data: Profile) => {
-    if (!userData?.id) return
+    const id = userData?.id ? userData?.id : userData?.userId
+
+    if (!id) return
     let uploadImage
 
     if (image) {
@@ -44,7 +46,7 @@ export const UserProfile = () => {
 
     await editUserData({
       ...data,
-      userId: userData?.id.toString(),
+      userId: id.toString(),
       image: uploadImage ? uploadImage : userData?.image
     })
       .unwrap()
