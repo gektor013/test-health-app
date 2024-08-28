@@ -66,8 +66,8 @@ export const useCreateProfile = (): ReturnData => {
 
     await editUserData({ ...data, image: upload, userId: id })
       .unwrap()
-      .then((res) => {
-        logIn({ ...res, token: token as string })
+      .then(() => {
+        logIn({ token: token as string })
         router.push("/")
       })
       .catch(() => {

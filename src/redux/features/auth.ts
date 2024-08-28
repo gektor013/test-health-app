@@ -18,9 +18,8 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logIn: (state, { payload }: PayloadAction<LoginResponse>) => {
+    logIn: (state, { payload }: PayloadAction<{ token: string }>) => {
       state.isAuthenticated = true
-      state.user = payload
       state.token = payload.token
     },
     logOut: () => {
@@ -36,6 +35,7 @@ export const authSlice = createSlice({
   extraReducers(builder) {
     builder.addMatcher(authApi.endpoints.getMe.matchFulfilled, (state, payload) => {
       state.user = payload.payload
+      state.isAuthenticated = true
     })
   }
 })

@@ -2,6 +2,7 @@ import { appTheme } from "@/constants"
 import store, { persistor, useAppSelector } from "@/redux"
 import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
+import { useGetMeQuery } from "@/redux/services/user-api"
 import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { dateHelper } from "@/utils/helpers/date"
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
@@ -42,6 +43,10 @@ export default function RootLayout() {
 
 const MainStack = () => {
   const { isAuthenticated } = useAppSelector((s) => s.auth)
+
+  const { isLoading: isLoadingMe } = useGetMeQuery(null, {
+    skip: !isAuthenticated
+  })
   const { isLoading: isLoadingEmployee } = useGetFreeEmployeesQuery(
     {
       day: dateHelper.formatedData(new Date(), "YYYY-MM-DD"),
@@ -63,10 +68,10 @@ const MainStack = () => {
   )
 
   useEffect(() => {
-    if (isLoadingEmployee || isLoadingService || isLoadingVisit) return
+    if (isLoadingEmployee || isLoadingService || isLoadingVisit || isLoadingMe) return
 
     SplashScreen.hideAsync()
-  }, [isLoadingEmployee, isLoadingService, isLoadingVisit])
+  }, [isLoadingEmployee, isLoadingService, isLoadingVisit, isLoadingMe])
 
   return (
     <Stack>
