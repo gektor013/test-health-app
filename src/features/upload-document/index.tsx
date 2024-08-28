@@ -172,8 +172,8 @@ export const UploadDocument = () => {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    gap: 16
+    gap: 16,
+    width: "100%"
   },
   container: {
     backgroundColor: colors.light_gray,
