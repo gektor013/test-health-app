@@ -1,9 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
 
 import StarIcon from "#/icons/star.svg"
+import FastImage from "react-native-fast-image"
 
 interface Props {
   name: string
@@ -16,7 +17,7 @@ interface Props {
 export const Therapist = ({ name, rating, teraphyType, img, isDetails }: Props) => {
   return (
     <View style={styles.threpistConstainer}>
-      <Image
+      <FastImage
         source={{ uri: `${API_URL}${img}` }}
         style={[isDetails ? styles.detailImg : styles.therapistImg]}
       />

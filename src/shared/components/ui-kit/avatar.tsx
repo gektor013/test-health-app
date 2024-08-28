@@ -1,8 +1,9 @@
-import { Image, StyleSheet, View } from "react-native"
 import React from "react"
+import { StyleSheet, View } from "react-native"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
+import FastImage from "react-native-fast-image"
 
 interface Props {
   uri?: string
@@ -13,8 +14,10 @@ export const Avatar: React.FC<Props> = ({ size = 30, uri }) => {
   return (
     <React.Fragment>
       {uri ? (
-        <Image
-          source={{ uri: API_URL + uri }}
+        <FastImage
+          source={{
+            uri: API_URL + uri
+          }}
           style={{ width: size, height: size, borderRadius: size }}
         />
       ) : (

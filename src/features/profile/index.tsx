@@ -1,6 +1,6 @@
 import { router } from "expo-router"
 import React, { useRef, useState } from "react"
-import { Image, Text, View } from "react-native"
+import { Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 
 import { colors } from "@/constants"
@@ -10,6 +10,7 @@ import { Button, SVGIcon, Switch } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
+import FastImage from "react-native-fast-image"
 
 import { styles } from "./_style"
 
@@ -28,7 +29,12 @@ export const Profile = () => {
         <View style={styles.header}>
           <View style={styles.avatarContainer}>
             {userData?.image ? (
-              <Image source={{ uri: API_URL + userData?.image }} style={styles.avatar} />
+              <FastImage
+                style={styles.avatar}
+                source={{
+                  uri: API_URL + userData?.image
+                }}
+              />
             ) : (
               <SVGIcon name="empty_avatar" size={60} />
             )}

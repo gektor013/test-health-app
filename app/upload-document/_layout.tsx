@@ -7,7 +7,6 @@ export default function UploadDocumentLayout() {
   return (
     <ScreenContainer>
       <StatusBar style="dark" />
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       <View style={styles.container}>
         <Stack
           screenOptions={{
@@ -16,7 +15,6 @@ export default function UploadDocumentLayout() {
           }}
         />
       </View>
-      {/* </TouchableWithoutFeedback> */}
     </ScreenContainer>
   )
 }
