@@ -6,7 +6,7 @@ import { RootState } from ".."
 export const appApi = createApi({
   reducerPath: "appApi",
   keepUnusedDataFor: 0,
-  tagTypes: ["Visits"],
+  tagTypes: ["Visits", "MeData"],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: async (headers, { getState }) => {

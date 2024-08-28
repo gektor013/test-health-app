@@ -1,5 +1,6 @@
 import { LoginResponse, User } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { authApi } from "../services/user-api"
 
 interface AuthState {
   isAuthenticated: boolean
@@ -31,6 +32,11 @@ export const authSlice = createSlice({
     updateUserData: (state, { payload }: PayloadAction<User>) => {
       state.user = { ...payload, token: state.token! }
     }
+  },
+  extraReducers(builder) {
+    builder.addMatcher(authApi.endpoints.getMe.matchFulfilled, (state, payload) => {
+      state.user = payload.payload
+    })
   }
 })
 

@@ -69,6 +69,13 @@ export const authApi = appApi.injectEndpoints({
           password: body.password
         }
       })
+    }),
+
+    getMe: builder.query<LoginResponse, void>({
+      query: () => ({
+        url: `/api/private/users/me`
+      }),
+      providesTags: ["MeData"]
     })
   })
 })
@@ -78,5 +85,6 @@ export const {
   useGetUserVideoQuery,
   useRegistrationsMutation,
   useEditUserDataMutation,
-  useUpdatePasswordMutation
+  useUpdatePasswordMutation,
+  useGetMeQuery
 } = authApi
