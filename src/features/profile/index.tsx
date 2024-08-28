@@ -1,7 +1,7 @@
+import { router } from "expo-router"
+import React, { useRef, useState } from "react"
 import { Image, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import React, { useRef, useState } from "react"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
@@ -59,7 +59,12 @@ export const Profile = () => {
 
             <Button
               onPress={() => {
-                router.navigate("/upload-document")
+                router.navigate({
+                  pathname: "/upload-document",
+                  params: {
+                    data: JSON.stringify(userData?.documents)
+                  }
+                })
               }}
               title={t("Uploaded documents")}
               variant="outline"

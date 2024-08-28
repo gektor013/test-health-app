@@ -79,7 +79,8 @@ const MainStack = () => {
           headerShown: true,
           title: "Upload Documents",
           headerBackTitleVisible: false,
-          headerShadowVisible: false
+          headerShadowVisible: false,
+          headerTitleStyle: { fontWeight: "400" }
         }}
       />
       <Stack.Screen

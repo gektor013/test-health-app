@@ -1,13 +1,13 @@
-import { router } from "expo-router"
-import React from "react"
 import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
 
 import { colors } from "@/constants"
+import { API_URL } from "@/constants/enviroments"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
 import { dateHelper } from "@/utils/helpers/date"
 
-import { API_URL } from "@/constants/enviroments"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width

@@ -12,4 +12,8 @@ export interface User {
 export interface LoginResponse extends User {
   token: string
   id?: number
+  documents?: {
+    contentUrl: string
+    id: number
+  }[]
 }

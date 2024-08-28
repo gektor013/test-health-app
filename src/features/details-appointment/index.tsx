@@ -1,7 +1,7 @@
-import { router, useLocalSearchParams } from "expo-router"
-import React, { useRef } from "react"
 import { Alert, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
+import React, { useRef } from "react"
+import { router, useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
 import { useCancelVisitMutation, useGetVisitByIdQuery } from "@/redux/services/visit-api"

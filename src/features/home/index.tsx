@@ -10,7 +10,6 @@ export const Home = () => {
   return (
     <View style={styles.container}>
       <Header />
-      {/* <SearchInput /> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: 24 }}

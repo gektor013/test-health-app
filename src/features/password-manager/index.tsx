@@ -1,6 +1,7 @@
-import React from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
 import { Alert, StyleSheet, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
@@ -8,7 +9,6 @@ import { useUpdatePasswordMutation } from "@/redux/services/user-api"
 import { Button, TextInput } from "@/shared/components"
 import { useTranslations } from "@/shared/hooks"
 import { zod, zodResolver } from "@/utils/zod"
-import { router } from "expo-router"
 
 const schema = zod
   .object({

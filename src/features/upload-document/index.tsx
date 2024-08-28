@@ -1,15 +1,16 @@
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native"
+import React, { useCallback, useEffect, useState } from "react"
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
-import React, { useCallback, useState } from "react"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { Button, SVGIcon } from "@/shared/components"
 
+import { useLocalSearchParams } from "expo-router"
 import CustomProgressBar from "./propgress-bar"
 
 const formatedSize = (size: number) => {
@@ -22,11 +23,21 @@ const formatedSize = (size: number) => {
   }
 }
 
+interface Documents {
+  contentUrl: string
+  id: number
+}
+
 export const UploadDocument = () => {
-  const [files, setFiles] = React.useState<DocumentPickerResponse[]>([])
+  const [uploadDocuments, setUploadDocuments] = useState<Documents[] | null>([])
+  const [files, setFiles] = useState<DocumentPickerResponse[]>([])
   const [uploadServerFiles, setUploadServerFiles] = useState<Record<string, string>[]>([])
-  const [postMediaObject] = usePostMediaObjectMutation()
   const { file: uploadFile } = useAppSelector((state) => state.media)
+
+  const { data } = useLocalSearchParams<{ data: any }>()
+  const documents = data ? (JSON.parse(data) as Documents[]) : []
+
+  const [postMediaObject] = usePostMediaObjectMutation()
 
   const pickDocument = useCallback(async () => {
     try {
@@ -65,42 +76,70 @@ export const UploadDocument = () => {
     setFiles((prev) => prev.filter((_, i) => i !== idx))
   }
 
+  useEffect(() => {
+    if (documents.length > 0) {
+      setUploadDocuments(documents)
+    }
+  }, [documents.length])
+
   return (
-    <View style={styles.root}>
-      {files.length > 0 ? (
-        files.map((file, i) => (
-          <View key={`${file.uri} ${i}`} style={styles.container}>
-            <View>
-              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <View style={styles.content}>
-                  <SVGIcon name="pdf" size={32} />
-                  <View style={styles.text}>
-                    <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-                      {file.name}
-                    </Text>
-                    <Text>{formatedSize(file.size!)}</Text>
-                  </View>
+    <ScrollView
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={[styles.root, {}]}
+    >
+      {uploadDocuments?.map((document) => (
+        <Pressable key={document.id} style={styles.container}>
+          <View>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <View style={styles.content}>
+                <SVGIcon name="pdf" size={32} />
+                <View style={styles.text}>
+                  <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+                    {document.contentUrl}
+                  </Text>
                 </View>
-                <Pressable
-                  onPress={() => removeFile(i)}
-                  disabled={uploadFile.uri === file.uri}
-                >
-                  {uploadServerFiles[i]?.uri === file.uri ? (
-                    <SVGIcon name="check" size={15} />
-                  ) : (
-                    <SVGIcon name="trash" size={15} />
-                  )}
-                </Pressable>
               </View>
             </View>
-            {uploadFile.uri === file.uri && (
-              <View style={{ width: "100%" }}>
-                <CustomProgressBar progress={uploadFile.uploadStatus} />
-              </View>
-            )}
           </View>
-        ))
-      ) : (
+        </Pressable>
+      ))}
+
+      {files?.map((file, i) => (
+        <View key={`${file.uri} ${i}`} style={styles.container}>
+          <View>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <View style={styles.content}>
+                <SVGIcon name="pdf" size={32} />
+                <View style={styles.text}>
+                  <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+                    {file.name}
+                  </Text>
+                  <Text>{formatedSize(file.size!)}</Text>
+                </View>
+              </View>
+              <Pressable
+                onPress={() => removeFile(i)}
+                disabled={uploadFile.uri === file.uri}
+              >
+                {uploadServerFiles[i]?.uri === file.uri ? (
+                  <SVGIcon name="check" size={15} />
+                ) : (
+                  <SVGIcon name="trash" size={15} />
+                )}
+              </Pressable>
+            </View>
+          </View>
+
+          {uploadFile.uri === file.uri && (
+            <View style={{ width: "100%" }}>
+              <CustomProgressBar progress={uploadFile.uploadStatus} />
+            </View>
+          )}
+        </View>
+      ))}
+
+      {!files.length && !uploadDocuments?.length && (
         <View style={styles.noFileTitle}>
           <Text>You have no documents uploaded</Text>
         </View>
@@ -113,7 +152,7 @@ export const UploadDocument = () => {
         onPress={pickDocument}
         containerStyles={{ backgroundColor: "#F2FDFC" }}
       />
-    </View>
+    </ScrollView>
   )
 }
 
