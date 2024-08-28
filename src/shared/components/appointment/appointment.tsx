@@ -1,14 +1,13 @@
-import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
-import React from "react"
 import { router } from "expo-router"
+import React from "react"
+import { Image, Pressable, StyleSheet, Text, TextProps, View } from "react-native"
 
 import { colors } from "@/constants"
 import { AppointmentPrivateResponse } from "@/types/appointment/appointment.types"
 import { commonHelpers } from "@/utils/helpers/common"
 import { dateHelper } from "@/utils/helpers/date"
 
-import DoctorImg from "#/doctors/doctor-1.png"
-
+import { API_URL } from "@/constants/enviroments"
 import { SVGIcon } from "../ui-kit"
 
 const width = commonHelpers.getDimensionsParams().width
@@ -33,7 +32,10 @@ export const Appointment = ({
     <View style={[styles.container]}>
       <View style={styles.mainContainer}>
         <View style={styles.doctorContainer}>
-          <Image source={DoctorImg} style={styles.doctorImage} />
+          <Image
+            source={{ uri: `${API_URL}${appointmentData?.employee.image}` }}
+            style={styles.doctorImage}
+          />
           <View style={styles.doctorInfoContainer}>
             <View style={styles.doctorInfoTitleContainer}>
               <Text style={styles.doctorName}>{appointmentData?.employee.name}</Text>

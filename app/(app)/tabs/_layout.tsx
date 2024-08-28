@@ -1,15 +1,38 @@
 import { colors } from "@/constants"
+import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
+import { useGetAllServicesQuery } from "@/redux/services/service-api"
+import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { CustomTabBar, ScreenContainer, SVGIcon } from "@/shared/components"
 import { useAuth } from "@/shared/hooks"
+import { dateHelper } from "@/utils/helpers/date"
 import { Redirect, router, Tabs } from "expo-router"
+import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
-import React from "react"
+import React, { useEffect } from "react"
 import { StyleSheet } from "react-native"
+
+SplashScreen.preventAutoHideAsync()
 
 export default function TabLayout() {
   const { user } = useAuth()
-
   if (!user) return <Redirect href={"/auth/sign-in"} />
+
+  const { isLoading: isLoadingEmployee } = useGetFreeEmployeesQuery({
+    day: dateHelper.formatedData(new Date(), "YYYY-MM-DD"),
+    page: 1,
+    limit: 1
+  })
+  const { isLoading: isLoadingService } = useGetAllServicesQuery()
+  const { isLoading: isLoadingVisit } = useGetPrivateVisitsQuery({
+    status: "Pending",
+    page: 1,
+    limit: 3
+  })
+
+  useEffect(() => {
+    if (isLoadingEmployee || isLoadingService || isLoadingVisit) return
+    SplashScreen.hideAsync()
+  }, [isLoadingEmployee, isLoadingService, isLoadingVisit])
 
   return (
     <ScreenContainer style={styles.screenContainer}>

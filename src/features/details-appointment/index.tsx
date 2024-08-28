@@ -1,7 +1,7 @@
+import { router, useLocalSearchParams } from "expo-router"
+import React, { useRef } from "react"
 import { Alert, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import React, { useRef } from "react"
-import { router, useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
 import { useCancelVisitMutation, useGetVisitByIdQuery } from "@/redux/services/visit-api"
@@ -42,7 +42,7 @@ export const DetailsAppointment = () => {
           <AppointmentTerapist
             therapistData={visitData?.employee}
             serviceData={{
-              room: visitData?.cabinet.name,
+              room: visitData?.cabinet.name ?? "",
               type: visitData?.service.name
             }}
           />
@@ -50,7 +50,7 @@ export const DetailsAppointment = () => {
             data={{
               employeeName: visitData?.employee.name,
               startVisit: visitData?.startedAt,
-              room: visitData?.cabinet.name
+              room: visitData?.cabinet.name ?? ""
             }}
           />
           <PatientDetails data={visitData?.client} />

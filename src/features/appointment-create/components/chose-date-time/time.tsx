@@ -1,5 +1,5 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 import { Control, Controller } from "react-hook-form"
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native"
 
 import { colors } from "@/constants"
 import { useTranslations } from "@/shared/hooks"
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     gap: 6
   },
   time: {
