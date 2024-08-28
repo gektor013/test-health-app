@@ -7,9 +7,8 @@ import React from "react"
 import { StyleSheet } from "react-native"
 
 export default function TabLayout() {
-  const { user } = useAuth()
-
-  if (!user) return <Redirect href={"/auth/sign-in"} />
+  const { token } = useAuth()
+  if (!token) return <Redirect href={"/auth/sign-in"} />
 
   return (
     <ScreenContainer style={styles.screenContainer}>

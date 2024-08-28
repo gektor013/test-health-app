@@ -11,7 +11,7 @@ interface ExtraParams {
 }
 
 export const useAuth = () => {
-  const { isAuthenticated, user } = useAppSelector((store) => store.auth)
+  const { isAuthenticated, user, token } = useAppSelector((store) => store.auth)
   const { logIn, logOut } = useActions()
 
   const router = useRouter()
@@ -34,6 +34,7 @@ export const useAuth = () => {
   return {
     isAuthenticated,
     user,
+    token,
     loginUser,
     logoutUser
   }

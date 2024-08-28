@@ -1,8 +1,8 @@
+import { ImagePickerAsset } from "expo-image-picker"
+import React, { useState } from "react"
+import { Control, Controller } from "react-hook-form"
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
-import React, { useState } from "react"
-import { ImagePickerAsset } from "expo-image-picker"
-import { Control, Controller } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
@@ -11,6 +11,7 @@ import { Profile } from "@/types/profile"
 import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { dateHelper } from "@/utils/helpers/date"
 
+import FastImage from "react-native-fast-image"
 import { VectorExpoIcons } from "../expo-icons/vectorExpoIcons"
 import { Button, DropdownComponent, SVGIcon, TextInput } from "../ui-kit"
 
@@ -44,7 +45,12 @@ export const UserProfileForm = ({
           {image ? (
             <>
               {typeof image === "string" ? (
-                <Image source={{ uri: API_URL + image }} style={styles.image} />
+                <FastImage
+                  style={styles.image}
+                  source={{
+                    uri: API_URL + image
+                  }}
+                />
               ) : (
                 <Image source={image} style={styles.image} />
               )}

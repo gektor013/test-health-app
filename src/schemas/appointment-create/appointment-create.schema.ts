@@ -51,33 +51,9 @@ export const appointmentSchemaFunction = (currentIndex: number) => {
             }
             return val
           }),
-        birthdate: z
-          .string()
-          .or(z.date())
-          .nullable()
-          .transform((val, ctx) => {
-            if (currentIndex === 2 && !val) {
-              ctx.addIssue({
-                code: "custom",
-                message: "Name is required",
-                path: ctx.path
-              })
-            }
-            return val
-          }),
-        sex: z
-          .string()
-          .nullable()
-          .transform((val, ctx) => {
-            if (currentIndex === 2 && !val) {
-              ctx.addIssue({
-                code: "custom",
-                message: "Gender is required",
-                path: ctx.path
-              })
-            }
-            return val
-          })
+        birthdate: z.string().or(z.date()).optional(),
+
+        sex: z.string().nullable().optional()
       }),
       startedAt: z.string(),
       choosenTime: z.object({

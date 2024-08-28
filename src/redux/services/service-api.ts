@@ -9,7 +9,7 @@ export const serviceApi = appApi.injectEndpoints({
   overrideExisting: true,
 
   endpoints: (builder) => ({
-    getAllServices: builder.query<TransformedData<ServiceResponse>, void>({
+    getAllServices: builder.query<TransformedData<ServiceResponse>, void | null>({
       query: () => ({
         url: `/api/public/services`,
         headers: {

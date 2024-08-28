@@ -1,7 +1,7 @@
-import { Alert } from "react-native"
-import { SharedValue } from "react-native-reanimated"
 import { useCallback } from "react"
 import { Control, useForm, UseFormGetValues } from "react-hook-form"
+import { Alert } from "react-native"
+import { SharedValue } from "react-native-reanimated"
 
 import { useAppSelector } from "@/redux"
 import {
@@ -11,6 +11,7 @@ import {
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { useCreateVisitMutation } from "@/redux/services/visit-api"
 import { appointmentSchemaFunction } from "@/schemas/appointment-create/appointment-create.schema"
+import { useActions } from "@/shared/hooks"
 import { AppointmentCreateSchemaData } from "@/types/appointment/appointment.types"
 import { EmployeesResponse, ScheduleEmloyeeTime } from "@/types/employees/employees.type"
 import { ServiceResponse } from "@/types/service/service.type"
@@ -56,6 +57,7 @@ export const useCreateAppointment = ({
   currentIndex
 }: Props): ReturneData => {
   const userData = useAppSelector((s) => s.auth.user)
+  const { setUploadCountFiles } = useActions()
 
   const {
     control,
@@ -142,6 +144,7 @@ export const useCreateAppointment = ({
 
   const handleBackPress = useCallback(() => {
     reset(APPOINTMENT_CREATE_DEFAUL_DATA)
+    setUploadCountFiles(0)
     stepsMethods.onBackPress()
   }, [])
 

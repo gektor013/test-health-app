@@ -2,21 +2,22 @@ import { z } from "zod"
 
 export const appointmentSchemaDto = z.object({
   cabinet: z.object({
-    id: z.number(),
-    name: z.string()
+    id: z.number().nullable(),
+    name: z.string().nullable()
   }),
   client: z.object({
     birthdate: z.date().or(z.string()).nullable(),
-    email: z.string().email(),
+    email: z.string(),
     id: z.number(),
     name: z.string(),
     phone: z.string(),
+    image: z.string().nullable(),
     sex: z.enum(["Male", "Female"]).nullable()
   }),
   createdAt: z.date().or(z.string()),
   employee: z.object({
     birthdate: z.date().or(z.string()).nullable(),
-    email: z.string().email(),
+    email: z.string(),
     id: z.number(),
     name: z.string(),
     phone: z.string().nullable(),

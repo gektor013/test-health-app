@@ -1,10 +1,10 @@
-import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
-import { useAuth, useTranslations } from "@/shared/hooks"
+import { useActions, useTranslations } from "@/shared/hooks"
 import { zodResolver } from "@/utils/zod"
 
 import imageLogo from "#/images/logo-black-text.png"
@@ -19,7 +19,7 @@ const defaultValues = {
 export const SignIn = () => {
   const { t } = useTranslations()
   const [login, { isLoading }] = useLoginMutation()
-  const { loginUser } = useAuth()
+  const { logIn } = useActions()
 
   const {
     control,
@@ -33,14 +33,11 @@ export const SignIn = () => {
 
   const onSubmit: SubmitHandler<SignInSchemaType> = async (body) => {
     try {
-      const result = await login(body)
+      await login(body)
         .unwrap()
+        .then((res) => logIn({ token: res.token }))
+        .then(() => router.push("/"))
         .catch(() => Alert.alert("Wrong credentials"))
-
-      if (result?.token) {
-        loginUser(result)
-        router.push("/")
-      } else throw new Error()
     } catch (error) {
       setError("root.serverError", {
         type: "401",

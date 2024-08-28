@@ -16,7 +16,8 @@ export const authApi = appApi.injectEndpoints({
         url: `/api/login`,
         method: "POST",
         body
-      })
+      }),
+      invalidatesTags: ["MeData"]
     }),
     registrations: builder.mutation<LoginResponse, SignUp & { isAgreed: boolean }>({
       query: (body) => ({
@@ -58,7 +59,25 @@ export const authApi = appApi.injectEndpoints({
         url: `/api/private/users/${body.userId}`,
         method: "PATCH",
         body: JSON.stringify(body)
+      }),
+      invalidatesTags: ["MeData"]
+    }),
+
+    updatePassword: builder.mutation<unknown, { id: number; password: string }>({
+      query: (body) => ({
+        url: `/api/private/users/${body.id}/update-password`,
+        method: "PATCH",
+        body: {
+          password: body.password
+        }
       })
+    }),
+
+    getMe: builder.query<LoginResponse, void | null>({
+      query: () => ({
+        url: `/api/private/users/me`
+      }),
+      providesTags: ["MeData"]
     })
   })
 })
@@ -67,5 +86,7 @@ export const {
   useLoginMutation,
   useGetUserVideoQuery,
   useRegistrationsMutation,
-  useEditUserDataMutation
+  useEditUserDataMutation,
+  useUpdatePasswordMutation,
+  useGetMeQuery
 } = authApi

@@ -26,19 +26,6 @@ export const Settings = () => {
           }}
           titleStyle={styles.btnTitle}
         />
-
-        <Button
-          onPress={() => {}}
-          title={t("Delete account")}
-          variant="outline"
-          containerStyles={styles.btnContainer}
-          iconRight={{
-            icon: "arrow_right",
-            color: colors.black,
-            size: 14
-          }}
-          titleStyle={styles.btnTitle}
-        />
       </View>
     </View>
   )

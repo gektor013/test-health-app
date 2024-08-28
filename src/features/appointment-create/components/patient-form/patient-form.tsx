@@ -1,8 +1,8 @@
+import { router } from "expo-router"
+import { useState } from "react"
+import { Control, Controller, UseFormGetValues } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
 import DatePicker from "react-native-date-picker"
-import { useState } from "react"
-import { router } from "expo-router"
-import { Control, Controller, UseFormGetValues } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { Button, DropdownComponent, TextInput } from "@/shared/components"
@@ -12,6 +12,7 @@ import { GENDER_DATA } from "@/utils/default-datas/drop-down"
 import { commonHelpers } from "@/utils/helpers/common"
 import { dateHelper } from "@/utils/helpers/date"
 
+import { useAppSelector } from "@/redux"
 import { FinalAppointment } from "../final-appointment/final-appointment"
 
 const width = commonHelpers.getDimensionsParams().width - 32
@@ -25,6 +26,7 @@ interface Props {
 export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
   const { t } = useTranslations()
   const [open, setOpen] = useState(false)
+  const { uploadCountFiles } = useAppSelector((s) => s.media)
 
   return (
     <View style={styles.mainConatiner}>
@@ -64,7 +66,7 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
               disabled={true}
               plaseholder="Male"
               isError={!!error}
-              value={value}
+              value={value ?? null}
               onChange={onChange}
             />
           )}
@@ -134,9 +136,18 @@ export const Patientdetails = ({ control, formValues, onSetStep }: Props) => {
 
         <Button
           onPress={() => {
-            router.navigate("/upload-document")
+            router.navigate({
+              pathname: "/upload-document",
+              params: {
+                isUploadDocument: 1
+              }
+            })
           }}
-          title={t("No documents uploaded")}
+          title={
+            uploadCountFiles > 0
+              ? t(`Uploaded ${uploadCountFiles} documents`)
+              : t("No documents uploaded")
+          }
           variant="outline"
           containerStyles={styles.btnContainer}
           iconRight={{

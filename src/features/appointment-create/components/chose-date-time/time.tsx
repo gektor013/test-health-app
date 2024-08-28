@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     gap: 6
   },
   time: {
