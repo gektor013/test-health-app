@@ -17,6 +17,9 @@
       "bundleIdentifier": "com.salerow.bodybalance",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses your camera"
+      },
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
       }
     },
     "android": {

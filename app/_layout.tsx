@@ -6,8 +6,9 @@ import { useGetMeQuery } from "@/redux/services/user-api"
 import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
 import { dateHelper } from "@/utils/helpers/date"
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
+import NetInfo from "@react-native-community/netinfo"
 import { ThemeProvider } from "@react-navigation/native"
-import { SplashScreen, Stack } from "expo-router"
+import { SplashScreen, Stack, useRouter } from "expo-router"
 import * as SystemUI from "expo-system-ui"
 import { useEffect } from "react"
 import { StyleSheet } from "react-native"
@@ -24,7 +25,23 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 SystemUI.setBackgroundColorAsync("white")
 
+const useCheckInternet = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (!state.isConnected) {
+        router.replace("/welcome")
+      }
+    })
+
+    return () => unsubscribe()
+  }, [router])
+}
+
 export default function RootLayout() {
+  useCheckInternet()
+
   return (
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
@@ -91,6 +108,7 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "400" }
         }}
       />
+
       <Stack.Screen
         name="password-manager"
         options={{
@@ -101,6 +119,7 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "400" }
         }}
       />
+
       <Stack.Screen
         name="settings"
         options={{
@@ -111,6 +130,7 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "400" }
         }}
       />
+
       <Stack.Screen
         name="user-profile"
         options={{
@@ -165,6 +185,7 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "400" }
         }}
       />
+
       <Stack.Screen
         name="details-appointment"
         options={{
@@ -175,6 +196,7 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "400" }
         }}
       />
+
       <Stack.Screen
         name="auth/sign-in"
         options={{
@@ -184,6 +206,7 @@ const MainStack = () => {
           headerShadowVisible: false
         }}
       />
+
       <Stack.Screen
         name="auth/sign-up"
         options={{
@@ -203,10 +226,19 @@ const MainStack = () => {
           headerShadowVisible: false
         }}
       />
+
       <Stack.Screen
         name="(app)/tabs"
         options={{ headerShown: false, gestureEnabled: false }}
       />
+
+      <Stack.Screen
+        name="no-connection"
+        options={{
+          headerShown: false
+        }}
+      />
+
       <Stack.Screen name="+not-found" />
     </Stack>
   )
