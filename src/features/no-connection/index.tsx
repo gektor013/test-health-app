@@ -1,10 +1,12 @@
-import NoConnectionImg from "#/images/no-connection.png"
+import { Image, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { router } from "expo-router"
+
 import { Button } from "@/shared/components"
 import { commonHelpers } from "@/utils/helpers/common"
 import NetInfo from "@react-native-community/netinfo"
-import { router } from "expo-router"
-import React from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+
+import NoConnectionImg from "#/images/no-connection.png"
 
 const width = commonHelpers.getDimensionsParams().width
 

@@ -1,5 +1,5 @@
-import React from "react"
 import { View } from "react-native"
+import React from "react"
 
 import { Button, UserProfileForm } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"

@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react"
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
+import React, { useCallback, useEffect, useState } from "react"
+import { useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
 import { usePostMediaObjectMutation } from "@/redux/services"
 import { Button, SVGIcon } from "@/shared/components"
-
 import { useActions } from "@/shared/hooks"
-import { useLocalSearchParams } from "expo-router"
+
 import CustomProgressBar from "./propgress-bar"
 
 const formatedSize = (size: number) => {

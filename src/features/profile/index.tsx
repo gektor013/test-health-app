@@ -1,6 +1,7 @@
 import { router } from "expo-router"
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import { Text, View } from "react-native"
+import FastImage from "react-native-fast-image"
 import { ScrollView } from "react-native-gesture-handler"
 
 import { colors } from "@/constants"
@@ -10,7 +11,6 @@ import { Button, SVGIcon } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
-import FastImage from "react-native-fast-image"
 
 import { styles } from "./_style"
 
@@ -20,8 +20,6 @@ export const Profile = () => {
 
   const ref = useRef<BottomSheet>(null)
   const userData = useAppSelector((s) => s.auth.user)
-  const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
   return (
     <>
@@ -97,7 +95,7 @@ export const Profile = () => {
               }}
               titleStyle={styles.btnTitle}
             />
-            {/* 
+            {/*
             <Button
               onPress={toggleSwitch}
               title={t("Notification")}

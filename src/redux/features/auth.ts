@@ -1,5 +1,6 @@
 import { LoginResponse, User } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+
 import { authApi } from "../services/user-api"
 
 interface AuthState {

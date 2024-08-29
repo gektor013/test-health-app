@@ -1,10 +1,10 @@
-import { useCallback, useState } from "react"
 import { ScrollView, Text, View } from "react-native"
+import { useCallback, useState } from "react"
+import { useFocusEffect } from "expo-router"
 
 import { useGetCategoriesQuery } from "@/redux/services/category-api"
 import { useGetUserVideoQuery } from "@/redux/services/user-api"
 
-import { useFocusEffect } from "expo-router"
 import { Tags } from "./_components/tags"
 import { Video } from "./_components/video"
 

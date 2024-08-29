@@ -1,9 +1,9 @@
-import React from "react"
 import { StyleSheet, View } from "react-native"
+import FastImage from "react-native-fast-image"
+import React from "react"
 
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
-import FastImage from "react-native-fast-image"
 
 interface Props {
   uri?: string

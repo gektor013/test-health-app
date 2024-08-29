@@ -1,6 +1,6 @@
-import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import YoutubePlayer from "react-native-youtube-iframe"
+import React from "react"
 
 import { colors } from "@/constants"
 import { UserVideoResponse } from "@/types/user-video/user-video.type"

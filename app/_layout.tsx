@@ -4,11 +4,11 @@ import { useGetFreeEmployeesQuery } from "@/redux/services/employee-api"
 import { useGetAllServicesQuery } from "@/redux/services/service-api"
 import { useGetMeQuery } from "@/redux/services/user-api"
 import { useGetPrivateVisitsQuery } from "@/redux/services/visit-api"
+import { useCheckInternet } from "@/shared/hooks"
 import { dateHelper } from "@/utils/helpers/date"
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
-import NetInfo from "@react-native-community/netinfo"
 import { ThemeProvider } from "@react-navigation/native"
-import { SplashScreen, Stack, useRouter } from "expo-router"
+import { SplashScreen, Stack } from "expo-router"
 import * as SystemUI from "expo-system-ui"
 import { useEffect } from "react"
 import { StyleSheet } from "react-native"
@@ -24,20 +24,6 @@ export const unstable_settings = {
 }
 SplashScreen.preventAutoHideAsync()
 SystemUI.setBackgroundColorAsync("white")
-
-const useCheckInternet = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      if (!state.isConnected) {
-        router.replace("/welcome")
-      }
-    })
-
-    return () => unsubscribe()
-  }, [router])
-}
 
 export default function RootLayout() {
   useCheckInternet()
