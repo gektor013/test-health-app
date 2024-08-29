@@ -8,6 +8,7 @@ import { dateHelper } from "@/utils/helpers/date"
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import { ThemeProvider } from "@react-navigation/native"
 import { SplashScreen, Stack } from "expo-router"
+import * as SystemUI from "expo-system-ui"
 import { useEffect } from "react"
 import { StyleSheet } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
@@ -21,6 +22,8 @@ export const unstable_settings = {
   initialRouteName: "index"
 }
 SplashScreen.preventAutoHideAsync()
+SystemUI.setBackgroundColorAsync("white")
+
 export default function RootLayout() {
   return (
     <ReduxProvider store={store}>

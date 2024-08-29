@@ -1,14 +1,14 @@
+import { useState } from "react"
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 import {
   Pressable,
-  StyleSheet,
   TextInput as RNTextInput,
+  StyleSheet,
   TextInputProps,
   TextProps,
   View
 } from "react-native"
 import MaskInput from "react-native-mask-input"
-import { useState } from "react"
-import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 
 import { colors } from "@/constants"
 import { SVGIconNames } from "@/types/icons"
@@ -28,8 +28,8 @@ interface Props<T extends FieldValues> extends UseControllerProps<T> {
 
 const phoneNumberMask = [
   "+",
-  "4",
-  "8",
+  /\d/,
+  /\d/,
   " ",
   /\d/,
   /\d/,

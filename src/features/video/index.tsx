@@ -1,20 +1,28 @@
+import { useCallback, useState } from "react"
 import { ScrollView, Text, View } from "react-native"
-import { useState } from "react"
 
 import { useGetCategoriesQuery } from "@/redux/services/category-api"
 import { useGetUserVideoQuery } from "@/redux/services/user-api"
 
+import { useFocusEffect } from "expo-router"
 import { Tags } from "./_components/tags"
 import { Video } from "./_components/video"
 
 export const Videos = () => {
   const [category, setCategory] = useState<string | null>(null)
-  const { data: categoriesData } = useGetCategoriesQuery()
-  const { data: userVideoData } = useGetUserVideoQuery(
+  const { data: categoriesData, refetch: refetchCategoriesData } = useGetCategoriesQuery()
+  const { data: userVideoData, refetch: refetchUserVideoData } = useGetUserVideoQuery(
     { category },
     {
       refetchOnMountOrArgChange: true
     }
+  )
+
+  useFocusEffect(
+    useCallback(() => {
+      refetchUserVideoData()
+      refetchCategoriesData()
+    }, [])
   )
 
   return (

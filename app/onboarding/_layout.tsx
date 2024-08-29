@@ -1,12 +1,7 @@
-import { Stack } from "expo-router";
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { ScreenGradientContainer } from "@/shared/components";
-import { StatusBar } from "expo-status-bar";
+import { ScreenGradientContainer } from "@/shared/components"
+import { Stack } from "expo-router"
+import { StatusBar } from "expo-status-bar"
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 
 export default function OnboardingLayout() {
   return (
@@ -17,21 +12,21 @@ export default function OnboardingLayout() {
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: "transparent" },
+              contentStyle: { backgroundColor: "transparent" }
             }}
           />
         </View>
       </TouchableWithoutFeedback>
     </ScreenGradientContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    paddingHorizontal: 0,
+    paddingHorizontal: 0
   },
   container: {
     flex: 1,
-    justifyContent: "center",
-  },
-});
+    justifyContent: "center"
+  }
+})
