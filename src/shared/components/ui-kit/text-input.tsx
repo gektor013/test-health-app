@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form"
 import {
+  Platform,
   Pressable,
   TextInput as RNTextInput,
   StyleSheet,
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: colors.light_gray,
-    paddingVertical: 14,
+    paddingVertical: Platform.OS === "ios" ? 14 : 10,
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: colors.light_gray,

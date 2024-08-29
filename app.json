@@ -30,6 +30,11 @@
       ],
       "package": "com.salerow.bodybalance"
     },
+    "androidNavigationBar": {
+      "visible": "immersive",
+      "barStyle": "light-content",
+      "backgroundColor": "#FFFFFF"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
