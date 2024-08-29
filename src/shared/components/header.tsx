@@ -1,11 +1,9 @@
 import { StyleSheet, View } from "react-native"
-import { TouchableOpacity } from "react-native-gesture-handler"
-import { router } from "expo-router"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
 
-import { Avatar, SVGIcon, Text } from "./ui-kit"
+import { Avatar, Text } from "./ui-kit"
 
 export const Header = () => {
   const user = useAppSelector((s) => s.auth.user)
@@ -18,9 +16,9 @@ export const Header = () => {
           Hi, <Text style={styles.text}>{user?.name}</Text>
         </Text>
       </View>
-      <TouchableOpacity onPress={() => router.push("/notifications")}>
+      {/* <TouchableOpacity onPress={() => router.push("/notifications")}>
         <SVGIcon name="bell" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   )
 }

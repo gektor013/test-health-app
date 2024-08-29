@@ -1,6 +1,6 @@
+import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import YoutubePlayer from "react-native-youtube-iframe"
-import React from "react"
 
 import { colors } from "@/constants"
 import { UserVideoResponse } from "@/types/user-video/user-video.type"
@@ -12,7 +12,7 @@ interface Props {
 export const Video = ({ data }: Props) => {
   return (
     <View style={styles.videoContainer}>
-      <YoutubePlayer height={200} videoId={data.hash} />
+      <YoutubePlayer height={210} videoId={data.hash} />
       <Text style={styles.videoTitle}>{data.title}</Text>
       <Text style={styles.videoSubtitle}>{data.category}</Text>
       <Text style={styles.videoTitle}>{data.firstDescription}</Text>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: 200,
+    height: 210,
     position: "relative",
     justifyContent: "center",
     alignItems: "center"

@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-gesture-handler"
 import { colors } from "@/constants"
 import { API_URL } from "@/constants/enviroments"
 import { useAppSelector } from "@/redux"
-import { Button, SVGIcon, Switch } from "@/shared/components"
+import { Button, SVGIcon } from "@/shared/components"
 import CustomBottomSheet from "@/shared/components/bottomSheet/bottomSheet"
 import { useActions, useTranslations } from "@/shared/hooks"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
@@ -97,7 +97,7 @@ export const Profile = () => {
               }}
               titleStyle={styles.btnTitle}
             />
-
+            {/* 
             <Button
               onPress={toggleSwitch}
               title={t("Notification")}
@@ -113,7 +113,7 @@ export const Profile = () => {
                 />
               )}
               titleStyle={styles.btnTitle}
-            />
+            /> */}
 
             <Button
               onPress={() => {
