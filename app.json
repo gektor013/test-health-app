@@ -27,6 +27,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "userInterfaceStyle": "light",
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
@@ -45,6 +46,7 @@
     },
     "plugins": [
       "expo-router",
+      "./darkThemePlugin.js",
       [
         "expo-image-picker",
         {
