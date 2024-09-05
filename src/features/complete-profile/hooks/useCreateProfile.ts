@@ -1,7 +1,6 @@
-import { Alert } from "react-native"
-import { useRef } from "react"
 import { ImagePickerAsset } from "expo-image-picker"
 import { router, useLocalSearchParams } from "expo-router"
+import { useRef } from "react"
 import { Control, SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook-form"
 
 import { useAppSelector } from "@/redux"
@@ -14,6 +13,7 @@ import { SignUp } from "@/types/sign-up"
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet"
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Alert } from "react-native"
 
 interface ReturnData {
   ref: React.RefObject<BottomSheetMethods>
@@ -45,7 +45,11 @@ export const useCreateProfile = (): ReturnData => {
 
   const [editUserData] = useEditUserDataMutation()
 
-  const { control, handleSubmit } = useForm<Profile>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Profile>({
     defaultValues: { ...DEFAULT_VALUES, email, name, phone },
     resolver: zodResolver(profileSchema)
   })

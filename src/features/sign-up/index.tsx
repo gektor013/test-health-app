@@ -1,6 +1,6 @@
-import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation, useRegistrationsMutation } from "@/redux/services/user-api"
 import { signUpSchema } from "@/schemas/sign-up/sign-up.schema"
