@@ -1,6 +1,6 @@
-import { Alert, Image, StyleSheet, View } from "react-native"
 import { Link, router } from "expo-router"
 import { FieldError, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, Image, StyleSheet, View } from "react-native"
 
 import { useLoginMutation } from "@/redux/services/user-api"
 import { Button, FormError, Text, TextInput } from "@/shared/components"
@@ -35,9 +35,11 @@ export const SignIn = () => {
     try {
       await login(body)
         .unwrap()
-        .then((res) => logIn({ token: res.token }))
+        .then((res) => {
+          logIn({ token: res.token })
+        })
         .then(() => router.push("/"))
-        .catch(() => Alert.alert("Wrong credentials"))
+        .catch((e) => Alert.alert(`Wrong credentials ${e.status}`))
     } catch (error) {
       setError("root.serverError", {
         type: "401",

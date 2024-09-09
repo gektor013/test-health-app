@@ -38,12 +38,12 @@ export const SignUp = () => {
   const onSubmit: SubmitHandler<SignUpType> = async (body) => {
     await registrations({ ...body, isAgreed: true })
       .unwrap()
-      .then(() => {
+      .then((res) => {
+        console.log(res, "RES SIGNUP")
+
         onLogin({ email: body.email, password: body.password })
       })
-      .catch(() => {
-        Alert.alert("Something went wrong")
-      })
+      .catch((e) => Alert.alert(`Something went wrong ${e.status}`))
   }
 
   const onLogin = async ({ email, password }: { email: string; password: string }) => {
@@ -57,7 +57,7 @@ export const SignUp = () => {
           params: { email: res.email, name: res.name, id: res.userId, phone: res.phone }
         })
       })
-      .catch(() => Alert.alert("Something went wrong"))
+      .catch((e) => Alert.alert(`Something went wrong ${e.status}`))
   }
 
   return (
