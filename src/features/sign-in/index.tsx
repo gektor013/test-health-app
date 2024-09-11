@@ -12,7 +12,7 @@ import imageLogo from "#/images/logo-black-text.png"
 import { signInSchema, SignInSchemaType } from "./schemas"
 
 const defaultValues = {
-  email: "",
+  phone: "",
   password: ""
 }
 
@@ -39,7 +39,11 @@ export const SignIn = () => {
           logIn({ token: res.token })
         })
         .then(() => router.push("/"))
-        .catch((e) => Alert.alert(`Wrong credentials ${e.status}`))
+        .catch((e) => {
+          console.log(e, "ERROR")
+
+          Alert.alert(`Wrong credentials ${e.status}`)
+        })
     } catch (error) {
       setError("root.serverError", {
         type: "401",
@@ -48,17 +52,21 @@ export const SignIn = () => {
     }
   }
 
+  // +48 488 460 03 85
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={imageLogo} resizeMode={"contain"} />
       <View style={styles.form}>
         <TextInput
-          label="Email"
+          label="Phone"
           control={control}
-          name="email"
+          name="phone"
+          type="phone"
           inputProps={{
-            keyboardType: "email-address",
-            placeholder: t("example@email.com")
+            maxLength: 17,
+            placeholder: t("+1 (999) 111-0000"),
+            keyboardType: "numbers-and-punctuation"
           }}
         />
         <TextInput

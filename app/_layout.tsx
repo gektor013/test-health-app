@@ -235,7 +235,7 @@ const MainStack = () => {
           left: 15
         }}
       >
-        Project version: 1.0.17
+        Project version: 1.0.18
       </Text>
     </>
   )

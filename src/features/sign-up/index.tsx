@@ -41,13 +41,13 @@ export const SignUp = () => {
       .then((res) => {
         console.log(res, "RES SIGNUP")
 
-        onLogin({ email: body.email, password: body.password })
+        onLogin({ phone: body.phone, password: body.password })
       })
       .catch((e) => Alert.alert(`Something went wrong ${e.status}`))
   }
 
-  const onLogin = async ({ email, password }: { email: string; password: string }) => {
-    await login({ email, password })
+  const onLogin = async ({ phone, password }: { phone: string; password: string }) => {
+    await login({ phone, password })
       .unwrap()
       .then((res) => {
         setToken(res?.token)
