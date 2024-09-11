@@ -1,10 +1,10 @@
+import { useLocalSearchParams } from "expo-router"
+import React, { useCallback, useEffect, useState } from "react"
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import DocumentPicker, {
   DocumentPickerResponse,
   types
 } from "react-native-document-picker"
-import React, { useCallback, useEffect, useState } from "react"
-import { useLocalSearchParams } from "expo-router"
 
 import { colors } from "@/constants"
 import { useAppSelector } from "@/redux"
@@ -84,10 +84,10 @@ export const UploadDocument = () => {
 
   useEffect(() => {
     // UPLOAD DOCUMENT PAGE, WE SHOW UPLOADS DOCUMENTS
-    if (documents.length > 0) {
+    if (documents?.length > 0) {
       setUploadDocuments(documents)
     }
-  }, [documents.length])
+  }, [documents?.length])
 
   useEffect(() => {
     // ITS NEED FOR APPOINTMENT-CREATE COUNT UPLOAD
